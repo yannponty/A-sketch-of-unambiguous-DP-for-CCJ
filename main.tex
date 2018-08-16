@@ -1,5 +1,256 @@
-\documentclass{article}
-\usepackage[utf8]{inputenc}
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+
+\usepackage{colortbl}
+
+\usepackage{amsmath}
+\usepackage{xifthen}
+\usepackage{tikz}
+\usepackage{relsize}
+\usetikzlibrary{matrix}
+\usetikzlibrary{positioning}
+\usetikzlibrary{calc}
+\usetikzlibrary{shapes}
+
+
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+%%% END Article customizations
+
+\newcommand{\ub}{\text{{\tt.}}}
+
+\tikzstyle{bp}=[line width=5pt,draw=blue, opacity=.6,in =90,out=90,looseness=1.5]
+\tikzstyle{altbp}=[line width=5pt,draw=red, opacity=.6, in =-90,out=-90,looseness=1.5]
+\tikzstyle{cell}=[inner sep=2]
+\tikzstyle{backbone}=[line width=2pt]
+\tikzstyle{every picture}+=[remember picture]
+
+\def\mySecStr#1{\expandafter {\tt #1}\& }
+\def\mySecStrAll#1{\ifx#1\mySecStrAll\else\mySecStr#1\expandafter\mySecStrAll\fi}
+\def\mySeq#1{\expandafter {\relsize{-2}\sf #1}\&}
+\def\mySeqAll#1{\ifx#1\mySeqAll\else\mySeq#1\expandafter\mySeqAll\fi}
+
+
+\newcommand{\RNA}[3][]{
+\begin{tikzpicture}[baseline={([yshift=-.5ex]rna)}]
+  \matrix[matrix of nodes,nodes=cell,ampersand replacement=\&] (rna){
+		\mySecStrAll #2 \mySecStrAll\\
+		};
+\ifthenelse{\equal{#3}{}}{}{%
+	\foreach \x/\y in {#3}{\draw (rna-1-\x) edge[bp] (rna-1-\y);}%
+}
+\ifthenelse{\equal{#1}{}}{}{%
+		\foreach \x/\y in {#1}{\draw (rna-1-\x) edge[altbp] (rna-1-\y);}%
+		}
+\end{tikzpicture}} 
+
+\setlength{\parskip}{1em}
+\renewcommand{\H}[1]{{\tt#1}}
+
+
+\newcommand{\Summary}{
+  \tikzstyle{bp}=[line width=5pt,draw=red!50!blue, opacity=.6,in =90,out=90,looseness=1.5]
+  \tikzstyle{altbp}=[line width=5pt,draw=red!50!blue, opacity=.6, in =90,out=90,looseness=1.5]
+}
+
+
+\newcommand{\Case}[3]{\item $\{#1\}$: {\sf #3}-type
+
+{\centering 
+#2 $\longrightarrow$\Summary#2\\}
+
+}
+
+
+%%% The "real" document content comes below...
+
+\title{A first step towards an unambiguous DP scheme for CCJ}
+\author{Hosna, Sebastian, Yann}
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
 \begin{document}
-(Type your content here.)
+\maketitle
+
+
+The original DP decomposition underlying the CCJ algorithm is ambiguous on multiple levels.
+{\em Can we lift this ambiguity without too much hassle?}
+A key element in the decomposition, and one of the major source of ambiguity, resides in the assembly of two \emph{gapped} pseudoknotted elements, akin to the 3-band/kissing hairpin motif. However, in order to achieve maximum expressivity, only the middle helix is mandatory within each gapped element, meaning that some structure may be obtained in several different ways. In this short note, we explore the different combinations, and build a minimal subset of structures, built from combinations of atomic gapped structures that captures the same search space within inducing any ambiguity.
+
+Let us first introduce a bit of nomenclature. The helices in the first gapped structure are named \H{1}, \H{2} and \H{3} (resp. \H{A}, \H{B} and \H{C}), as illustrated below:
+
+{\centering 
+\RNA[4/6,5/11,10/12]{121ABA323CBC}{1/3,2/8,7/9}\\}
+
+\noindent Note that each helix must contain at least one base pair and, in the case where it contains internal loops and recursive subtructures\footnote{Are those allowed anyway?} must start and finish with a base pair (potentially the same if restricted to a single base pair).
+
+In order to avoid ambiguity at a higher level in the decomposition, it is crucial that the base pairs in the assembly of gapped elements form a unique connected component in the conflict graph induced by the crossing relationship. Indeed, disconnected components correspond to part in a pseudoknot that can be generated either by sequential composition, or by a recursive call, generating a nested subcomponent. It is thus easy to easy that helices \H{2} and \H{B} cannot be omitted. Conversely, helices \H{1}, \H{3}, \H{A}, and \H{C} represent leaves of the conflict graph, and can therefore be safely discarded without disconnecting the conflict graph, \emph{i.e.} without inducing any ambiguity.
+
+We are left to systematically explore the subsets of $\{\H{1}, \H{3}, \H{A}, \H{C}\}$, in combination with the two mandatory helices \H{2} and \H{B}:
+\begin{itemize} 
+\item Second component is $\{\H{B}\}$:
+\begin{itemize} 
+\Case{\H{2}, \H{B}}{\RNA[5/11]{-2--B--2--B-}{2/8}}{H}
+\Case{\H{1},\H{2}, \H{B}}{\RNA[5/11]{121-B--2--B-}{1/3,2/8}}{KH}
+\Case{\H{2}, \H{3}, \H{B}}{\RNA[5/11]{-2--B-323-B-}{2/8,7/9}}{H}
+{\bfseries Note:} Second band features at least 2 base pairs
+\Case{\H{1},\H{2}, \H{3}, \H{B}}{\RNA[5/11]{121-B-323-B-}{1/3,2/8,7/9}}{KH}
+{\bfseries Note:} Third band features at least 2 base pairs
+\end{itemize} 
+\item Second component is $\{\H{A},\H{B}\}$:
+\begin{itemize} 
+\Case{\H{2}, \H{A}, \H{B}}{\RNA[4/6,5/11]{-2-ABA-2--B-}{2/8}}{H}
+{\bfseries Note:} First band features at least 2 base pairs
+\Case{\H{1},\H{2}, \H{A}, \H{B}}{\RNA[4/6,5/11]{121ABA-2--B-}{1/3,2/8}}{KH$^{\text{a}}$}
+\Case{\H{2}, \H{3}, \H{A}, \H{B}}{\RNA[4/6,5/11]{-2-ABA323-B-}{2/8,7/9}}{H$^{\text{a}}$}
+\Case{\H{1},\H{2}, \H{3}, \H{A}, \H{B}}{\RNA[4/6,5/11]{121ABA323-B-}{1/3,2/8,7/9}}{KH$^{\text{b}}$}
+\end{itemize} 
+\item Second component is $\{\H{B},\H{C}\}$:
+\begin{itemize} 
+\Case{\H{2}, \H{B}, \H{C}}{\RNA[5/11,10/12]{-2--B--2-CBC}{2/8}}{KH}
+\Case{\H{1},\H{2}, \H{B}, \H{C}}{\RNA[5/11,10/12]{121-B--2-CBC}{1/3,2/8}}{4B}
+\Case{\H{2}, \H{3}, \H{B}, \H{C}}{\RNA[5/11,10/12]{-2--B-323CBC}{2/8,7/9}}{KH$^{\text{c}}$}
+\Case{\H{1},\H{2}, \H{3}, \H{B}, \H{C}}{\RNA[5/11,10/12]{121-B-323CBC}{1/3,2/8,7/9}}{4B$^{\text{a}}$}
+\end{itemize} 
+\item Second component is $\{\H{A},\H{B},\H{C}\}$:
+\begin{itemize} 
+\Case{\H{2}, \H{A}, \H{B}, \H{C}}{\RNA[4/6,5/11,10/12]{-2-ABA-2-CBC}{2/8}}{KH}
+{\bfseries Note:} First band features at least 2 base pairs
+\Case{\H{1},\H{2}, \H{A}, \H{B}, \H{C}}{\RNA[4/6,5/11,10/12]{121ABA-2-CBC}{1/3,2/8}}{4B$^{\text{b}}$}
+\Case{\H{2}, \H{3}, \H{A}, \H{B}, \H{C}}{\RNA[4/6,5/11,10/12]{-2-ABA323CBC}{2/8,7/9}}{KH$^{\text{d}}$}
+\Case{\H{1},\H{2}, \H{3}, \H{A}, \H{B}, \H{C}}{\RNA[4/6,5/11,10/12]{121ABA323CBC}{1/3,2/8,7/9}}{CCJ}
+\end{itemize}
+\end{itemize}
+
+\begin{table}
+{ 
+  \tikzstyle{cell}=[inner sep=1.2]
+  \tikzstyle{bp}=[line width=2pt,draw=red!50!blue!80!white, opacity=1,in =90,out=90,looseness=1.3]
+  \tikzstyle{altbp}=[line width=2pt,draw=red!50!blue!80!white, opacity=1, in =90,out=90,looseness=1.3]
+\centering\begin{tabular}{@{}ll@{}ll@{}l@{}}\toprule
+Type & Helix classes && Subsets&\\ \midrule
+{\sf H} & $\{\H{2},\H{B}\}$ &\RNA[5/11]{-2--B--2--B-}{2/8}& $\{\H{2},\H{3},\H{B}\}$&\RNA[5/11]{-2--B-323-B-}{2/8,7/9}\\ 
+& &  & $\{\H{2},\H{A},\H{B}\}$  &\RNA[4/6,5/11]{-2-ABA-2--B-}{2/8}\\ 
+\arrayrulecolor{gray!60}\midrule
+{\sf H}$^{\text{a}}$ & $\{\H{2}, \H{3}, \H{A}, \H{B}\}$&\RNA[4/6,5/11]{-2-ABA323-B-}{2/8,7/9} &  &\\ 
+\arrayrulecolor{black}\midrule
+{\sf KH} & $\{\H{1},\H{2},\H{B}\}$&\RNA[5/11]{121-B--2--B-}{1/3,2/8} & $\{\H{1},\H{2},\H{3},\H{B}\}$  &\RNA[5/11]{121-B-323-B-}{1/3,2/8,7/9}\\ 
+ & $\{\H{2},\H{B},\H{C}\}$ &\RNA[5/11,10/12]{-2--B--2-CBC}{2/8} & $\{\H{2},\H{A},\H{B},\H{C}\}$  &\RNA[4/6,5/11,10/12]{-2-ABA-2-CBC}{2/8}\\ 
+\arrayrulecolor{gray!60}\midrule
+{\sf KH}$^{\text{a}}$ & $\{\H{1},\H{2}, \H{A}, \H{B}\}$&\RNA[4/6,5/11]{121ABA-2--B-}{1/3,2/8} &  & \\ 
+{\sf KH}$^{\text{b}}$ & $\{\H{1},\H{2}, \H{3}, \H{A}, \H{B}\}$&\RNA[4/6,5/11]{121ABA323-B-}{1/3,2/8,7/9} &  &\\ 
+{\sf KH}$^{\text{c}}$ & $\{\H{2}, \H{3}, \H{B}, \H{C}\}$&\RNA[5/11,10/12]{-2--B-323CBC}{2/8,7/9} &  & \\ 
+{\sf KH}$^{\text{d}}$ & $\{\H{2}, \H{3}, \H{A}, \H{B}, \H{C}\}$&\RNA[4/6,5/11,10/12]{-2-ABA323CBC}{2/8,7/9} &  & \\ 
+\arrayrulecolor{black}\midrule
+{\sf 4B} & $\{\H{1},\H{2},\H{B},\H{C}\}$&\RNA[5/11,10/12]{121-B--2-CBC}{1/3,2/8}  &  &\\ 
+\arrayrulecolor{gray!60}\midrule
+{\sf 4B}$^{\text{a}}$ & $\{\H{1},\H{2}, \H{3}, \H{B}, \H{C}\}$&\RNA[5/11,10/12]{121-B-323CBC}{1/3,2/8,7/9} &  & \\ 
+{\sf 4B}$^{\text{b}}$ & $\{\H{1},\H{2}, \H{A}, \H{B}, \H{C}\}$&\RNA[4/6,5/11,10/12]{121ABA-2-CBC}{1/3,2/8} &  & \\ 
+\arrayrulecolor{black}\midrule
+{\sf CCJ} & $\{\H{1},\H{2},\H{3},\H{A},\H{B},\H{C}\}$&\RNA[4/6,5/11,10/12]{121ABA323CBC}{1/3,2/8,7/9} &  &\\ 
+\bottomrule
+\end{tabular}\\}
+
+\caption{Isomorphism classes for relevant subsets of {\sf CCJ} helices}\label{tab:iso}
+\end{table}
+
+We summarize in Table~\ref{tab:iso} the various accessible classes. An close inspection of the classes reveals two -- complete and unambiguous -- decompositions of the CCJ class in the following subsets of non-empty helices:
+
+{\centering$\{\H{2},\H{B}\}$, 
+$\{\H{2}, \H{3}, \H{A}, \H{B}\}$, 
+$\{\H{1},\H{2},\H{B}\}$ \emph{or} $\{\H{2},\H{B},\H{C}\}$,
+$\{\H{1},\H{2}, \H{A}, \H{B}\}$,
+$\{\H{1},\H{2}, \H{3}, \H{A}, \H{B}\}$,
+$\{\H{2}, \H{3}, \H{B}, \H{C}\}$,
+$\{\H{2}, \H{3}, \H{A}, \H{B}, \H{C}\}$,
+$\{\H{1},\H{2},\H{B},\H{C}\}$,
+$\{\H{1},\H{2}, \H{3}, \H{B}, \H{C}\}$,
+$\{\H{1},\H{2}, \H{A}, \H{B}, \H{C}\}$,
+$\{\H{1},\H{2},\H{3},\H{A},\H{B},\H{C}\}$\\}
+
+From this partition of the search space for canonical CCJ pseudoknots, one obtains a complete/unambiguous, if definitely tedious, decomposition:
+\newcommand{\Basic}{
+  \tikzstyle{bp}=[line width=20pt,draw=blue!50!red!80, opacity=.6, in=90, out=90,looseness=2]
+  \tikzstyle{altbp}=[line width=20pt,draw=blue!50!red!80, opacity=.6, in=-90, out=-90,looseness=2]
+  \tikzstyle{cell}+=[inner sep=8pt]
+}
+\newcommand{\RHS}[2]{{\Basic
+  \tikzstyle{bp}+=[draw=blue]
+  \tikzstyle{altbp}+=[draw=red]
+\RNA[2/4]{----}{1/3}
+\tikz[overlay]{
+\node[above=17.5pt of rna-1-2,inner sep=2pt,fill=blue!10,rounded corners=3pt]{\H{#1}};
+\node[below=17.5pt of rna-1-3,inner sep=2pt,fill=red!10,rounded corners=3pt]{\H{#2}};
+\draw[backbone] (rna-1-1.west) edge (rna-1-4.east); 
+\node[below=1pt of rna-1-1.north west,inner sep=0]{$i$};
+\node[below=1pt of rna-1-1.north east,inner sep=0]{$k$};
+\node[above=1pt of rna-1-2.south west,inner sep=0]{$k$+$1$};
+\node[above=1pt of rna-1-2.south east,inner sep=0]{$l$};
+\node[below=1pt of rna-1-3.north west,inner sep=0]{$l$+$1$};
+\node[below=1pt of rna-1-3.north east,inner sep=0]{$m$};
+\node[above=1pt of rna-1-4.south west,inner sep=0]{$m$+$1$};
+\node[above=1pt of rna-1-4.south east,inner sep=0]{$j$};
+
+}}}
+\begin{align*}
+{\Basic\RNA[2/4]{----}{1/3}
+\tikz[overlay]{
+\node[below=-2pt of rna-1-1.south west,inner sep=0]{$i$};
+\node[above=-2pt of rna-1-4.north east,inner sep=0]{$j$};
+\draw[backbone] (rna-1-1.west) edge (rna-1-4.east); 
+}}  \to &\RHS{2}{B} + \RHS{2,3}{A,B} + \RHS{1,2}{B}\\
++&\RHS{1,2}{A,B}+\RHS{1,2,3}{A,B}+\RHS{2,3}{B,C}\\
++&\RHS{2,3}{A,B,C}+\RHS{1,2}{B,C}+\RHS{1,2,3}{B,C}\\
++&\RHS{1,2}{A,B,C}+\RHS{1,2,3}{A,B,C}\\
+\end{align*}
+This decomposition must then be completed with rules for the \emph{gapped} portions, essentially corresponding to constrained versions of rules in the initial {\sf CCJ} algorithm.
+
+
 \end{document}
