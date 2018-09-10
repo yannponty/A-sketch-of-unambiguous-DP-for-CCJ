@@ -101,9 +101,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4.4677026"
-     inkscape:cx="327.42762"
-     inkscape:cy="21.955037"
+     inkscape:zoom="2.3315423"
+     inkscape:cx="312.88302"
+     inkscape:cy="59.119157"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -111,10 +111,10 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="2493"
-     inkscape:window-height="1385"
-     inkscape:window-x="67"
-     inkscape:window-y="1107"
+     inkscape:window-width="1920"
+     inkscape:window-height="1025"
+     inkscape:window-x="1920"
+     inkscape:window-y="27"
      inkscape:window-maximized="1"
      showguides="true"
      inkscape:guide-bbox="true" />
@@ -646,12 +646,6 @@
          style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.88727391;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     </g>
     <circle
-       style="opacity:1;fill:#800000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.25;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.49999989, 1.24999995;stroke-dashoffset:0;stroke-opacity:1"
-       id="circle13684"
-       cx="125.66851"
-       cy="558.4743"
-       r="2.5" />
-    <circle
        r="2.5"
        cy="558.54962"
        cx="194.37259"
@@ -822,5 +816,11 @@
          x="-96.351044"
          y="476.11594"
          style="stroke-width:0.93749994px" /></text>
+    <circle
+       style="opacity:1;fill:#800000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.25;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.49999989, 1.24999995;stroke-dashoffset:0;stroke-opacity:1"
+       id="circle13684"
+       cx="125.66851"
+       cy="558.4743"
+       r="2.5" />
   </g>
 </svg>
