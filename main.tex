@@ -365,7 +365,13 @@ Note that the recursion to $P_O$ already satisfies the constraint due to $l*O$.
 We need to further decompose the $P_X$ fragments (which are optionally restricted by regular expressions). Generally, we distinguish three cases by the type of the closing base pair at position $X$. 1) it could close an interior loop in the same band, 2) a multi-loop in the same band (with costs for inner base pairs and unpaired based accounted in WB), or 3) it could `close' the band, i.e. it is the innermost base pair of its band for bands at L,R,O---outermost, in the case of M. Note that the decomposition is disjoint. In the
 third case, one changes to decomposing some other band (or terminates the final O-band). Also, in the third case, we allow recursive substructure between bands (WP), which needs to be inserted unambiguously.
 
-Apart from some details in the unambiguous decomposition of multi-loops within bands (where the recursions operate on gapped fragments), it remains to ensure that the order in which bands are decomposed is never ambiguous. Note that in the handling of interior loops and multi-loops within a band, we can simply pass through any constraints on the order of band-decompositions.
+Let us quickly handle some details in the unambiguous decomposition of multi-loops within bands (where the recursions operate on gapped fragments):
+\begin{equation}
+\includegraphics{KnottyPF/recursions-L-mloop}
+\end{equation}
+
+
+It remains to ensure that the order in which bands are decomposed is never ambiguous. Note that in the handling of interior loops and multi-loops within a band, we can simply pass through any constraints on the order of band-decompositions.
 
 \paragraph{Unambiguous decomposition order:}
 The original CCJ algorithm already contains restrictions on the band-decomposition order, which are encoded in the rules for decomposition of $P\text{fromX}$-fragments ($X$ in $\{\text{L,R,M,O}\}$). These restrictions are
