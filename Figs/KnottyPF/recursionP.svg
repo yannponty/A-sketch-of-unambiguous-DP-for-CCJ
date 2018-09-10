@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="114.15303mm"
-   height="13.718844mm"
-   viewBox="0 0 404.47922 48.610078"
+   width="116.55075mm"
+   height="13.32357mm"
+   viewBox="0 0 412.97508 47.2095"
    id="svg7851"
    version="1.1"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
@@ -41,9 +41,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4.7270871"
-     inkscape:cx="214.93152"
-     inkscape:cy="26.011233"
+     inkscape:zoom="3.3941044"
+     inkscape:cx="379.92349"
+     inkscape:cy="25.178401"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -51,10 +51,10 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="2493"
-     inkscape:window-height="1385"
-     inkscape:window-x="67"
-     inkscape:window-y="1107"
+     inkscape:window-width="1920"
+     inkscape:window-height="1025"
+     inkscape:window-x="1920"
+     inkscape:window-y="27"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata7856">
@@ -72,7 +72,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-130.85121,-398.97343)">
+     transform="translate(-130.85121,-399.56915)">
     <g
        transform="rotate(-180,425.16658,395.32741)"
        id="g1075">
@@ -391,7 +391,7 @@
        style="opacity:1;fill:#322f87;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.25;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.5, 1.25;stroke-dashoffset:0;stroke-opacity:1" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.9375px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 340.682,404.21246 v 37.63562"
+       d="m 336.932,404.21246 v 37.63562"
        id="path959"
        inkscape:connector-curvature="0" />
     <circle
@@ -430,7 +430,7 @@
     <path
        inkscape:connector-curvature="0"
        id="path1003"
-       d="m 445.682,404.21246 v 37.63562"
+       d="m 441.932,404.21246 v 37.63562"
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.9375px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
     <g
        id="g1059"
@@ -510,29 +510,29 @@
     <text
        id="text916"
        y="443.56415"
-       x="346.67981"
+       x="341.05481"
        style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Latin Modern Roman';-inkscape-font-specification:'Latin Modern Roman, Italic';text-align:justify;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        xml:space="preserve"><tspan
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:125%;font-family:'Latin Modern Roman';-inkscape-font-specification:'Latin Modern Roman, Italic';text-align:justify;writing-mode:lr-tb;text-anchor:start"
          y="443.56415"
-         x="346.67981"
+         x="341.05481"
          id="tspan914"
          sodipodi:role="line">PK<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
-   id="tspan918">R</tspan></tspan></text>
+   id="tspan918">o*R</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Latin Modern Roman';-inkscape-font-specification:'Latin Modern Roman, Italic';text-align:justify;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="453.55481"
+       x="444.17981"
        y="443.56415"
        id="text924"><tspan
          sodipodi:role="line"
          id="tspan922"
-         x="453.55481"
+         x="444.17981"
          y="443.56415"
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:125%;font-family:'Latin Modern Roman';-inkscape-font-specification:'Latin Modern Roman, Italic';text-align:justify;writing-mode:lr-tb;text-anchor:start">PK<tspan
    id="tspan920"
-   style="font-size:64.99999762%;baseline-shift:sub">R</tspan></tspan></text>
+   style="font-size:64.99999762%;baseline-shift:sub">o*R</tspan></tspan></text>
     <text
        id="text930"
        y="409.81415"
@@ -544,7 +544,7 @@
          x="506.05481"
          id="tspan928"
          sodipodi:role="line">PK<tspan
-   style="font-size:65%;baseline-shift:sub"
-   id="tspan932">L</tspan></tspan></text>
+   style="font-size:64.99999762%;baseline-shift:sub"
+   id="tspan932">o*L</tspan></tspan></text>
   </g>
 </svg>
