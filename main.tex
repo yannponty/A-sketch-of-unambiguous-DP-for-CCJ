@@ -330,7 +330,7 @@ E.g. the constraint (1) is ensured by not decomposing at the left band after the
 When we represent the band-decomposition order as word over $\{L,R,M,O\}$, then this corresponds to restricting the prefixes of this word. Therefore, we annotate matrices / fragment types with the allowed prefixes, using a regular expression like notation.
 
 To ensure the respective properties of four different the PK-type fragments, we could thus denote them by
-$PK_{l*O}$, $PK_L$, $PK_{r*O}$, $PK_R$; where small letters refer to the negated character class of the corresponding capital letter, e.g. $l$ refers to $[RMO]$.
+$PK_{l*O}$, $PK_{o*L}$, $PK_{r*O}$, $PK_{o*R}$; where small letters refer to the negated character class of the corresponding capital letter, e.g. $l$ refers to $[RMO]$.
 % 
 Note that disambiguation requires to impose even stronger constraints, as we discuss later.
 For now, we obtain the following decomposition rule for P-fragments:
@@ -389,7 +389,7 @@ $P_{fromX}$-fragments are required to change the band; first, we need to unambig
 \begin{equation}
 \includegraphics{KnottyPF/recursionPfromX}
 \end{equation}
-For the constrained case, we still need to work out all the details.
+For the constrained case, we still need to work out all the details. Where to split off the WP-fragments? How to handle the $PK_L$-fragments?
 
 \end{document}
 
