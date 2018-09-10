@@ -20,6 +20,8 @@
 %   read geometry.pdf for detailed page layout information
 
 \usepackage{graphicx} % support the \includegraphics command and options
+\graphicspath{ {./Figs/} }  % requires additional {} and trailing '/'!
+
 
 % \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
 
@@ -40,6 +42,9 @@
 \usetikzlibrary{positioning}
 \usetikzlibrary{calc}
 \usetikzlibrary{shapes}
+
+\usepackage{theorem}
+\newtheorem{definition}{Definition}
 
 
 % These packages are all incorporated in the memoir class to one degree or another...
@@ -252,5 +257,137 @@ From this partition of the search space for canonical CCJ pseudoknots, one obtai
 \end{align*}
 This decomposition must then be completed with rules for the \emph{gapped} portions, essentially corresponding to constrained versions of rules in the initial {\sf CCJ} algorithm.
 
+\section{Unambiguous decomposition}
+
+\subsection{Preliminaries}
+
+\begin{definition}[band]
+A \emph{band} is a set of base pairs that 1) are in nesting relation to each other, 2) all cross the same set of (other) base pairs.
+Here, two base pairs $(i,j)$ and $(i',j')$ are in \emph{nesting relation} iff $i<i'<j'<j$ or $i'<i<j<j'$.
+\end{definition}
+
+
+\subsection{Methods}
+
+Arbitrary CCJ-structures are decomposed unambiguosly due to
+$$
+\includegraphics{KnottyPF/recursionW}
+$$
+This moves the focus to the decomposition of $P$-fragments. $P$-fragments represent structures $R$ of subsequences $i..l$, where
+$i$ and $l$ are paired and part of the same pseudoknot, i.e. in all those structures, there are base pairs $(i,i')$ and $(l',l)$, such that
+\begin{enumerate}
+\item either $(i,i')$ and $(l',l)$ are crossing each other
+\item or $(i,i')$ and $(l',l)$ are both crossing a third base pair $(k,k')$, where $i<k<i'<l'<k'<l$.
+\item $(i,i')$ crosses a base pair $(k_1,k_1')$ that crosses $(k_2,k'_2)$ that crosses $(l',l)$ $(i<k_1<k_2<k'_1<k'_2<l)$.
+\end{enumerate}
+We observe that all these cases are disjoint and form a complete decomposition of CCJ structures, since CCJ structures do not allow three base pairs that all pairwise cross each other and the longest possible chains of crossing base pairs are $4$-chains (third case).
+
+In each case, we decompose the $P$-fragment over [i..l] into two gapped fragments over $[i..j]\cup[k..k']$ and $[j+1..k-1]\cup[k'+1..l]$. 
+
+%Gapped fragment: $\RNA{i-j----k-l}{1/10,3/8}$
+%
+%P-fragment decomposed into two gapped fragments: $\RNA{i-----------l}{1/10,3/8,4/13,7/11}$
+
+For case 1, we achieve crossing of $(i,i')$ and $(l',l)$ if and only if the
+base pairs 'span' the gap in their respective fragment. We define, in a gapped
+fragment over $[i..j]\cup[k..l]$ ($i\leq j<k\leq l$), a base pair (x,y)
+\emph{spans the gap} iff $x\in[i..j]$ and $y\in[k..l]$.
+
+Case 3 applies iff in both gapped fragments, the respective base pairs $(i,i')$ and $(l',l)$ do not span the gap.
+
+In the remaining case 2, one of the base pairs spans the gap and the other does
+not. We can arbitrarily break the implied symmetry by requiring $(i,i')$ to
+span the gap in its gapped fragment.
+
+\paragraph{Types of gapped fragments}
+
+First of all, note that the decomposition of a P-fragment, can be unambiguous
+only, if we strengthen the requirements in the gapped fragments compared to the
+PK-fragments of the ambiguous CCJ algorithm.  For the structures represented by
+PK-type gapped fragments on $[i..j]\cup[k..l]$ we require that $i$, $j$ and $l$
+are paired to respective positions $i'$, $j'$, $l'$. Moreover, each of these
+base pairs either crosses one of the others.  Note that there are special
+cases, where $i=j$ or $k=l$ or both. In these cases, there are only one or two
+such base pairs, but the same conditions apply. Moreover, there must be one
+base pair that spans the gap. (In comparison, the original CCJ algorithm
+required similar conditions only for $i$ and $l$.)
+
+Our considerations give raise to defining four types of gapped
+fragments, where
+\begin{enumerate}
+\item $(i,i')$ spans the gap,
+\item $(i,i')$ does not span the gap,
+\item $(l',l)$ spans the gap,
+\item $(l',l)$ does not span the gap.
+\end{enumerate}
+
+Note that this suffices to (de)compose the different types of P-fragments in
+the disjoint case distinction that we discussed before.
+
+We observe that the different types of gapped fragments can be distinguished by limiting
+the possible decomposition orders in terms of decomposition at the bands L,R,M, and O.
+E.g. the constraint (1) is ensured by not decomposing at the left band after the last decomposition at the O-band.
+When we represent the band-decomposition order as word over $\{L,R,M,O\}$, then this corresponds to restricting the prefixes of this word. Therefore, we annotate matrices / fragment types with the allowed prefixes, using a regular expression like notation.
+
+To ensure the respective properties of four different the PK-type fragments, we could thus denote them by
+$PK_{l*O}$, $PK_L$, $PK_{r*O}$, $PK_R$; where small letters refer to the negated character class of the corresponding capital letter, e.g. $l$ refers to $[RMO]$.
+% 
+Note that disambiguation requires to impose even stronger constraints, as we discuss later.
+For now, we obtain the following decomposition rule for P-fragments:
+
+$$
+\includegraphics{KnottyPF/recursionP}
+$$
+
+
+For decomposing fragments like $PK_{l*O}$, in general $PK_{regex}$ it is now crucial to satisfy the band-decomposition-order constraint.
+Let us start with the decomposition of $PK_{l*O}$. Generally $PK$-fragements are decomposed into $P_X$-type fragments, where we
+need to allow recursive substructure (i.e. $WP$-fragments) between the $P_X$-fragments.
+
+\begin{definition}
+The structures represented by a $P_X$-type fragment over $[i..j]\cup [k..l]$ satisfy the following properties:
+\begin{itemize}
+\item all ends $i$, $j$, $k$, and $l$ are paired to something.
+\item ``closed at $X$''---there is a base pair at the position $X$ ($X\in\{L,R,M,O\}$).
+\item there is a base pair that spans the gap i region $j+1..k-1$
+\item unless $X=O$, the ends cannot all be part of the same band. (Note that we terminate with O, unlike the original CCJ recursions, which terminate at M.)
+\end{itemize}
+\end{definition}
+
+
+We obtain decompositions of PK-fragments like 
+$$
+\includegraphics{KnottyPF/recursionPKlstarO}
+$$
+Note that the recursion to $P_O$ already satisfies the constraint due to $l*O$.
+
+We need to further decompose the $P_X$ fragments (which are optionally restricted by regular expressions). Generally, we distinguish three cases by the type of the closing base pair at position $X$. 1) it could close an interior loop in the same band, 2) a multi-loop in the same band (with costs for inner base pairs and unpaired based accounted in WB), or 3) it could `close' the band, i.e. it is the outermost base pair of its band. Note that the decomposition is disjoint. In the
+third case, one changes to decomposing some other band (or terminates the final O-band). Also, in the third case, we allow recursive substructure between bands (WP), which needs to be inserted unambiguously.
+
+It is well known how to unambiguously decompose interior and multi-loops, thus it remains to ensure that the order in which bands are decomposed is never ambiguous.
+
+\paragraph{Unambiguous decomposition order:}
+The original CCJ algorithm already contains restrictions on the band-decomposition order, which are encoded in the rules for decomposition of $P\text{fromX}$-fragments ($X$ in $\{\text{L,R,M,O}\}$). These rules are
+\begin{itemize}
+\item (decomposition at) $R$ cannot be immediately followed by $L$
+\item $M$ cannot be immediately followed by $O$
+\item $O$ cannot be immediately followed by $M$
+\end{itemize} 
+The latter two restrictions ensure that the position changes correspond to true changes of the band (in both cases one would just extend the same band). The first restriction is indeed a disambiguation, since immediately successive decompositions at $L$ and $R$ could be exchanged, but it is again required to ensure that position changes introduce band changes, since going back and forth between $L$ and $R$ like $LRL$ would just extend the $L$ band.  
+
+These restrictions in the original CCJ algorithm were necessary for proper scoring, but at the same time ensure unambiguous decomposition. To see this, we go back to the properties of $P_X$-fragments:
+in each structure of a $P_X$-fragment (with the exception of the terminal O-band).
+  
+
+The decomposition of $P_X$ should look like
+$$
+\includegraphics{KnottyPF/recursionPX}
+$$
+
+$P_{fromX}$-fragments are required to change the band; first, we need to unambiguously allow recursive substructure, then $P''_{fromX}$ must guarantee unambiguous band change.
+$$
+\includegraphics{KnottyPF/recursionPfromX}
+$$
 
 \end{document}
+
