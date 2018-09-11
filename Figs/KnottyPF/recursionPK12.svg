@@ -9,13 +9,13 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="120.32668mm"
+   width="118.70731mm"
    height="15.575378mm"
-   viewBox="0 0 120.32668 15.575378"
+   viewBox="0 0 118.70731 15.575378"
    version="1.1"
    id="svg11229"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
-   sodipodi:docname="recursionPK12svg.svg">
+   sodipodi:docname="recursionPK12.svg">
   <defs
      id="defs11223">
     <marker
@@ -56,9 +56,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.6264593"
-     inkscape:cx="225.05254"
-     inkscape:cy="-7.206589"
+     inkscape:zoom="4.4681143"
+     inkscape:cx="272.1506"
+     inkscape:cy="29.433785"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -75,7 +75,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -384,13 +384,13 @@
     <circle
        r="0.70555556"
        cy="86.130013"
-       cx="139.99962"
+       cx="144.23305"
        id="circle2081"
        style="opacity:1;fill:#800000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.35277778;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.70555558, 0.3527778;stroke-dashoffset:0;stroke-opacity:1" />
     <rect
        transform="scale(-1,1)"
        y="85.437454"
-       x="-144.81973"
+       x="-140.58638"
        height="1.1767054"
        width="1.1767054"
        id="rect2091"
@@ -401,56 +401,60 @@
        id="path2093"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
-    <text
-       xml:space="preserve"
-       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.38666677px;line-height:0%;font-family:'Latin Modern Roman';-inkscape-font-specification:'Latin Modern Roman, Italic';text-align:justify;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.28222224px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="143.17711"
-       y="80.308304"
-       id="text2097"><tspan
-         sodipodi:role="line"
-         id="tspan2095"
-         x="143.17711"
+    <g
+       id="g897"
+       transform="translate(-1.0583333)">
+      <text
+         id="text2097"
          y="80.308304"
-         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:125%;font-family:'Latin Modern Roman';-inkscape-font-specification:'Latin Modern Roman, Italic';text-align:justify;writing-mode:lr-tb;text-anchor:start;stroke-width:0.28222224px">PK.</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.38666677px;line-height:0%;font-family:'Latin Modern Roman';-inkscape-font-specification:'Latin Modern Roman, Italic';text-align:justify;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.28222224px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="149.79977"
-       y="79.236458"
-       id="text2109"><tspan
-         sodipodi:role="line"
-         id="tspan2107"
-         x="149.79977"
+         x="143.17711"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.38666677px;line-height:0%;font-family:'Latin Modern Roman';-inkscape-font-specification:'Latin Modern Roman, Italic';text-align:justify;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.28222224px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:125%;font-family:'Latin Modern Roman';-inkscape-font-specification:'Latin Modern Roman, Italic';text-align:justify;writing-mode:lr-tb;text-anchor:start;stroke-width:0.28222224px"
+           y="80.308304"
+           x="143.17711"
+           id="tspan2095"
+           sodipodi:role="line">PK.</tspan></text>
+      <text
+         id="text2109"
          y="79.236458"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:64.99999762%;line-height:125%;font-family:'Latin Modern Roman';-inkscape-font-specification:'Latin Modern Roman, Italic';text-align:justify;writing-mode:lr-tb;baseline-shift:super;text-anchor:start;stroke-width:0.28222224px">1</tspan></text>
+         x="149.79977"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.38666677px;line-height:0%;font-family:'Latin Modern Roman';-inkscape-font-specification:'Latin Modern Roman, Italic';text-align:justify;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.28222224px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:64.99999762%;line-height:125%;font-family:'Latin Modern Roman';-inkscape-font-specification:'Latin Modern Roman, Italic';text-align:justify;writing-mode:lr-tb;baseline-shift:super;text-anchor:start;stroke-width:0.28222224px"
+           y="79.236458"
+           x="149.79977"
+           id="tspan2107"
+           sodipodi:role="line">1</tspan></text>
+    </g>
     <path
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
        id="path2111"
-       d="m 150.17277,85.9891 h -4.85571"
+       d="m 139.06026,85.9891 h -4.85571"
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.33519903;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     <path
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
        id="path2113"
-       d="m 150.18144,85.98979 c -0.002,-2.671255 -4.85545,-2.671255 -4.85846,-0.008"
+       d="m 139.06893,85.98979 c -0.002,-2.671255 -4.85545,-2.671255 -4.85846,-0.008"
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.35277778;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.70555554, 0.70555554;stroke-dashoffset:0;stroke-opacity:1" />
     <circle
        style="opacity:1;fill:#800000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.35277778;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.70555558, 0.3527778;stroke-dashoffset:0;stroke-opacity:1"
        id="circle2115"
-       cx="-150.14348"
+       cx="-134.26854"
        cy="86.108727"
        r="0.7055555"
        transform="scale(-1,1)" />
     <text
        xml:space="preserve"
        style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.38666677px;line-height:0%;font-family:'Latin Modern Roman';-inkscape-font-specification:'Latin Modern Roman, Italic';text-align:justify;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.28222224px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="143.96776"
+       x="132.85526"
        y="90.070358"
        id="text2119"><tspan
          sodipodi:role="line"
          id="tspan2117"
-         x="143.96776"
+         x="132.85526"
          y="90.070358"
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:125%;font-family:'Latin Modern Roman';-inkscape-font-specification:'Latin Modern Roman, Italic';text-align:justify;writing-mode:lr-tb;text-anchor:start;stroke-width:0.28222224px">WP</tspan></text>
     <circle
