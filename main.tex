@@ -99,7 +99,6 @@
 \setlength{\parskip}{1em}
 \renewcommand{\H}[1]{{\tt#1}}
 
-
 \newcommand{\Summary}{
   \tikzstyle{bp}=[line width=5pt,draw=red!50!blue, opacity=.6,in =90,out=90,looseness=1.5]
   \tikzstyle{altbp}=[line width=5pt,draw=red!50!blue, opacity=.6, in =90,out=90,looseness=1.5]
@@ -113,6 +112,7 @@
 
 }
 
+\newcommand{\SW}[1]{\textbf{SW-}#1}
 
 %%% The "real" document content comes below...
 
@@ -125,145 +125,184 @@
 \maketitle
 
 
-The original DP decomposition underlying the CCJ algorithm is ambiguous on multiple levels.
-{\em Can we lift this ambiguity without too much hassle?}
-A key element in the decomposition, and one of the major source of ambiguity, resides in the assembly of two \emph{gapped} pseudoknotted elements, akin to the 3-band/kissing hairpin motif. However, in order to achieve maximum expressivity, only the middle helix is mandatory within each gapped element, meaning that some structure may be obtained in several different ways. In this short note, we explore the different combinations, and build a minimal subset of structures, built from combinations of atomic gapped structures that captures the same search space within inducing any ambiguity.
+% The original DP decomposition underlying the CCJ algorithm is ambiguous on multiple levels.
+% {\em Can we lift this ambiguity without too much hassle?}
+% A key element in the decomposition, and one of the major source of ambiguity, resides in the assembly of two \emph{gapped} pseudoknotted elements, akin to the 3-band/kissing hairpin motif. However, in order to achieve maximum expressivity, only the middle helix is mandatory within each gapped element, meaning that some structure may be obtained in several different ways. In this short note, we explore the different combinations, and build a minimal subset of structures, built from combinations of atomic gapped structures that captures the same search space within inducing any ambiguity.
 
-Let us first introduce a bit of nomenclature. The helices in the first gapped structure are named \H{1}, \H{2} and \H{3} (resp. \H{A}, \H{B} and \H{C}), as illustrated below:
+% Let us first introduce a bit of nomenclature. The helices in the first gapped structure are named \H{1}, \H{2} and \H{3} (resp. \H{A}, \H{B} and \H{C}), as illustrated below:
 
-{\centering 
-\RNA[4/6,5/11,10/12]{121ABA323CBC}{1/3,2/8,7/9}\\}
+% {\centering 
+% \RNA[4/6,5/11,10/12]{121ABA323CBC}{1/3,2/8,7/9}\\}
 
-\noindent Note that each helix must contain at least one base pair and, in the case where it contains internal loops and recursive subtructures\footnote{Are those allowed anyway?} must start and finish with a base pair (potentially the same if restricted to a single base pair).
+% \noindent Note that each helix must contain at least one base pair and, in the case where it contains internal loops and recursive subtructures\footnote{Are those allowed anyway?} must start and finish with a base pair (potentially the same if restricted to a single base pair).
 
-In order to avoid ambiguity at a higher level in the decomposition, it is crucial that the base pairs in the assembly of gapped elements form a unique connected component in the conflict graph induced by the crossing relationship. Indeed, disconnected components correspond to part in a pseudoknot that can be generated either by sequential composition, or by a recursive call, generating a nested subcomponent. It is thus easy to say that helices \H{2} and \H{B} cannot be omitted. Conversely, helices \H{1}, \H{3}, \H{A}, and \H{C} represent leaves of the conflict graph, and can therefore be safely discarded without disconnecting the conflict graph, \emph{i.e.} without inducing any ambiguity.
+% In order to avoid ambiguity at a higher level in the decomposition, it is crucial that the base pairs in the assembly of gapped elements form a unique connected component in the conflict graph induced by the crossing relationship. Indeed, disconnected components correspond to part in a pseudoknot that can be generated either by sequential composition, or by a recursive call, generating a nested subcomponent. It is thus easy to say that helices \H{2} and \H{B} cannot be omitted. Conversely, helices \H{1}, \H{3}, \H{A}, and \H{C} represent leaves of the conflict graph, and can therefore be safely discarded without disconnecting the conflict graph, \emph{i.e.} without inducing any ambiguity.
 
-We are left to systematically explore the subsets of $\{\H{1}, \H{3}, \H{A}, \H{C}\}$, in combination with the two mandatory helices \H{2} and \H{B}:
-\begin{itemize} 
-\item Second component is $\{\H{B}\}$:
-\begin{itemize} 
-\Case{\H{2}, \H{B}}{\RNA[5/11]{-2--B--2--B-}{2/8}}{H}
-\Case{\H{1},\H{2}, \H{B}}{\RNA[5/11]{121-B--2--B-}{1/3,2/8}}{KH}
-\Case{\H{2}, \H{3}, \H{B}}{\RNA[5/11]{-2--B-323-B-}{2/8,7/9}}{H}
-{\bfseries Note:} Second band features at least 2 base pairs
-\Case{\H{1},\H{2}, \H{3}, \H{B}}{\RNA[5/11]{121-B-323-B-}{1/3,2/8,7/9}}{KH}
-{\bfseries Note:} Third band features at least 2 base pairs
-\end{itemize} 
-\item Second component is $\{\H{A},\H{B}\}$:
-\begin{itemize} 
-\Case{\H{2}, \H{A}, \H{B}}{\RNA[4/6,5/11]{-2-ABA-2--B-}{2/8}}{H}
-{\bfseries Note:} First band features at least 2 base pairs
-\Case{\H{1},\H{2}, \H{A}, \H{B}}{\RNA[4/6,5/11]{121ABA-2--B-}{1/3,2/8}}{KH$^{\text{a}}$}
-\Case{\H{2}, \H{3}, \H{A}, \H{B}}{\RNA[4/6,5/11]{-2-ABA323-B-}{2/8,7/9}}{H$^{\text{a}}$}
-\Case{\H{1},\H{2}, \H{3}, \H{A}, \H{B}}{\RNA[4/6,5/11]{121ABA323-B-}{1/3,2/8,7/9}}{KH$^{\text{b}}$}
-\end{itemize} 
-\item Second component is $\{\H{B},\H{C}\}$:
-\begin{itemize} 
-\Case{\H{2}, \H{B}, \H{C}}{\RNA[5/11,10/12]{-2--B--2-CBC}{2/8}}{KH}
-\Case{\H{1},\H{2}, \H{B}, \H{C}}{\RNA[5/11,10/12]{121-B--2-CBC}{1/3,2/8}}{4B}
-\Case{\H{2}, \H{3}, \H{B}, \H{C}}{\RNA[5/11,10/12]{-2--B-323CBC}{2/8,7/9}}{KH$^{\text{c}}$}
-\Case{\H{1},\H{2}, \H{3}, \H{B}, \H{C}}{\RNA[5/11,10/12]{121-B-323CBC}{1/3,2/8,7/9}}{4B$^{\text{a}}$}
-\end{itemize} 
-\item Second component is $\{\H{A},\H{B},\H{C}\}$:
-\begin{itemize} 
-\Case{\H{2}, \H{A}, \H{B}, \H{C}}{\RNA[4/6,5/11,10/12]{-2-ABA-2-CBC}{2/8}}{KH}
-{\bfseries Note:} First band features at least 2 base pairs
-\Case{\H{1},\H{2}, \H{A}, \H{B}, \H{C}}{\RNA[4/6,5/11,10/12]{121ABA-2-CBC}{1/3,2/8}}{4B$^{\text{b}}$}
-\Case{\H{2}, \H{3}, \H{A}, \H{B}, \H{C}}{\RNA[4/6,5/11,10/12]{-2-ABA323CBC}{2/8,7/9}}{KH$^{\text{d}}$}
-\Case{\H{1},\H{2}, \H{3}, \H{A}, \H{B}, \H{C}}{\RNA[4/6,5/11,10/12]{121ABA323CBC}{1/3,2/8,7/9}}{CCJ}
-\end{itemize}
-\end{itemize}
+% We are left to systematically explore the subsets of $\{\H{1}, \H{3}, \H{A}, \H{C}\}$, in combination with the two mandatory helices \H{2} and \H{B}:
+% \begin{itemize} 
+% \item Second component is $\{\H{B}\}$:
+% \begin{itemize} 
+% \Case{\H{2}, \H{B}}{\RNA[5/11]{-2--B--2--B-}{2/8}}{H}
+% \Case{\H{1},\H{2}, \H{B}}{\RNA[5/11]{121-B--2--B-}{1/3,2/8}}{KH}
+% \Case{\H{2}, \H{3}, \H{B}}{\RNA[5/11]{-2--B-323-B-}{2/8,7/9}}{H}
+% {\bfseries Note:} Second band features at least 2 base pairs
+% \Case{\H{1},\H{2}, \H{3}, \H{B}}{\RNA[5/11]{121-B-323-B-}{1/3,2/8,7/9}}{KH}
+% {\bfseries Note:} Third band features at least 2 base pairs
+% \end{itemize} 
+% \item Second component is $\{\H{A},\H{B}\}$:
+% \begin{itemize} 
+% \Case{\H{2}, \H{A}, \H{B}}{\RNA[4/6,5/11]{-2-ABA-2--B-}{2/8}}{H}
+% {\bfseries Note:} First band features at least 2 base pairs
+% \Case{\H{1},\H{2}, \H{A}, \H{B}}{\RNA[4/6,5/11]{121ABA-2--B-}{1/3,2/8}}{KH$^{\text{a}}$}
+% \Case{\H{2}, \H{3}, \H{A}, \H{B}}{\RNA[4/6,5/11]{-2-ABA323-B-}{2/8,7/9}}{H$^{\text{a}}$}
+% \Case{\H{1},\H{2}, \H{3}, \H{A}, \H{B}}{\RNA[4/6,5/11]{121ABA323-B-}{1/3,2/8,7/9}}{KH$^{\text{b}}$}
+% \end{itemize} 
+% \item Second component is $\{\H{B},\H{C}\}$:
+% \begin{itemize} 
+% \Case{\H{2}, \H{B}, \H{C}}{\RNA[5/11,10/12]{-2--B--2-CBC}{2/8}}{KH}
+% \Case{\H{1},\H{2}, \H{B}, \H{C}}{\RNA[5/11,10/12]{121-B--2-CBC}{1/3,2/8}}{4B}
+% \Case{\H{2}, \H{3}, \H{B}, \H{C}}{\RNA[5/11,10/12]{-2--B-323CBC}{2/8,7/9}}{KH$^{\text{c}}$}
+% \Case{\H{1},\H{2}, \H{3}, \H{B}, \H{C}}{\RNA[5/11,10/12]{121-B-323CBC}{1/3,2/8,7/9}}{4B$^{\text{a}}$}
+% \end{itemize} 
+% \item Second component is $\{\H{A},\H{B},\H{C}\}$:
+% \begin{itemize} 
+% \Case{\H{2}, \H{A}, \H{B}, \H{C}}{\RNA[4/6,5/11,10/12]{-2-ABA-2-CBC}{2/8}}{KH}
+% {\bfseries Note:} First band features at least 2 base pairs
+% \Case{\H{1},\H{2}, \H{A}, \H{B}, \H{C}}{\RNA[4/6,5/11,10/12]{121ABA-2-CBC}{1/3,2/8}}{4B$^{\text{b}}$}
+% \Case{\H{2}, \H{3}, \H{A}, \H{B}, \H{C}}{\RNA[4/6,5/11,10/12]{-2-ABA323CBC}{2/8,7/9}}{KH$^{\text{d}}$}
+% \Case{\H{1},\H{2}, \H{3}, \H{A}, \H{B}, \H{C}}{\RNA[4/6,5/11,10/12]{121ABA323CBC}{1/3,2/8,7/9}}{CCJ}
+% \end{itemize}
+% \end{itemize}
 
-\begin{table}
-{ 
-  \tikzstyle{cell}=[inner sep=1.2]
-  \tikzstyle{bp}=[line width=2pt,draw=red!50!blue!80!white, opacity=1,in =90,out=90,looseness=1.3]
-  \tikzstyle{altbp}=[line width=2pt,draw=red!50!blue!80!white, opacity=1, in =90,out=90,looseness=1.3]
-\centering\begin{tabular}{@{}ll@{}ll@{}l@{}}\toprule
-Type & Helix classes && Subsets (sort of)&\\ \midrule
-{\sf H} & $\{\H{2},\H{B}\}$ &\RNA[5/11]{-2--B--2--B-}{2/8}& $\{\H{2},\H{3},\H{B}\}$&\RNA[5/11]{-2--B-323-B-}{2/8,7/9}\\ 
-& &  & $\{\H{2},\H{A},\H{B}\}$  &\RNA[4/6,5/11]{-2-ABA-2--B-}{2/8}\\ 
-\arrayrulecolor{gray!60}\midrule
-{\sf H}$^{\text{a}}$ & $\{\H{2}, \H{3}, \H{A}, \H{B}\}$&\RNA[4/6,5/11]{-2-ABA323-B-}{2/8,7/9} &  &\\ 
-\arrayrulecolor{black}\midrule
-{\sf KH} & $\{\H{1},\H{2},\H{B}\}$&\RNA[5/11]{121-B--2--B-}{1/3,2/8} & $\{\H{1},\H{2},\H{3},\H{B}\}$  &\RNA[5/11]{121-B-323-B-}{1/3,2/8,7/9}\\ 
- & $\{\H{2},\H{B},\H{C}\}$ &\RNA[5/11,10/12]{-2--B--2-CBC}{2/8} & $\{\H{2},\H{A},\H{B},\H{C}\}$  &\RNA[4/6,5/11,10/12]{-2-ABA-2-CBC}{2/8}\\ 
-\arrayrulecolor{gray!60}\midrule
-{\sf KH}$^{\text{a}}$ & $\{\H{1},\H{2}, \H{A}, \H{B}\}$&\RNA[4/6,5/11]{121ABA-2--B-}{1/3,2/8} &  & \\ 
-{\sf KH}$^{\text{b}}$ & $\{\H{1},\H{2}, \H{3}, \H{A}, \H{B}\}$&\RNA[4/6,5/11]{121ABA323-B-}{1/3,2/8,7/9} &  &\\ 
-{\sf KH}$^{\text{c}}$ & $\{\H{2}, \H{3}, \H{B}, \H{C}\}$&\RNA[5/11,10/12]{-2--B-323CBC}{2/8,7/9} &  & \\ 
-{\sf KH}$^{\text{d}}$ & $\{\H{2}, \H{3}, \H{A}, \H{B}, \H{C}\}$&\RNA[4/6,5/11,10/12]{-2-ABA323CBC}{2/8,7/9} &  & \\ 
-\arrayrulecolor{black}\midrule
-{\sf 4B} & $\{\H{1},\H{2},\H{B},\H{C}\}$&\RNA[5/11,10/12]{121-B--2-CBC}{1/3,2/8}  &  &\\ 
-\arrayrulecolor{gray!60}\midrule
-{\sf 4B}$^{\text{a}}$ & $\{\H{1},\H{2}, \H{3}, \H{B}, \H{C}\}$&\RNA[5/11,10/12]{121-B-323CBC}{1/3,2/8,7/9} &  & \\ 
-{\sf 4B}$^{\text{b}}$ & $\{\H{1},\H{2}, \H{A}, \H{B}, \H{C}\}$&\RNA[4/6,5/11,10/12]{121ABA-2-CBC}{1/3,2/8} &  & \\ 
-\arrayrulecolor{black}\midrule
-{\sf CCJ} & $\{\H{1},\H{2},\H{3},\H{A},\H{B},\H{C}\}$&\RNA[4/6,5/11,10/12]{121ABA323CBC}{1/3,2/8,7/9} &  &\\ 
-\bottomrule
-\end{tabular}\\}
+% \begin{table}
+% { 
+%   \tikzstyle{cell}=[inner sep=1.2]
+%   \tikzstyle{bp}=[line width=2pt,draw=red!50!blue!80!white, opacity=1,in =90,out=90,looseness=1.3]
+%   \tikzstyle{altbp}=[line width=2pt,draw=red!50!blue!80!white, opacity=1, in =90,out=90,looseness=1.3]
+% \centering\begin{tabular}{@{}ll@{}ll@{}l@{}}\toprule
+% Type & Helix classes && Subsets (sort of)&\\ \midrule
+% {\sf H} & $\{\H{2},\H{B}\}$ &\RNA[5/11]{-2--B--2--B-}{2/8}& $\{\H{2},\H{3},\H{B}\}$&\RNA[5/11]{-2--B-323-B-}{2/8,7/9}\\ 
+% & &  & $\{\H{2},\H{A},\H{B}\}$  &\RNA[4/6,5/11]{-2-ABA-2--B-}{2/8}\\ 
+% \arrayrulecolor{gray!60}\midrule
+% {\sf H}$^{\text{a}}$ & $\{\H{2}, \H{3}, \H{A}, \H{B}\}$&\RNA[4/6,5/11]{-2-ABA323-B-}{2/8,7/9} &  &\\ 
+% \arrayrulecolor{black}\midrule
+% {\sf KH} & $\{\H{1},\H{2},\H{B}\}$&\RNA[5/11]{121-B--2--B-}{1/3,2/8} & $\{\H{1},\H{2},\H{3},\H{B}\}$  &\RNA[5/11]{121-B-323-B-}{1/3,2/8,7/9}\\ 
+%  & $\{\H{2},\H{B},\H{C}\}$ &\RNA[5/11,10/12]{-2--B--2-CBC}{2/8} & $\{\H{2},\H{A},\H{B},\H{C}\}$  &\RNA[4/6,5/11,10/12]{-2-ABA-2-CBC}{2/8}\\ 
+% \arrayrulecolor{gray!60}\midrule
+% {\sf KH}$^{\text{a}}$ & $\{\H{1},\H{2}, \H{A}, \H{B}\}$&\RNA[4/6,5/11]{121ABA-2--B-}{1/3,2/8} &  & \\ 
+% {\sf KH}$^{\text{b}}$ & $\{\H{1},\H{2}, \H{3}, \H{A}, \H{B}\}$&\RNA[4/6,5/11]{121ABA323-B-}{1/3,2/8,7/9} &  &\\ 
+% {\sf KH}$^{\text{c}}$ & $\{\H{2}, \H{3}, \H{B}, \H{C}\}$&\RNA[5/11,10/12]{-2--B-323CBC}{2/8,7/9} &  & \\ 
+% {\sf KH}$^{\text{d}}$ & $\{\H{2}, \H{3}, \H{A}, \H{B}, \H{C}\}$&\RNA[4/6,5/11,10/12]{-2-ABA323CBC}{2/8,7/9} &  & \\ 
+% \arrayrulecolor{black}\midrule
+% {\sf 4B} & $\{\H{1},\H{2},\H{B},\H{C}\}$&\RNA[5/11,10/12]{121-B--2-CBC}{1/3,2/8}  &  &\\ 
+% \arrayrulecolor{gray!60}\midrule
+% {\sf 4B}$^{\text{a}}$ & $\{\H{1},\H{2}, \H{3}, \H{B}, \H{C}\}$&\RNA[5/11,10/12]{121-B-323CBC}{1/3,2/8,7/9} &  & \\ 
+% {\sf 4B}$^{\text{b}}$ & $\{\H{1},\H{2}, \H{A}, \H{B}, \H{C}\}$&\RNA[4/6,5/11,10/12]{121ABA-2-CBC}{1/3,2/8} &  & \\ 
+% \arrayrulecolor{black}\midrule
+% {\sf CCJ} & $\{\H{1},\H{2},\H{3},\H{A},\H{B},\H{C}\}$&\RNA[4/6,5/11,10/12]{121ABA323CBC}{1/3,2/8,7/9} &  &\\ 
+% \bottomrule
+% \end{tabular}\\}
 
-\caption{Isomorphism classes for relevant subsets of {\sf CCJ} helices}\label{tab:iso}
-\end{table}
+% \caption{Isomorphism classes for relevant subsets of {\sf CCJ} helices}\label{tab:iso}
+% \end{table}
 
-We summarize in Table~\ref{tab:iso} the various accessible classes. A close inspection of the classes reveals two -- complete and unambiguous -- decompositions of the CCJ class in the following subsets of non-empty helices:
+% We summarize in Table~\ref{tab:iso} the various accessible classes. A close inspection of the classes reveals two -- complete and unambiguous -- decompositions of the CCJ class in the following subsets of non-empty helices:
 
-{\centering$\{\H{2},\H{B}\}$, 
-$\{\H{2}, \H{3}, \H{A}, \H{B}\}$, 
-$\{\H{1},\H{2},\H{B}\}$ \emph{or} $\{\H{2},\H{B},\H{C}\}$,
-$\{\H{1},\H{2}, \H{A}, \H{B}\}$,
-$\{\H{1},\H{2}, \H{3}, \H{A}, \H{B}\}$,
-$\{\H{2}, \H{3}, \H{B}, \H{C}\}$,
-$\{\H{2}, \H{3}, \H{A}, \H{B}, \H{C}\}$,
-$\{\H{1},\H{2},\H{B},\H{C}\}$,
-$\{\H{1},\H{2}, \H{3}, \H{B}, \H{C}\}$,
-$\{\H{1},\H{2}, \H{A}, \H{B}, \H{C}\}$,
-$\{\H{1},\H{2},\H{3},\H{A},\H{B},\H{C}\}$\\}
+% {\centering$\{\H{2},\H{B}\}$, 
+% $\{\H{2}, \H{3}, \H{A}, \H{B}\}$, 
+% $\{\H{1},\H{2},\H{B}\}$ \emph{or} $\{\H{2},\H{B},\H{C}\}$,
+% $\{\H{1},\H{2}, \H{A}, \H{B}\}$,
+% $\{\H{1},\H{2}, \H{3}, \H{A}, \H{B}\}$,
+% $\{\H{2}, \H{3}, \H{B}, \H{C}\}$,
+% $\{\H{2}, \H{3}, \H{A}, \H{B}, \H{C}\}$,
+% $\{\H{1},\H{2},\H{B},\H{C}\}$,
+% $\{\H{1},\H{2}, \H{3}, \H{B}, \H{C}\}$,
+% $\{\H{1},\H{2}, \H{A}, \H{B}, \H{C}\}$,
+% $\{\H{1},\H{2},\H{3},\H{A},\H{B},\H{C}\}$\\}
 
-From this partition of the search space for canonical CCJ pseudoknots, one obtains a complete/unambiguous, if definitely tedious, decomposition:
-\newcommand{\Basic}{
-  \tikzstyle{bp}=[line width=20pt,draw=blue!50!red!80, opacity=.6, in=90, out=90,looseness=2]
-  \tikzstyle{altbp}=[line width=20pt,draw=blue!50!red!80, opacity=.6, in=-90, out=-90,looseness=2]
-  \tikzstyle{cell}+=[inner sep=8pt]
-}
-\newcommand{\RHS}[2]{{\Basic
-  \tikzstyle{bp}+=[draw=blue]
-  \tikzstyle{altbp}+=[draw=red]
-\RNA[2/4]{----}{1/3}
-\tikz[overlay]{
-\node[above=17.5pt of rna-1-2,inner sep=2pt,fill=blue!10,rounded corners=3pt]{\H{#1}};
-\node[below=17.5pt of rna-1-3,inner sep=2pt,fill=red!10,rounded corners=3pt]{\H{#2}};
-\draw[backbone] (rna-1-1.west) edge (rna-1-4.east); 
-\node[below=1pt of rna-1-1.north west,inner sep=0]{$i$};
-\node[below=1pt of rna-1-1.north east,inner sep=0]{$k$};
-\node[above=1pt of rna-1-2.south west,inner sep=0]{$k$+$1$};
-\node[above=1pt of rna-1-2.south east,inner sep=0]{$l$};
-\node[below=1pt of rna-1-3.north west,inner sep=0]{$l$+$1$};
-\node[below=1pt of rna-1-3.north east,inner sep=0]{$m$};
-\node[above=1pt of rna-1-4.south west,inner sep=0]{$m$+$1$};
-\node[above=1pt of rna-1-4.south east,inner sep=0]{$j$};
+% From this partition of the search space for canonical CCJ pseudoknots, one obtains a complete/unambiguous, if definitely tedious, decomposition:
+% \newcommand{\Basic}{
+%   \tikzstyle{bp}=[line width=20pt,draw=blue!50!red!80, opacity=.6, in=90, out=90,looseness=2]
+%   \tikzstyle{altbp}=[line width=20pt,draw=blue!50!red!80, opacity=.6, in=-90, out=-90,looseness=2]
+%   \tikzstyle{cell}+=[inner sep=8pt]
+% }
+% \newcommand{\RHS}[2]{{\Basic
+%   \tikzstyle{bp}+=[draw=blue]
+%   \tikzstyle{altbp}+=[draw=red]
+% \RNA[2/4]{----}{1/3}
+% \tikz[overlay]{
+% \node[above=17.5pt of rna-1-2,inner sep=2pt,fill=blue!10,rounded corners=3pt]{\H{#1}};
+% \node[below=17.5pt of rna-1-3,inner sep=2pt,fill=red!10,rounded corners=3pt]{\H{#2}};
+% \draw[backbone] (rna-1-1.west) edge (rna-1-4.east); 
+% \node[below=1pt of rna-1-1.north west,inner sep=0]{$i$};
+% \node[below=1pt of rna-1-1.north east,inner sep=0]{$k$};
+% \node[above=1pt of rna-1-2.south west,inner sep=0]{$k$+$1$};
+% \node[above=1pt of rna-1-2.south east,inner sep=0]{$l$};
+% \node[below=1pt of rna-1-3.north west,inner sep=0]{$l$+$1$};
+% \node[below=1pt of rna-1-3.north east,inner sep=0]{$m$};
+% \node[above=1pt of rna-1-4.south west,inner sep=0]{$m$+$1$};
+% \node[above=1pt of rna-1-4.south east,inner sep=0]{$j$};
 
-}}}
-\begin{align*}
-{\Basic\RNA[2/4]{----}{1/3}
-\tikz[overlay]{
-\node[below=-2pt of rna-1-1.south west,inner sep=0]{$i$};
-\node[above=-2pt of rna-1-4.north east,inner sep=0]{$j$};
-\draw[backbone] (rna-1-1.west) edge (rna-1-4.east); 
-}}  \to &\RHS{2}{B} + \RHS{2,3}{A,B} + \RHS{1,2}{B}\\
-+&\RHS{1,2}{A,B}+\RHS{1,2,3}{A,B}+\RHS{2,3}{B,C}\\
-+&\RHS{2,3}{A,B,C}+\RHS{1,2}{B,C}+\RHS{1,2,3}{B,C}\\
-+&\RHS{1,2}{A,B,C}+\RHS{1,2,3}{A,B,C}\\
-\end{align*}
-This decomposition must then be completed with rules for the \emph{gapped} portions, essentially corresponding to constrained versions of rules in the initial {\sf CCJ} algorithm.
+% }}}
+% \begin{align*}
+% {\Basic\RNA[2/4]{----}{1/3}
+% \tikz[overlay]{
+% \node[below=-2pt of rna-1-1.south west,inner sep=0]{$i$};
+% \node[above=-2pt of rna-1-4.north east,inner sep=0]{$j$};
+% \draw[backbone] (rna-1-1.west) edge (rna-1-4.east); 
+% }}  \to &\RHS{2}{B} + \RHS{2,3}{A,B} + \RHS{1,2}{B}\\
+% +&\RHS{1,2}{A,B}+\RHS{1,2,3}{A,B}+\RHS{2,3}{B,C}\\
+% +&\RHS{2,3}{A,B,C}+\RHS{1,2}{B,C}+\RHS{1,2,3}{B,C}\\
+% +&\RHS{1,2}{A,B,C}+\RHS{1,2,3}{A,B,C}\\
+% \end{align*}
+% This decomposition must then be completed with rules for the \emph{gapped} portions, essentially corresponding to constrained versions of rules in the initial {\sf CCJ} algorithm.
 
 \section{Unambiguous decomposition}
 
 \subsection{Preliminaries}
 
-\begin{definition}[band]
-A \emph{band} is a set of base pairs that 1) are nested to each other, 2) all cross the same set of (other) base pairs.
-Here, two base pairs $(i,j)$ and $(i',j')$ are \emph{nested} iff $i<i'<j'<j$ or $i'<i<j<j'$.
+\begin{definition}[Crossing]
+if base pairs $i.j$ and $i'.j'$ are in the structure, $R$, and $i<i'<j<j'$, we say that pair $i.j$ crosses pair $i'.j'$ from the left (and $i'.j'$ crosses $i.j$ from the right).
+\end{definition}
+
+\begin{definition}[Region] 
+The \emph{region $[i,j]$} is the sequence of indices $k$, $i\leq k\leq j$.
+$i$ and $j$ are called the left and right ends of the region respectively. 
+\end{definition}
+
+% HJ - Definition is modified from HFold paper.
+% This will make sure that our definition of the band includes the nested unpaired bases as well as any nested substructures.
+\textbf{HJ-}  Let $i.j$ and $i'.j'$ be the first and the last base pairs in a maximal 
+chain of $\preceq$ while they all cross the same band. Then, $[i,i'] \cup [j',j]$ is a \emph{band}. 
+We call $[i,i']$ and $[j',j]$ the band regions, 
+and call $i'.j'$ and $i.j$ the inner and outer base pairs of the band respectively.
+
+\SW{There is a subtle detail whether the base pairs of a band have to form a chain of directly nested base pairs. I try to re-define bands more precisely in the following. Feel free to correct me.}
+
+Two base pairs $(i,j)$ and $(i',j')$ are \emph{nested} iff $i<i'<j'<j$ or $i'<i<j<j'$; they cross iff $i<i'<j<j'$ or $i'<i<j'<i'$. In a structure $R$, we call $(i',j')$ directly nested in $(i,j)$ iff $i<i'<j'<j$ and there is no base pair $(i'',j'')\in R$  $i<i''<i'<j'<j''<j$.
+
+\begin{definition}[Band]
+A \emph{band} $B$ of a structure $R$ is a set of sequence positions with the following properties:
+\begin{itemize}
+\item $B=[i,j]\cup[k,l]$, ($i\leq j, j<k-1, k\leq l$)
+\item $(i,l)$ and $(j,k)$ are base pairs of $R$, the \emph{closing base pairs of $B$}.
+\item Define the \emph{base pairs of $B$} as the base pairs of $R$
+in the chain $(i,l)=(i_1,j_1), \dots, (i_q,j_q)=(j,k)$, where all successive base pairs are directly nested.
+ Each base pair in $R$ either crosses all or none of the base pairs of $B$. 
+\item $B$ is (set inclusion) maximal, subject to the preceeding properties.
+\end{itemize}
+\end{definition}
+
+In a RNA structure $R$, the band $[i,j]\cup[k,l]$ is called \emph{band of the base pair $(x,y)$}, iff $x\in[i,j]$ and $y\in[k,l]$. We emphasize that in this way each base pair uniquely determines a corresponding band (in a given RNA structure).
+
+\SW{It seems simpler to start over based on my first definition:}
+
+Bands are equivalently defined as follows:
+
+\begin{definition}[Band]
+For an RNA structure $R$, a \emph{base pair band $\cal B\subseteq R$} is a maximal set of base pairs that 1) form a chain of directly nested base pairs, and where 2) each base pair in $R$ either crosses all or no base pairs in $\cal B$.
+
+A \emph{band} is a subset $[i,j]\cup[k,l]$ of sequence positions, iff there is a base pair band, such that its outermost base pair is $(i,l)$ and its innermost base pair is $(k,l)$.
 \end{definition}
 
 
@@ -281,6 +320,8 @@ $i$ and $l$ are paired and part of the same pseudoknot, i.e. in all those struct
 \item or $(i,i')$ and $(l',l)$ are both crossing a third base pair $(k,k')$, where $i<k<i'<l'<k'<l$.
 \item $(i,i')$ crosses a base pair $(k_1,k_1')$ that crosses $(k_2,k'_2)$ that crosses $(l',l)$ $(i<k_1<k_2<k'_1<k'_2<l)$.
 \end{enumerate}
+\textbf{HJ-} I believe it would be better to talk about bands instead of single base pairs. \textbf{SW-} My feeling was this is less complex on the level of base pairs. We could mention that this implies the same relation on the level of bands (i.e. there is a band of i.i' and a band of l'.l, ...), or rather we should emphasize that a base pair uniquely determines a band.
+
 We observe that all these cases are disjoint and form a complete decomposition of CCJ structures, since CCJ structures do not allow three base pairs that all pairwise cross each other and the longest possible chains of crossing base pairs are $4$-chains (third case).
 
 In each case, we decompose the $P$-fragment over [i..l] into two gapped fragments over $[i..j]\cup[k..k']$ and $[j+1..k-1]\cup[k'+1..l]$. 
@@ -307,13 +348,13 @@ only, if we strengthen the requirements in the gapped fragments compared to the
 PK-fragments of the ambiguous CCJ algorithm.  For the structures represented by
 PK-type gapped fragments on $[i..j]\cup[k..l]$ we require that $i$, $j$ and $l$
 are paired to respective positions $i'$, $j'$, $l'$. Moreover, each of these
-base pairs either crosses one of the others.  Note that there are special
+base pairs crosses one of the others.  Note that there are special
 cases, where $i=j$ or $k=l$ or both. In these cases, there are only one or two
 such base pairs, but the same conditions apply. Moreover, there must be one
 base pair that spans the gap. (In comparison, the original CCJ algorithm
 required similar conditions only for $i$ and $l$.)
 
-Our considerations give raise to defining four types of gapped
+Our considerations give rise to defining four types of gapped
 fragments, where
 \begin{enumerate}
 \item $(i,i')$ spans the gap,
@@ -337,9 +378,14 @@ Note that disambiguation requires to impose even stronger constraints, as we dis
 For now, we obtain the following decomposition rule for P-fragments:
 
 \begin{equation}
-\includegraphics{KnottyPF/recursionP}
+\includegraphics{KnottyPF/recursionP},
 \end{equation}
 
+where the fragments $PK^1_.$ and $PK^2_.$ are decomposed into fragments $PK_.$ and $WP$ to account unambiguously for recursive substructure:
+
+\begin{equation}
+\includegraphics{KnottyPF/recursionPK12},
+\end{equation}
 
 For decomposing fragments like $PK_{l*O}$, in general $PK_{regex}$ it is now crucial to satisfy the band-decomposition-order constraint.
 Let us start with the decomposition of $PK_{l*O}$. Generally $PK$-fragements are decomposed into $P_X$-type fragments, where we
