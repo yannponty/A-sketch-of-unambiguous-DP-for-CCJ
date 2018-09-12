@@ -443,7 +443,43 @@ $P_{fromX}$-fragments are required to change the band; note that we need to unam
 \includegraphics{KnottyPF/recursionPfromX}
 \end{equation}
 
+Note that we unambiguously add recursive substructure by adding the substructure (WP-fragments) always between the bands of each transition (note that in each possible transition, but L to R, there is such a unique position between the two bands; for L to R transitions, we do not include substructure).
 
-\textbf{Not elaborated yet:} How to handle the $PK_{o*L}$-fragments (symmetric!?)?
+Moreover note the asymmetry in the allowed transitions (e.g. we can go from R,l*O to O,l*O or M,l*O; but the only possible transition from M,l*O is to O,l*O)  The set of allowed transitions can be sketched as transition diagram.
+
+\begin{tikzpicture}[scale=1.7]
+\node (O) at (0,0) {O};
+\node (L) at (1,0) {L};
+\node (M) at (2,0) {M};
+\node (R) at (3,0) {R};
+\node (RlO) at (0,1) {R,{l*O}};
+\node (MlO) at (0,2) {M,{l*O}};
+\node (RoL) at (1,2) {R,{o*L}};
+\node (MoL) at (1,1) {M,{o*L}};
+\node (LrO) at (2,1) {L,{r*O}};
+\node (MrO) at (2,2) {M,{r*O}};
+\node (LoR) at (3,2) {L,{o*R}};
+\node (MoR) at (3,1) {M,{o*R}};
+\draw
+  (MlO) edge [<->] (RlO)
+  (RlO) edge [->] (O)
+  (RoL) edge [<->] (MoL)
+  (MoL) edge [->] (L)
+%
+  (MrO) edge [<->] (LrO)
+  (LrO) edge [->] (O)
+  (LoR) edge [<->] (MoR)
+  (LoR) edge [->,bend left] (R)
+  (MoR) edge [->] (R)
+%
+  (R) edge [<->,bend left] (O)
+  (R) edge [<->] (M)
+  (L) edge [->,bend left] (R)
+  (L) edge [<->] (M)
+  (L) edge [<->] (O);
+\end{tikzpicture}
+
+
+\textbf{Not elaborated yet:} How to handle the $PK_{o*L}$, $PK_{r*O}$, and $PK_{o*R}$ fragments?
 
 \end{document}
