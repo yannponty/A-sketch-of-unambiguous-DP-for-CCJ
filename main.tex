@@ -116,7 +116,7 @@
 
 %%% The "real" document content comes below...
 
-\title{A first step towards an unambiguous DP scheme for CCJ}
+\title{A sketch of unambiguous DP for CCJ}
 \author{Hosna, Sebastian, Yann}
 %\date{} % Activate to display a given date or no date (if empty),
          % otherwise the current date is printed 
@@ -270,6 +270,15 @@ The \emph{region $[i,j]$} is the sequence of indices $k$, $i\leq k\leq j$.
 $i$ and $j$ are called the left and right ends of the region respectively. 
 \end{definition}
 
+\begin{definition}[Gapped region]
+A gapped region is the union of two regions $[i, j]$ and $[k, l]$ with $i \le j<k \le l$.
+\end{definition}
+
+\begin{definition}[Span the gapped region]
+Base pair $d.e$ spans gapped region $[i, j] \cup [k, l]$ if $d \in [i, j]$ and $e \in [k, l]$.
+
+\end{definition}
+
 % HJ - Definition is modified from HFold paper.
 % This will make sure that our definition of the band includes the nested unpaired bases as well as any nested substructures.
 \textbf{HJ-}  Let $i.j$ and $i'.j'$ be the first and the last base pairs in a maximal 
@@ -302,8 +311,11 @@ Bands are equivalently defined as follows:
 \begin{definition}[Band]
 For an RNA structure $R$, a \emph{base pair band $\cal B\subseteq R$} is a maximal set of base pairs that 1) form a chain of directly nested base pairs, and where 2) each base pair in $R$ either crosses all or no base pairs in $\cal B$.
 
-A \emph{band} is a subset $[i,j]\cup[k,l]$ of sequence positions, iff there is a base pair band, such that its outermost base pair is $(i,l)$ and its innermost base pair is $(k,l)$.
+A \emph{band} is a subset $[i,j]\cup[k,l]$ of sequence positions, iff there is a base pair band, such that its outermost base pair is $(i,l)$ and its innermost base pair is $(j,k)$.
 \end{definition}
+\textbf{HJ-} We say a base pair $d.e$ spans the band if it spans the gapped region $[i,j]\cup[k,l]$.
+
+\textbf{HJ-} Instead of "sequence of positions" we can simply use "regions" as we defined it before. I also think choosing i.j for base pair is a simpler way of showing base pairs and not mixing them up with boundaries.
 
 
 \subsection{Methods}
@@ -320,11 +332,13 @@ $i$ and $l$ are paired and part of the same pseudoknot, i.e. in all those struct
 \item or $(i,i')$ and $(l',l)$ are both crossing a third base pair $(k,k')$, where $i<k<i'<l'<k'<l$.
 \item $(i,i')$ crosses a base pair $(k_1,k_1')$ that crosses $(k_2,k'_2)$ that crosses $(l',l)$ $(i<k_1<k_2<k'_1<k'_2<l)$.
 \end{enumerate}
-\textbf{HJ-} I believe it would be better to talk about bands instead of single base pairs. \textbf{SW-} My feeling was this is less complex on the level of base pairs. We could mention that this implies the same relation on the level of bands (i.e. there is a band of i.i' and a band of l'.l, ...), or rather we should emphasize that a base pair uniquely determines a band.
+\textbf{HJ-} I believe it would be better to talk about bands instead of single base pairs. \textbf{SW-} My feeling was this is less complex on the level of base pairs. We could mention that this implies the same relation on the level of bands (i.e. there is a band of i.i' and a band of l'.l, ...), or rather we should emphasize that a base pair uniquely determines a band. \textbf{HJ-} I think with current definition of base pairs identifying a band, a simple explanation as you suggested would suffice.
 
 We observe that all these cases are disjoint and form a complete decomposition of CCJ structures, since CCJ structures do not allow three base pairs that all pairwise cross each other and the longest possible chains of crossing base pairs are $4$-chains (third case).
 
 In each case, we decompose the $P$-fragment over [i..l] into two gapped fragments over $[i..j]\cup[k..k']$ and $[j+1..k-1]\cup[k'+1..l]$. 
+
+\textbf{HJ-} I think we can safely replace "gapped fragments" with "gapped regions".
 
 %Gapped fragment: $\RNA{i-j----k-l}{1/10,3/8}$
 %
@@ -485,6 +499,6 @@ Note the asymmetry in the allowed transitions.
 }
 
 \SW{Idea: We should formally define \emph{band decomposition order (bdo)} (as a word over $\{L,R,M,O\}$ for decompositions of a structure
-represented by $P$. Proving the uniqueness of bdo (given our restrictions) would be the essential step to showing the uniqueness of the recursions.}
+represented by $P$. Proving the uniqueness of bdo (given our restrictions) would be an essential step to showing the uniqueness of the recursions. For showing completenes, it is important to precisely define all the fragments (in terms of the represented structures).}
 
 \end{document}
