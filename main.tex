@@ -324,8 +324,15 @@ Arbitrary CCJ-structures are decomposed unambiguosly due to
 \begin{equation}
 \includegraphics{KnottyPF/recursionW}
 \end{equation}
+% HJ- this is from our Knotty paper
+\textbf{HJ-}In this graphical notation, the RNA sequence is represented as a line with bases as index positions; solid arcs indicate base pairs; and dashed arcs enclose areas containing unconsumed (not decomposed?) structure. 
+Red circles represent fixed end points of a region. Blue squares are free indices (i.e. bases that are pivotal for boundary determinations). 
+To not clutter the representation, we do not mark end points that can be identified from bases directly before or after them.
+
 Similar changes disambiguate the WB and WP recursions. 
-This moves the focus to the decomposition of $P$-fragments. $P$-fragments represent structures $R$ of subsequences $i..l$, where
+This moves the focus to the decomposition of $P$-fragments. 
+\textbf{HJ-} I think we should use $P$-rule instead.
+$P$-fragments represent structures $R$ of subsequences $i..l$, where
 $i$ and $l$ are paired and part of the same pseudoknot, i.e. in all those structures, there are base pairs $(i,i')$ and $(l',l)$, such that
 \begin{enumerate}
 \item either $(i,i')$ and $(l',l)$ are crossing each other
@@ -382,10 +389,15 @@ the disjoint case distinction that we discussed before.
 
 We observe that the different types of gapped fragments can be distinguished by limiting
 the possible decomposition orders in terms of decomposition at the bands L,R,M, and O.
-E.g. the constraint (1) is ensured by not decomposing at the left band after the last decomposition at the O-band.
+E.g. the constraint (1) is ensured by not decomposing at the left band after the last decomposition at the O-band. 
+
+\textbf{HJ-} It is not clear to me what is meant by ``constraint (1)''.
+
 When we represent the band-decomposition order as word over $\{L,R,M,O\}$, then this corresponds to restricting the prefixes of this word. Therefore, we annotate matrices / fragment types with the allowed prefixes, using a regular expression like notation.
 
-To ensure the respective properties of four different the PK-type fragments, we could thus denote them by
+\textbf{HJ-} I am not yet clear with the ``*'' notation. If it is regular-expression-like, then does it mean in $PK_{l*O}$ we can have more than one iteration to get from a $l$ state to an $O$ state?
+
+To ensure the respective properties of the four different PK-type fragments, we could thus denote them by
 $PK_{l*O}$, $PK_{o*L}$, $PK_{r*O}$, $PK_{o*R}$; where small letters refer to the negated character class of the corresponding capital letter, e.g. $l$ refers to $[RMO]$.
 % 
 Note that disambiguation requires to impose even stronger constraints, as we discuss later.
@@ -406,12 +418,13 @@ Let us start with the decomposition of $PK_{l*O}$. Generally $PK$-fragements are
 need to allow recursive substructure (i.e. $WP$-fragments) between the $P_X$-fragments.
 
 \begin{definition}
-The structures represented by a $P_X$-type fragment over $[i..j]\cup [k..l]$ satisfy the following properties:
+The structures represented by a $P_X$-rule over gapped region $[i..j]\cup [k..l]$ satisfy the following properties:
 \begin{itemize}
-\item all ends $i$, $j$, $k$, and $l$ are paired to something.
-\item ``closed at $X$''---there is a base pair at the position $X$ ($X\in\{L,R,M,O\}$).
-\item there is a base pair that spans the gap i region $j+1..k-1$
-\item unless $X=O$, the ends cannot all be part of the same band. (Note that we terminate with O, unlike the original CCJ recursions, which terminate at M.)
+\item all ends $i$, $j$, $k$, and $l$ are paired, but not necessarily to each other.
+\item the closing bases at the ``$X$'' side of the gapped region form a base pair%``closed at $X$''
+---there is a base pair at the position $X$ ($X\in\{L,R,M,O\}$).
+\item there is a base pair that spans the gap $i$ region $j+1..k-1$ -- \textbf{HJ-} I am not clear about the meaning of this part.
+\item unless $X=O$, the end bases cannot all be part of the same band (i.e. $i=j$ and $k=l$)n. (Note that we terminate with $O$, unlike the original CCJ recursions, which terminate at $M$.)
 \end{itemize}
 \end{definition}
 
