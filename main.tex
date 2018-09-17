@@ -113,6 +113,10 @@
 }
 
 \newcommand{\SW}[1]{\textbf{SW-}#1}
+<<<<<<< HEAD
+=======
+\newcommand{\YP}[1]{{\color{red!30!black}\textbf{YP-}#1}}
+>>>>>>> origin/master
 
 %% graphical notation of grammar rules with tikz
 \input{tikz-grules.tex}
@@ -307,6 +311,17 @@ in the chain $(i,l)=(i_1,j_1), \dots, (i_q,j_q)=(j,k)$, where all successive bas
 \item $B$ is (set inclusion) maximal, subject to the preceeding properties.
 \end{itemize}
 \end{definition}
+<<<<<<< HEAD
+=======
+\YP{This concept seems a bit loose IMO, ie both $\{A,B,C\}$ and $\{A,B,D\}$ seem to fulfill the definition of band in
+
+{\centering\tt%
+ABCD...dbca\\
+(([(...))])\\}
+
+Probably nitpicking here, but want to make sure we understand each other (+ uniqueness of decomposition is important for future unambiguity proofs)...}
+
+>>>>>>> origin/master
 
 In a RNA structure $R$, the band $[i,j]\cup[k,l]$ is called \emph{band of the base pair $(x,y)$}, iff $x\in[i,j]$ and $y\in[k,l]$. We emphasize that in this way each base pair uniquely determines a corresponding band (in a given RNA structure).
 
@@ -334,6 +349,11 @@ Arbitrary CCJ-structures are decomposed unambiguosly due to
 \textbf{HJ-}In this graphical notation, the RNA sequence is represented as a line with bases as index positions; solid arcs indicate base pairs; and dashed arcs enclose areas containing unconsumed (not decomposed?) structure. 
 Red circles represent fixed end points of a region. Blue squares are free indices (i.e. bases that are pivotal for boundary determinations). 
 To not clutter the representation, we do not mark end points that can be identified from bases directly before or after them.
+<<<<<<< HEAD
+=======
+\YP{Regarding graphical notations, I think it would be better to use 'wavy line' instead of dashed base pairs in order to better distinguish recursive calls from arcs.}
+
+>>>>>>> origin/master
 
 Similar changes disambiguate the WB and WP recursions. 
 This moves the focus to the decomposition of $P$-fragments. 
@@ -392,6 +412,11 @@ fragments, where
 
 Note that this suffices to (de)compose the different types of P-fragments in
 the disjoint case distinction that we discussed before.
+<<<<<<< HEAD
+=======
+\YP{A picture may be worth a thousand words, and sorely missing here... :)}
+
+>>>>>>> origin/master
 
 We observe that the different types of gapped fragments can be distinguished by limiting
 the possible decomposition orders in terms of decomposition at the bands L,R,M, and O.
@@ -401,7 +426,11 @@ E.g. the constraint (1) is ensured by not decomposing at the left band after the
 
 When we represent the band-decomposition order as word over $\{L,R,M,O\}$, then this corresponds to restricting the prefixes of this word. Therefore, we annotate matrices / fragment types with the allowed prefixes, using a regular expression like notation.
 
+<<<<<<< HEAD
 \textbf{HJ-} I am not yet clear with the ``*'' notation. If it is regular-expression-like, then does it mean in $PK_{l*O}$ we can have more than one iteration to get from a $l$ state to an $O$ state?
+=======
+\textbf{HJ-} I am not yet clear with the ``*'' notation. If it is regular-expression-like, then does it mean in $PK_{l*O}$ we can have more than one iteration to get from a $l$ state to an $O$ state? \YP{Yup, that is my understanding or, more precisely, $PK_{l*O}$ means {\em a (possibly empty) sequence of 'anything but $L$eft' base pairs, ultimately followed by an $O$utside base pair}.}
+>>>>>>> origin/master
 
 To ensure the respective properties of the four different PK-type fragments, we could thus denote them by
 $PK_{l*O}$, $PK_{o*L}$, $PK_{r*O}$, $PK_{o*R}$; where small letters refer to the negated character class of the corresponding capital letter, e.g. $l$ refers to $[RMO]$.
@@ -413,11 +442,19 @@ For now, we obtain the following decomposition rule for P-fragments:
 \includegraphics{KnottyPF/recursionP}
 \end{equation}
 
+<<<<<<< HEAD
 where, generically, fragments $PK.^1$ and $PK.^2$ are decomposed into fragments $PK.$ and $WP$ to account unambiguously for recursive substructure:
+=======
+where, generically, fragments $PK_{\star}^1$ and $PK_{\star}^2$ are decomposed into fragments $PK_{\star}$ and $WP$ to account unambiguously for recursive substructure:
+>>>>>>> origin/master
 
 \begin{equation}
 \includegraphics{KnottyPF/recursionPK12}
 \end{equation}
+<<<<<<< HEAD
+=======
+\YP{Well played, sir, well played! (although probably not completely clear at first sight... Any chance we could introduce new non-terminal names instead of continuously overloading the poor, innocent, $PK$?)}
+>>>>>>> origin/master
 
 For decomposing fragments like $PK_{l*O}$, in general $PK_{regex}$ it is now crucial to satisfy the band-decomposition-order constraint.
 Let us start with the decomposition of $PK_{l*O}$. Generally $PK$-fragements are decomposed into $P_X$-type fragments, where we
@@ -471,12 +508,17 @@ Here are examples for the decomposition of $P_X$:
 \includegraphics{KnottyPF/recursionPX}
 \end{equation}
 
+<<<<<<< HEAD
+=======
+\newpage
+>>>>>>> origin/master
 $P_{fromX}$-fragments are required to change the band; note that we need to unambiguously allow recursive substructure \emph{and} unambiguous band change. For the unconstrained $P_O$, the recursion to the unconstrained $P_\text{fromO}$ works like in the original recursions. 
 \begin{equation}
 \includegraphics{KnottyPF/recursionPfromX}
 \end{equation}
 
 \SW{Replace svg figs with Tikz:}
+<<<<<<< HEAD
 
 \begin{equation}
 \begin{GRule}
@@ -492,6 +534,34 @@ $P_{fromX}$-fragments are required to change the band; note that we need to unam
   \GRconcat\GRwfrag[ltype/.style=fix]{$W\!P$}
 \end{GRule}
 \end{equation}
+=======
+\begin{align*}
+&\begin{GRule}
+  \GRgapfraglO[outer arc/.style={dotted arc}]{$P_{\text{fromO}}$} 
+  \GRdecompTo
+  \GRwfrag[itype/.style=fix]{$W\!P$}\GRconcat
+  \GRgapfrag[left arc/.style={solid arc},itype/.style=free]{$P_{\text{L}}$}
+  \GRor
+  \GRgapfrag[right arc/.style={solid arc},ltype/.style=free]{$P_{\text{R}}$}
+  \GRconcat\GRwfrag[ltype/.style=fix]{$W\!P$}
+\end{GRule}\\
+&\begin{GRule}
+  \GRgapfraglO[right arc/.style={dotted arc}]{$P_{\text{fromR,l*O}}$} 
+  \GRdecompTo
+  \GRgapfraglO[inner arc/.style={solid arc},ktype/.style=free]{}\GRseclabel{$P_{\text{M,l*O}}$}
+  \GRconcatWBefore{k}\GRwfrag[itype/.style=fix]{$W\!P$}\GRrestorelast
+  \GRor        
+  \GRgapfrag[outer arc/.style={solid arc},ltype/.style=free]{$P_{\text{O}}$}
+  \GRconcat\GRwfrag[ltype/.style=fix]{$W\!P$}
+\end{GRule}\\
+&\begin{GRule}
+  \GRgapfraglO[inner arc/.style={dotted arc}]{$P_{\text{fromM}}$} 
+  \GRdecompTo
+  \GRgapfraglO[right arc/.style={solid arc},ktype/.style=free]{}\GRseclabel{$P_{\text{R,l*O}}$}
+  \GRconcatWBefore{k}\GRwfrag[itype/.style=fix]{$W\!P$}\GRrestorelast
+\end{GRule}
+\end{align*}
+>>>>>>> origin/master
 
 
 Note that we unambiguously add recursive substructure by adding the substructure (WP-fragments) always between the bands of each transition (note that in each possible transition, but L to R, there is such a unique position between the two bands; for L to R transitions, we do not include substructure).
