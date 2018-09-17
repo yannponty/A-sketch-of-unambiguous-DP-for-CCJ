@@ -114,12 +114,18 @@
 
 \newcommand{\SW}[1]{\textbf{SW-}#1}
 
+%% graphical notation of grammar rules with tikz
+\input{tikz-grules.tex}
+
+
 %%% The "real" document content comes below...
 
 \title{A sketch of unambiguous DP for CCJ}
 \author{Hosna, Sebastian, Yann}
 %\date{} % Activate to display a given date or no date (if empty),
          % otherwise the current date is printed 
+
+
 
 \begin{document}
 \maketitle
@@ -457,12 +463,30 @@ $P_{fromX}$-fragments are required to change the band; note that we need to unam
 \includegraphics{KnottyPF/recursionPfromX}
 \end{equation}
 
+\SW{Replace svg figs with Tikz:}
+
+\begin{equation}
+\begin{GRule}
+  %LHS
+  \GRgapfraglO[right arc/.style={dotted arc}]{$P_{\text{fromR,l*O}}$} 
+  \GRdecompTo
+  %RHS
+  \GRgapfraglO[inner arc/.style={solid arc},ktype/.style=free]{}\GRseclabel{$P_{\text{M,l*O}}$}
+  \GRconcatWBefore{k}\GRwfrag[itype/.style=fix]{$W\!P$}\GRrestorelast
+  \GRor        
+  \GRgapfrag[outer arc/.style={solid arc},ltype/.style=free]{$P_{\text{O}}$} 
+
+  \GRconcat\GRwfrag[ltype/.style=fix]{$W\!P$}
+\end{GRule}
+\end{equation}
+
+
 Note that we unambiguously add recursive substructure by adding the substructure (WP-fragments) always between the bands of each transition (note that in each possible transition, but L to R, there is such a unique position between the two bands; for L to R transitions, we do not include substructure).
 
 The set of allowed transitions can be sketched as transition diagram.
 Note the asymmetry in the allowed transitions.
 
-\begin{tikzpicture}[scale=1.7]
+\begin{tikzpicture}[scale=1.7,very thick]
 \node (O) at (0,0) {O};
 \node (L) at (1,0) {L};
 \node (M) at (2,0) {M};
