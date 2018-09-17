@@ -1,0 +1,100 @@
+\newcommand{\GRgaplength}{0.9}
+\newcommand{\GRsubseqlength}{0.35}
+
+\newcommand{\GRgapfrag}[2][]{%
+  \path[itype/.style=fix,
+        jtype/.style=fix,
+        ktype/.style=fix,
+        ltype/.style=fix,
+        outer arc/.style={dashed arc},
+        inner arc/.style={dashed arc},
+        left arc/.style={draw=none},
+        right arc/.style={draw=none},
+        #1]
+    (last)    node [itype]  (i) {}
+    ++(\GRsubseqlength,0) node [jtype]  (j) {}
+    ++(\GRgaplength,0) node [ktype]  (k) {}
+    ++(\GRsubseqlength,0) node [ltype] (l) {}
+    (i) edge [outer arc] (l) 
+    (j) edge [inner arc] (k)
+    (i) edge [left arc] (j)
+    (k) edge [right arc] (l);
+%
+  \draw [backbone]
+      (i) -- (j)
+      (k) -- (l);
+%
+  \draw (j) edge [draw=none] node [below] (label) {#2} (k); 
+
+  \node (last) at (l) {};
+}
+
+\newcommand{\GRgapfraglO}[2][]{%
+  \GRgapfrag[#1]{#2}
+  % draw decoration
+  \draw (l) ++(-0.15,0) edge [solid arc,in=80,out=90] (i);
+}
+
+\newcommand{\GRwfrag}[2][]{%
+  \path%
+    (last) node [scale=0.1] (i) {}%
+    ++(0.4,0) node (l) [scale=0.1] {};%
+  % 
+  %\draw (i) edge [dashed arc] (l);%
+  \draw[dashed arc] (i) arc (180:0:0.2);%
+  %
+  \draw [backbone,
+        itype/.style={draw=none},
+        ltype/.style={draw=none},
+        #1]
+        (i) node [itype] () {} 
+        -- node [below] (label'){#2} ++ (0.4,0) 
+        node [ltype] () {};%
+  \node (last) at (l) {};%
+}
+
+\newcommand{\GRsetlast}[1]{%
+  \path (last) node (bkplast) {}%
+        (#1) ++(0,0) node (last) {};%
+}
+
+\newcommand{\GRrestorelast}{%
+  \path (bkplast) node (last) {};%
+}
+
+% secondary label
+\newcommand{\GRseclabel}[1]{%
+  \path (l) + (-0.4,0.6) node [text ragged,anchor=west,align=left] (label) {#1};%
+  \path (label.east) ++ (-0.2,-0.6) node (last) [] {};%
+}
+
+\newcommand{\GRdecompTo}{%
+  \draw (last) ++(0.3,0.3) edge [->,very thick] ++(0.9,0);
+  \path (last) ++(1.6,0) node (last) {};
+}
+
+\newcommand{\GRor}{%
+  \draw (last) ++(0.3,0) edge [very thick] ++(0,0.8);
+  \path (last) ++(0.6,0) node (last) {};
+}
+
+\newcommand{\GRconcat}{%
+  \path (last) ++(0.15,0) node (last) {};
+}
+\newcommand{\GRconcatWBefore}[1]{%
+  \GRsetlast{#1}%
+  \path (last) ++(-0.55,0) node (last) {};
+}
+
+\newenvironment{GRule}{%
+  \begin{tikzpicture}[fix/.style={fill,circle,scale=0.4,red!50!black!90},
+                      free/.style={fill,rectangle,scale=0.55,blue!60!black!80},
+                      backbone/.style={very thick},
+                      arc/.style={in=90,out=90, thick},
+					  solid arc/.style={arc},
+                      dashed arc/.style={arc,dashed},
+                      dotted arc/.style={arc,dotted}]%
+  \node (last) at (0,0) {};
+}{%
+  \end{tikzpicture}%
+}
