@@ -54,10 +54,9 @@
   \draw (i) [thick] arc [x radius=\radiusX, y radius=\radiusY, start angle=180,end angle=0];
 }
 
-\newcommand{\GRgapfragDeco}[4][]{%
+\newcommand{\GRgapfragDeco}[3][]{%
   \GRgapfrag[#1]{#2}
-  \ifthenelse{\equal}
-  \csname GRdecorate#4\endcsname
+  \csname GRdecorate#3\endcsname
 }
 
 \newcommand{\GRwfrag}[2][]{%
