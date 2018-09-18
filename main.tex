@@ -41,6 +41,7 @@
 \usetikzlibrary{matrix}
 \usetikzlibrary{positioning}
 \usetikzlibrary{calc}
+\usetikzlibrary{math}
 \usetikzlibrary{shapes}
 
 \usepackage{theorem}
@@ -116,7 +117,7 @@
 \newcommand{\YP}[1]{{\color{red!30!black}\textbf{YP-}#1}}
 
 %% graphical notation of grammar rules with tikz
-%\input{tikz-grules.tex}
+\input{tikz-grules.tex}
 
 
 %%% The "real" document content comes below...
@@ -484,47 +485,46 @@ $P_{fromX}$-fragments are required to change the band; note that we need to unam
 
 %\SW{Replace svg figs with Tikz:}
 
-%\begin{equation}
-%\begin{GRule}
-%  %LHS
-%  \GRgapfraglO[right arc/.style={dotted arc}]{$P_{\text{fromR,l*O}}$} 
-%  \GRdecompTo
-%  %RHS
-%  \GRgapfraglO[inner arc/.style={solid arc},ktype/.style=free]{}\GRseclabel{$P_{\text{M,l*O}}$}
-%  \GRconcatWBefore{k}\GRwfrag[itype/.style=fix]{$W\!P$}\GRrestorelast
-%  \GRor        
-%  \GRgapfrag[outer arc/.style={solid arc},ltype/.style=free]{$P_{\text{O}}$} %%
-%
-%  \GRconcat\GRwfrag[ltype/.style=fix]{$W\!P$}
-%\end{GRule}
-%\end{equation}
-%
-%\begin{align*}
-%&\begin{GRule}
-%  \GRgapfraglO[outer arc/.style={dotted arc}]{$P_{\text{fromO}}$} 
-%  \GRdecompTo
-%  \GRwfrag[itype/.style=fix]{$W\!P$}\GRconcat
-%  \GRgapfrag[left arc/.style={solid arc},itype/.style=free]{$P_{\text{L}}$}
-%  \GRor
-%  \GRgapfrag[right arc/.style={solid arc},ltype/.style=free]{$P_{\text{R}}$}
-%  \GRconcat\GRwfrag[ltype/.style=fix]{$W\!P$}
-%\end{GRule}\\
-%&\begin{GRule}
-%  \GRgapfraglO[right arc/.style={dotted arc}]{$P_{\text{fromR,l*O}}$} 
-%  \GRdecompTo
-%  \GRgapfraglO[inner arc/.style={solid arc},ktype/.style=free]{}\GRseclabel{$P_{\text{M,l*O}}$}
-%  \GRconcatWBefore{k}\GRwfrag[itype/.style=fix]{$W\!P$}\GRrestorelast
-%  \GRor        
-%  \GRgapfrag[outer arc/.style={solid arc},ltype/.style=free]{$P_{\text{O}}$}
-%  \GRconcat\GRwfrag[ltype/.style=fix]{$W\!P$}
-%\end{GRule}\\
-%&\begin{GRule}
-%  \GRgapfraglO[inner arc/.style={dotted arc}]{$P_{\text{fromM}}$} 
-%  \GRdecompTo
-%  \GRgapfraglO[right arc/.style={solid arc},ktype/.style=free]{}\GRseclabel{$P_{\text{R,l*O}}$}
-%  \GRconcatWBefore{k}\GRwfrag[itype/.style=fix]{$W\!P$}\GRrestorelast
-%\end{GRule}
-%\end{align*}
+\begin{equation}
+\begin{GRule}
+  %LHS
+  \GRgapfragDeco[right arc/.style={dotted arc}]{$P_{\text{fromR,l*O}}$}{lO}
+  \GRdecompTo
+  %RHS
+  \GRgapfragDeco[inner arc/.style={solid arc},ktype/.style=free]{}{lO}\GRseclabel{$P_{\text{M,l*O}}$}
+  \GRconcatWBefore{k}\GRwfrag[itype/.style=fix]{$W\!P$}\GRrestorelast
+  \GRor        
+  \GRgapfrag[outer arc/.style={solid arc},ltype/.style=free]{$P_{\text{O}}$} %%
+  \GRconcat\GRwfrag[ltype/.style=fix]{$W\!P$}
+\end{GRule}
+\end{equation}
+
+\begin{equation}
+\begin{GRule}
+  \GRgapfragDeco[outer arc/.style={dotted arc}]{$P_{\text{fromO}}$}{lO}
+  \GRdecompTo
+  \GRwfrag[itype/.style=fix]{$W\!P$}\GRconcat
+  \GRgapfrag[left arc/.style={solid arc},itype/.style=free]{$P_{\text{L}}$}
+  \GRor
+  \GRgapfrag[right arc/.style={solid arc},ltype/.style=free]{$P_{\text{R}}$}
+  \GRconcat\GRwfrag[ltype/.style=fix]{$W\!P$}
+  %
+  \GRnewrule
+  \GRgapfragDeco[right arc/.style={dotted arc}]{$P_{\text{fromR,l*O}}$}{lO}
+  \GRdecompTo
+  \GRgapfragDeco[inner arc/.style={solid arc},ktype/.style=free]{}{lO}\GRseclabel{$P_{\text{M,l*O}}$}
+  \GRconcatWBefore{k}\GRwfrag[itype/.style=fix]{$W\!P$}\GRrestorelast
+  \GRor        
+  \GRgapfrag[outer arc/.style={solid arc},ltype/.style=free]{$P_{\text{O}}$}
+  \GRconcat\GRwfrag[ltype/.style=fix]{$W\!P$}
+  %
+  \GRnewrule
+  \GRgapfragDeco[inner arc/.style={dotted arc}]{$P_{\text{fromM}}$}{lO}     
+  \GRdecompTo
+  \GRgapfragDeco[right arc/.style={solid arc},ktype/.style=free]{}{lO}\GRseclabel{$P_{\text{R,l*O}}$}
+  \GRconcatWBefore{k}\GRwfrag[itype/.style=fix]{$W\!P$}\GRrestorelast
+\end{GRule}
+\end{equation}
 
 
 Note that we unambiguously add recursive substructure by adding the substructure (WP-fragments) always between the bands of each transition (note that in each possible transition, but L to R, there is such a unique position between the two bands; for L to R transitions, we do not include substructure).

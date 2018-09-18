@@ -1,7 +1,20 @@
 \newcommand{\GRgaplength}{0.9}
 \newcommand{\GRsubseqlength}{0.35}
+\newcommand{\GRarcratio}{0.8}
+\newcommand{\GRwfraglength}{0.4}
+\newcommand{\GRunitlength}{0.15} % distance between concatenated fragments
 
+\tikzstyle{very densely dashed} = [dash pattern=on 2.5pt off 1.5pt]
+
+%% --------------------------------------------------------------------------- 
+%% Gapped fragments
+
+%% draw a gapped fragment
 \newcommand{\GRgapfrag}[2][]{%
+  \pgfmathsetmacro\outerradiusX{(\GRgaplength+2*\GRsubseqlength)/2}
+  \pgfmathsetmacro\outerradiusY{\outerradiusX*\GRarcratio}
+  \pgfmathsetmacro\innerradiusX{\GRgaplength/2}
+  \pgfmathsetmacro\innerradiusY{\innerradiusX*\GRarcratio}
   \path[itype/.style=fix,
         jtype/.style=fix,
         ktype/.style=fix,
@@ -15,8 +28,8 @@
     ++(\GRsubseqlength,0) node [jtype]  (j) {}
     ++(\GRgaplength,0) node [ktype]  (k) {}
     ++(\GRsubseqlength,0) node [ltype] (l) {}
-    (i) edge [outer arc] (l) 
-    (j) edge [inner arc] (k)
+    (i) [draw,outer arc] arc [x radius=\outerradiusX, y radius=\outerradiusY, start angle=180,end angle=0]
+    (j) [draw,inner arc] arc [x radius=\innerradiusX, y radius=\innerradiusY, start angle=180,end angle=0]
     (i) edge [left arc] (j)
     (k) edge [right arc] (l);
 %
@@ -25,36 +38,35 @@
       (k) -- (l);
 %
   \draw (j) edge [draw=none] node [below] (label) {#2} (k); 
-
+%
   \node (last) at (l) {};
 }
 
-\newcommand{\GRgapfraglO}[2][]{%
+\newcommand{\GRdecoratelO}{%
+  \pgfmathsetmacro\radiusX{(\GRgaplength+1.6*\GRsubseqlength)/2}
+  \pgfmathsetmacro\radiusY{\radiusX*\GRarcratio}
+  \draw (i) [thick] arc [x radius=\radiusX, y radius=\radiusY, start angle=180,end angle=0];
+}
+
+\newcommand{\GRdecorateLo}{%
+  \pgfmathsetmacro\radiusX{(0.6*\GRsubseqlength)/2}
+  \pgfmathsetmacro\radiusY{\radiusX*\GRarcratio}
+  \draw (i) [thick] arc [x radius=\radiusX, y radius=\radiusY, start angle=180,end angle=0];
+}
+
+\newcommand{\GRgapfragDeco}[4][]{%
   \GRgapfrag[#1]{#2}
-  % draw decoration
-  \draw (l) ++(-0.15,0) edge [solid arc,in=80,out=90] (i);
+  \ifthenelse{\equal}
+  \csname GRdecorate#4\endcsname
 }
 
 \newcommand{\GRwfrag}[2][]{%
-  \draw [backbone,
-        itype/.style={draw=none,scale=0.25},
-        ltype/.style={draw=none,scale=0.25},
-        #1]
-        (last) node [itype] (i) {} 
-        -- node [below] (label'){#2} ++ (0.4,0) 
-        node [ltype] (l) {};
-  \draw (i) edge [dashed arc] (l);%
-  \node (last) at (l) {};
-}
-
-\newcommand{\GRsetlast}[1]{%
-  \path (last) node (bkplast) {}
   \path%
-    (last) node [scale=0.1] (i) {}%
-    ++(0.4,0) node (l) [scale=0.1] {};%
+    (last) node [scale=0.1]    (i) {}%
+    ++(\GRwfraglength,0) node [scale=0.1] (l) {};%
   % 
   %\draw (i) edge [dashed arc] (l);%
-  \draw[dashed arc] (i) arc (180:0:0.2);%
+  \draw[very densely dashed,thick] (i) arc (180:0:0.2);%
   %
   \draw [backbone,
         itype/.style={draw=none},
@@ -75,6 +87,11 @@
   \path (bkplast) node (last) {};%
 }
 
+\newcommand{\GRnewrule}{%
+  \path (start) ++(0,-1.5) node (last) {}%
+        (last) node (start) {};%
+}
+
 % secondary label
 \newcommand{\GRseclabel}[1]{%
   \path (l) + (-0.4,0.6) node [text ragged,anchor=west,align=left] (label) {#1};%
@@ -92,11 +109,12 @@
 }
 
 \newcommand{\GRconcat}{%
-  \path (last) ++(0.15,0) node (last) {};
+  \path (last) ++(\GRunitlength,0) node (last) {};
 }
 \newcommand{\GRconcatWBefore}[1]{%
+  \pgfmathsetmacro\offset{\GRwfraglength+\GRunitlength}
   \GRsetlast{#1}%
-  \path (last) ++(-0.55,0) node (last) {};
+  \path (last) ++(-\offset,0) node (last) {};
 }
 
 \newenvironment{GRule}{%
@@ -105,8 +123,9 @@
                       backbone/.style={very thick},
                       arc/.style={in=90,out=90, thick},
 					  solid arc/.style={arc},
-                      dashed arc/.style={arc,dashed},
-                      dotted arc/.style={arc,dotted}]%
+                      dashed arc/.style={arc,very densely dashed},
+                      dotted arc/.style={arc,densely dotted}]%
+  \node (start) at (0,0) {};
   \node (last) at (0,0) {};
 }{%
   \end{tikzpicture}%
