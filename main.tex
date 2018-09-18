@@ -308,14 +308,6 @@ in the chain $(i,l)=(i_1,j_1), \dots, (i_q,j_q)=(j,k)$, where all successive bas
 \item $B$ is (set inclusion) maximal, subject to the preceeding properties.
 \end{itemize}
 \end{definition}
-\YP{This concept seems a bit loose IMO, ie both $\{A,B,C\}$ and $\{A,B,D\}$ seem to fulfill the definition of band in
-
-{\centering\tt%
-ABCD...dbca\\
-(([(...))])\\}
-
-Probably nitpicking here, but want to make sure we understand each other (+ uniqueness of decomposition is important for future unambiguity proofs)...}
-
 
 In a RNA structure $R$, the band $[i,j]\cup[k,l]$ is called \emph{band of the base pair $(x,y)$}, iff $x\in[i,j]$ and $y\in[k,l]$. We emphasize that in this way each base pair uniquely determines a corresponding band (in a given RNA structure).
 
@@ -394,7 +386,7 @@ required similar conditions only for $i$ and $l$.)
 Our considerations give rise to defining four types of gapped
 fragments, where
 \begin{enumerate}
-\item $(i,i')$ spans the gap,
+\item $(i,i')$ spans the gap, i.e. $i'\in[k,l]$
 \item $(i,i')$ does not span the gap,
 \item $(l',l)$ spans the gap,
 \item $(l',l)$ does not span the gap.
@@ -406,7 +398,8 @@ the disjoint case distinction that we discussed before.
 
 We observe that the different types of gapped fragments can be distinguished by limiting
 the possible decomposition orders in terms of decomposition at the bands L,R,M, and O.
-E.g. the constraint (1) is ensured by not decomposing at the left band after the last decomposition at the O-band. 
+E.g. the constraint (1) is ensured by not decomposing at the left band before the first decomposition at the O-band. 
+\SW{Picture!}
 
 \textbf{HJ-} It is not clear to me what is meant by ``constraint (1)''.
 
@@ -576,6 +569,21 @@ Note the asymmetry in the allowed transitions.
 }
 
 \SW{Idea: We should formally define \emph{band decomposition order (bdo)} (as a word over $\{L,R,M,O\}$ for decompositions of a structure
-represented by $P$. Proving the uniqueness of bdo (given our restrictions) would be an essential step to showing the uniqueness of the recursions. For showing completenes, it is important to precisely define all the fragments (in terms of the represented structures).}
+represented by $P$. Proving the uniqueness of bdo (given our restrictions) would be an essential step to showing the uniqueness of the recursions. For showing completeness, it is important to precisely define all the fragments (in terms of the represented structures).}
+
+\newpage
+{\bf TODO:}
+\begin{itemize}
+  \item Technical introduction: Basic definitions for the sake of self-completeness; (Hosna)
+  \item Completeness using generating functions (see Nebel's 2012 JCB paper); (Yann)
+  \item Expand full set of rules, Revise pictures $\to$ TikZ; (Sebastian)
+  \item Unambiguity through disjointness of produced subsets; (At later time, once complete rules are known)
+  \item Applications: 
+  \begin{itemize}
+    \item Tools: Statistical sampling (à la Ding-Lawrence), Inside-Outside for exact BP prob computation
+    \item Tasks: Structure prediction (through Sampling-Clustering) possibly SHAPE directed, Pseudoknot detection (through comparing partition functions), Interaction prediction, kinetics (far-fetched?)...
+    \item Target (journals): Sebastian says 'NAR' or 'RNA', Hosna says whatever (I am fine with Bioinformatics or RNA), Yann, uncharacteristically, doesn't say anything...
+  \end{itemize}
+\end{itemize}
 
 \end{document}
