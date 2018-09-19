@@ -116,9 +116,114 @@
 \newcommand{\SW}[1]{\textbf{SW-}#1}
 \newcommand{\YP}[1]{{\color{red!30!black}\textbf{YP-}#1}}
 
+%% Matrix symbol macros (from Knotty paper) 
+\newcommand{\Vnone}{V}
+\newcommand{\V}       [2]{V           (#1,#2)}
+\newcommand{\Vhairpin}[2]{V_{\text{hairpin}} (#1,#2)}
+\newcommand{\Vstacked}[2]{V_{\text{stacked}} (#1,#2)}
+\newcommand{\Viloop}  [2]{V_{\text{iloop}}   (#1,#2)}
+
+\newcommand{\Vhairpins}[2]{V_{\text{hairpin}}^* (#1,#2)}
+\newcommand{\Vstackeds}[2]{V_{\text{stacked}}^* (#1,#2)}
+\newcommand{\Viloops}  [2]{V_{\text{iloop}}^*   (#1,#2)}
+
+\newcommand{\Vmloopnone}{V_{\text{mloop}}}
+\newcommand{\Vmloop}  [2]{V_{\text{mloop}}(#1,#2)}
+
+\newcommand{\pknotnone}{P}
+\newcommand{\pknotnones}{\pknotnone^s}
+\newcommand{\pknot}[2]{\pknotnone(#1,#2)}
+
+\newcommand {\WMnone}{WM}
+\newcommand {\WM}[2]{\WMnone(#1,#2)}
+\newcommand {\WMprime}[2]{\WMnone^\prime(#1,#2)}
+\newcommand {\WMprimenone}{\WMnone^\prime}
+
+\newcommand {\WBnone}{\mbox{\em WB}}
+\newcommand {\WB}[2]{\WBnone(#1,#2)}
+\newcommand {\WBprime}[2]{\WBnone^\prime(#1,#2)}
+\newcommand {\WBprimenone}{\WBnone^\prime}
+
+\newcommand {\WPnone}{W\!P}
+\newcommand {\WP}[2]{\WPnone(#1,#2)}
+\newcommand {\WPprime}[2]{\WPnone^\prime(#1,#2)}
+\newcommand {\WPprimenone}{\WPnone^\prime}
+\newcommand {\WPs}[2]{\WPnone^s(#1,#2)}
+
+\newcommand{\PKnone}{P\!K}
+\newcommand {\pk}[4]{\PKnone(#1,#2,#3,#4)}
+\newcommand{\PKnones}{\PKnone^s}
+\newcommand {\pki}[3]{\PKnone^{i}(#1,#2,#3)}
+\newcommand {\pks}[4]{\PKnone^s(#1,#2,#3,#4)}
+
+\newcommand{\PXnone}{P_{X}}
+\newcommand {\PX}[4]{\PXnone(#1,#2,#3,#4)}
+\newcommand{\PXnones}{\PXnone^s}
+\newcommand {\PXi}[3]{\PXnone^i(#1,#2,#3)}
+
+\newcommand{\PLnone}{P_{\text{L}}}
+\newcommand {\PL}[4]{\PLnone(#1,#2,#3,#4)}
+\newcommand{\PLnones}{\PLnone^s}
+\newcommand {\PLi}[3]{\PLnone^i(#1,#2,#3)}
+
+\newcommand{\PRnone}{P_{\text{R}}}
+\newcommand {\PR}[4]{\PRnone(#1,#2,#3,#4)}
+\newcommand{\PRnones}{\PRnone^s}
+\newcommand {\PRi}[3]{\PRnone^i(#1,#2,#3)}
+
+\newcommand{\PMnone}{P_{\text{M}}}
+\newcommand {\PM}[4]{\PMnone(#1,#2,#3,#4)}
+\newcommand{\PMnones}{\PMnone^s}
+\newcommand {\PMi}[3]{\PMnone^i(#1,#2,#3)}
+
+\newcommand{\POnone}{P_{\text{O}}}
+\newcommand {\PO}[4]{\POnone(#1,#2,#3,#4)}
+\newcommand{\POnones}{ \POnone^s}
+\newcommand {\POi}[3]{\POnone^i(#1,#2,#3)}
+
+\newcommand{\PfromLnone}{P_{\text{fromL}}}
+\newcommand {\PfromL}[4]{PfromLnone(#1,#2,#3,#4)}
+\newcommand{\PfromLnones}{ PfromLnone^s}
+\newcommand {\PfromLi}[3]{PfromLnone^i(#1,#2,#3)}
+
+\newcommand{\PfromRnone}{P_{\text{fromR}}}
+\newcommand {\PfromR}[4]{P_{\text{fromR}}(#1,#2,#3,#4)}
+\newcommand{\PfromRnones}{ P_{\text{fromR}}^s}
+\newcommand {\PfromRi}[3]{P_{\text{fromR}}^i(#1,#2,#3)}
+
+\newcommand{\PfromMnone}{P_{\text{fromM}}}
+\newcommand {\PfromM}[4]{P_{\text{fromM}}(#1,#2,#3,#4)}
+\newcommand{\PfromMnones}{ P_{\text{fromM}}^s}
+\newcommand {\PfromMi}[3]{P_{\text{fromM}}^i(#1,#2,#3)}
+
+\newcommand{\PfromOnone}{P_{\text{fromO}}}
+\newcommand {\PfromO}[4]{P_{\text{fromO}}(#1,#2,#3,#4)}
+\newcommand{\PfromOnones}{ P_{\text{fromO}}^s}
+\newcommand {\PfromOi}[3]{P_{\text{fromO}}^i(#1,#2,#3)}
+
+\newcommand{\PfromXnone}{P_{\text{from}X}}
+\newcommand {\PfromX}[4]{P_{\text{from}X}(#1,#2,#3,#4)}
+
+\newcommand {\wnone}{W}
+\newcommand {\w}[2]{W(#1,#2)}
+\newcommand {\wm}[2]{\WMnone(#1,#2)}
+
+\newcommand{\VNnone}{V_{\text{N}}}
+\newcommand{\WNnone}{W_{\text{N}}}
+
+%% constraints as 'decoration' of matrix symbols
+\newcommand{\lO}{\text{:$\overline{\text{L}}$*O}}
+\newcommand{\oL}{\text{:$\overline{\text{O}}$*L}}
+\newcommand{\rO}{\text{:$\overline{\text{R}}$*O}}
+\newcommand{\oR}{\text{:$\overline{\text{O}}$*R}}
+\newcommand{\constr}{\text{:$c$}}
+
+
+%%%%% END matrix symbols/macros
+
+
 %% graphical notation of grammar rules with tikz
 \input{tikz-grules.tex}
-
 
 %%% The "real" document content comes below...
 
@@ -384,13 +489,16 @@ such base pairs, but the same conditions apply. Moreover, there must be one
 base pair that spans the gap. (In comparison, the original CCJ algorithm
 required similar conditions only for $i$ and $l$.)
 
-Our considerations give rise to defining four types of gapped
-fragments, where
+Our considerations give rise to distinguishing two (disjoint) types of gapped
+fragments for the left component of $\PKnone$:
 \begin{enumerate}
-\item $(i,i')$ spans the gap, i.e. $i'\in[k,l]$
-\item $(i,i')$ does not span the gap,
-\item $(l',l)$ spans the gap,
-\item $(l',l)$ does not span the gap.
+\item $(i,i')$ spans the gapped region, i.e.\ $i'\in[k,l]$
+\item $(i,i')$ does not span the gapped region, i.e.\ $i'\not\in[k,l]$ 
+\end{enumerate}
+and analogously two types, for the right component:
+\begin{enumerate}
+\item $(l',l)$ spans the gapped region,
+\item $(l',l)$ does not span the gapped region.
 \end{enumerate}
 
 Note that this suffices to (de)compose the different types of P-fragments in
@@ -406,27 +514,26 @@ E.g. the constraint (1) is ensured by not decomposing at the left band before th
 
 When we represent the band-decomposition order as word over $\{L,R,M,O\}$, then this corresponds to restricting the prefixes of this word. Therefore, we annotate matrices / fragment types with the allowed prefixes, using a regular expression like notation.
 
-\textbf{HJ-} I am not yet clear with the ``*'' notation. If it is regular-expression-like, then does it mean in $PK_{l*O}$ we can have more than one iteration to get from a $l$ state to an $O$ state? \YP{Yup, that is my understanding or, more precisely, $PK_{l*O}$ means {\em a (possibly empty) sequence of 'anything but $L$eft' base pairs, ultimately followed by an $O$utside base pair}.}
+\textbf{HJ-} I am not yet clear with the ``*'' notation. If it is regular-expression-like, then does it mean in $\PKnone\lO$ we can have more than one iteration to get from a $l$ state to an $O$ state? \YP{Yup, that is my understanding or, more precisely, $\PKnone\lO$ means {\em a (possibly empty) sequence of 'anything but $L$eft' base pairs, ultimately followed by an $O$utside base pair}.}
 
-To ensure the respective properties of the four different PK-type fragments, we could thus denote them by
-$PK_{l*O}$, $PK_{o*L}$, $PK_{r*O}$, $PK_{o*R}$; where small letters refer to the negated character class of the corresponding capital letter, e.g. $l$ refers to $[RMO]$.
+To ensure the respective properties of the four different PK-type fragments, we thus denote them by
+$\PKnone\lO$, $\PKnone\oL$, $\PKnone\rO$, $\PKnone\oR$; where small letters refer to the negated character class of the corresponding capital letter, e.g. $l$ refers to $[RMO]$.
 % 
-Note that disambiguation requires to impose even stronger constraints, as we discuss later.
-For now, we obtain the following decomposition rule for P-fragments:
+Now, we obtain the following decomposition rule for P-fragments:
 
 \begin{equation}
 \includegraphics{KnottyPF/recursionP}
 \end{equation}
 
-where, generically, fragments $PK_{\star}^1$ and $PK_{\star}^2$ are decomposed into fragments $PK_{\star}$ and $WP$ to account unambiguously for recursive substructure:
+where, generically, fragments $\PKnone{\star}1$ and $\PKnone{\star}2$ are decomposed into fragments $\PKnone{\star}$ and $\WPnone$ to account unambiguously for recursive substructure:
 
 \begin{equation}
 \includegraphics{KnottyPF/recursionPK12}
 \end{equation}
 \YP{Well played, sir, well played! (although probably not completely clear at first sight... Any chance we could introduce new non-terminal names instead of continuously overloading the poor, innocent, $PK$?)}
 
-For decomposing fragments like $PK_{l*O}$, in general $PK_{regex}$ it is now crucial to satisfy the band-decomposition-order constraint.
-Let us start with the decomposition of $PK_{l*O}$. Generally $PK$-fragements are decomposed into $P_X$-type fragments, where we
+For decomposing fragments like $\PKnone\lO$, in general $\PKnone{regex}$ it is now crucial to satisfy the band-decomposition-order constraint.
+Let us start with the decomposition of $\PKnone\lO$. Generally $PK$-fragements are decomposed into $P_X$-type fragments, where we
 need to allow recursive substructure (i.e. $WP$-fragments) between the $P_X$-fragments.
 
 \begin{definition}
@@ -441,19 +548,175 @@ The structures represented by a $P_X$-rule over gapped region $[i..j]\cup [k..l]
 \end{definition}
 
 
-We obtain decompositions of PK-fragments like 
+We obtain the following decompositions of PK-fragments 
+%\begin{equation}
+%\includegraphics{KnottyPF/recursionPKlstarO}
+%\end{equation}
+
 \begin{equation}
-\includegraphics{KnottyPF/recursionPKlstarO}
+\begin{GRule}
+
+  \GRgapfragDeco{$\PKnone\lO$}{}{lO}
+  \GRdecompTo
+  \GRgapfragDeco{$\POnone$}{O}{}
+  \GRor
+  \GRgapfragDeco{$\PRnone\lO$}{R}{lO} 
+  \GRor
+  \GRgapfragDeco{$\PMnone\lO$}{M}{lO} 
+
+  \GRnewrule
+
+  \GRgapfragDeco{$\PKnone\oL$}{}{oL}
+  \GRdecompTo
+  \GRgapfragDeco{$\PLnone$}{L}{}
+  \GRor
+  \GRgapfragDeco{$\PRnone\oL$}{R}{oL} 
+  \GRor
+  \GRgapfragDeco{$\PMnone\oL$}{M}{oL} 
+
+  \GRnewrule
+
+  \GRgapfragDeco{$\PKnone\rO$}{}{rO}
+  \GRdecompTo
+  \GRgapfragDeco{$\POnone$}{O}{rO}
+  \GRor
+  \GRgapfragDeco{$\PLnone\rO$}{L}{rO} 
+  \GRor
+  \GRgapfragDeco{$\PMnone\rO$}{M}{rO} 
+
+  \GRnewrule
+
+  \GRgapfragDeco{$\PKnone\oR$}{}{oR}
+  \GRdecompTo
+  \GRgapfragDeco{$\PRnone$}{R}{oR}
+  \GRor
+  \GRgapfragDeco{$\PLnone\oR$}{L}{oR} 
+  \GRor
+  \GRgapfragDeco{$\PMnone\oR$}{M}{oR} 
+\end{GRule}
 \end{equation}
-Note that the recursion to $P_O$ already satisfies the constraint due to $l*O$.
+
+
+Note that the recursion to $\POnone$ already satisfies the constraint due to the constraint $\lO$.
 
 We need to further decompose the $P_X$ fragments (which are optionally restricted by regular expressions). Generally, we distinguish three cases by the type of the closing base pair at position $X$. 1) it could close an interior loop in the same band, 2) a multi-loop in the same band (with costs for inner base pairs and unpaired based accounted in WB), or 3) it could `close' the band, i.e. it is the innermost base pair of its band for bands at L,R,O---outermost, in the case of M. Note that the decomposition is disjoint. In the
 third case, one changes to decomposing some other band (or terminates the final O-band). Also, in the third case, we allow recursive substructure between bands (WP), which needs to be inserted unambiguously.
 
-Let us quickly handle some details in the unambiguous decomposition of multi-loops within bands (where the recursions operate on gapped fragments):
+Let us first move the unambiguous decomposition of multi-loops within bands out of the way (where the recursions operate on gapped fragments). The recursions split of fragments $\WBnone$ and $\WBnone'$, which respecively describe general multi-loop fragments or such fragments with at least one base pair due to the following rules
+
 \begin{equation}
-\includegraphics{KnottyPF/recursions-L-mloop}
+\includegraphics{KnottyPF/recursions-WB}
 \end{equation}
+
+Now, the complete rules for multi-loop decomposition within bands are:
+
+\begin{align}
+\begin{GRule}
+  \GRgapfragDeco{$\PLnone{_\text{,mloop}}$}{L}{}
+  \GRdecompTo
+  \GRgapfragDeco[itype/.style={fix,shift={(-0.3,0)}},
+                 jtype/.style={fix,shift={(+0.3,0)}}]
+                {$\PLnone{_\text{,mloop00}}$}{fromL}{}
+  % 
+  \GRnewrule
+  %
+  \GRgapfragDeco{$\PLnone{_\text{,mloop10}}$}{L}{}
+  \GRdecompTo
+  \GRgapfragDeco[jtype/.style=free]{}{L}{}
+  \GRseclabel{$\PLnone$}
+  \GRconcatWAfter{j}\GRdecwfrag[ltype/.style=fix]{$\WBnone$}\GRrestorelast
+\end{GRule}\qquad
+&\begin{GRule}
+  \GRgapfragDeco{$\PLnone{_\text{,mloop00}}$}{L}{}
+  \GRdecompTo
+  \GRdecwfrag[itype/.style=fix,label/.style={above=0.2}]{$\WBnone'$}\GRconcat
+  \GRgapfragDeco[itype/.style=free]{$\PLnone{_\text{,mloop10}}$}{fromL}{}
+  \GRor
+  \GRgapfragDeco[jtype/.style=free]{}{fromL}{}
+  \GRseclabel{$\PLnone{_\text{,mloop01}}$}
+  \GRconcatWAfter{j}\GRdecwfrag[ltype/.style=fix]{$\WBnone'$}\GRrestorelast
+  %
+  \GRnewrule
+  %
+  \GRgapfragDeco{$\PLnone{_\text{,mloop01}}$}{L}{}
+  \GRdecompTo
+  \GRdecwfrag[itype/.style=fix,label/.style={above=0.2}]{$\WBnone$}\GRconcat
+  \GRgapfragDeco[itype/.style=free]{$\PLnone$}{L}{}
+\end{GRule}
+\\
+\begin{GRule}
+  \GRgapfragDeco{$\PMnone{_\text{,mloop}}$}{M}{}
+  \GRdecompTo
+  \GRgapfragDeco[ktype/.style={fix,shift={(-0.3,0)}},
+                 jtype/.style={fix,shift={(+0.3,0)}}]
+                {$\PMnone{_\text{,mloop00}}$}{fromM}{}
+  % 
+  \GRnewrule
+  %
+  \GRgapfragDeco{$\PMnone{_\text{,mloop10}}$}{M}{}
+  \GRdecompTo
+  \GRgapfragDeco[jtype/.style=free]{}{M}{}
+  \GRseclabel{$\PMnone$}
+  \GRconcatWAfter{j}\GRdecwfrag[ltype/.style=fix]{$\WBnone$}\GRrestorelast
+\end{GRule}\qquad
+&\begin{GRule}
+  \GRgapfragDeco{$\PMnone{_\text{,mloop00}}$}{M}{}
+  \GRdecompTo
+  \GRdecwfrag[itype/.style=fix,label/.style={above=0.2}]{$\WBnone'$}\GRconcat
+  \GRgapfragDeco[itype/.style=free]{$\PMnone{_\text{,mloop10}}$}{fromM}{}
+  \GRor
+  \GRgapfragDeco[jtype/.style=free]{}{fromM}{}
+  \GRseclabel{$\PMnone{_\text{,mloop01}}$}
+  \GRconcatWAfter{j}\GRdecwfrag[ltype/.style=fix]{$\WBnone'$}\GRrestorelast
+  %
+  \GRnewrule
+  %
+  \GRgapfragDeco{$\PMnone{_\text{,mloop01}}$}{M}{}
+  \GRdecompTo
+  \GRgapfragDeco[ktype/.style=free]{}{M}{}
+  \GRseclabel{$\PMnone$}
+  \GRconcatWBefore{k}\GRdecwfrag[itype/.style=fix]{$\WBnone$}\GRrestorelast
+\end{GRule}
+%
+\end{align}
+\SW{TODO: rules for R,mloop; O,mloop}
+
+
+The corresponding rules with constraints look exactly like the unconstrained rules, but pass through the constraint. For example,
+\begin{align}
+\begin{GRule}
+  \GRgapfragDeco{$\PLnone{_\text{,mloop}}\constr$}{L}{}
+  \GRdecompTo
+  \GRgapfragDeco[itype/.style={fix,shift={(-0.3,0)}},
+                 jtype/.style={fix,shift={(+0.3,0)}}]
+                {$\PLnone{_\text{,mloop00}}\constr$}{fromL}{}
+  % 
+  \GRnewrule
+  %
+  \GRgapfragDeco{$\PLnone{_\text{,mloop10}}\constr$}{L}{}
+  \GRdecompTo
+  \GRgapfragDeco[jtype/.style=free]{}{L}{}
+  \GRseclabel{$\PLnone\constr$}
+  \GRconcatWAfter{j}\GRdecwfrag[ltype/.style=fix]{$\WBnone$}\GRrestorelast
+\end{GRule}\qquad
+&\begin{GRule}
+  \GRgapfragDeco{$\PLnone{_\text{,mloop00}}\constr$}{L}{}
+  \GRdecompTo
+  \GRdecwfrag[itype/.style=fix,label/.style={above=0.2}]{$\WBnone'$}\GRconcat
+  \GRgapfragDeco[itype/.style=free]{$\PLnone{_\text{,mloop10}}\constr$}{fromL}{}
+  \GRor
+  \GRgapfragDeco[jtype/.style=free]{}{fromL}{}
+  \GRseclabel{$\PLnone{_\text{,mloop01}}\constr$}
+  \GRconcatWAfter{j}\GRdecwfrag[ltype/.style=fix]{$\WBnone'$}\GRrestorelast
+  %
+  \GRnewrule
+  %
+  \GRgapfragDeco{$\PLnone{_\text{,mloop01}}\constr$}{L}{}
+  \GRdecompTo
+  \GRdecwfrag[itype/.style=fix,label/.style={above=0.2}]{$\WBnone$}\GRconcat
+  \GRgapfragDeco[itype/.style=free]{$\PLnone\constr$}{L}{}
+\end{GRule}
+\end{align}
 
 
 It remains to ensure that the order in which bands are decomposed is never ambiguous. Note that in the handling of interior loops and multi-loops within a band, we can simply pass through any constraints on the order of band-decompositions.
@@ -472,79 +735,139 @@ These restrictions in the original CCJ algorithm were necessary for proper scori
 %in each structure of a $P_X$-fragment (with the exception of the terminal O-band).
 
 
-Here are examples for the decomposition of $P_X$:
-\begin{equation}
-\includegraphics{KnottyPF/recursionPX}
-\end{equation}
-
-\newpage
-$P_{fromX}$-fragments are required to change the band; note that we need to unambiguously allow recursive substructure \emph{and} unambiguous band change. For the unconstrained $P_O$, the recursion to the unconstrained $P_\text{fromO}$ works like in the original recursions. 
-\begin{equation}
-\includegraphics{KnottyPF/recursionPfromX}
-\end{equation}
-
-%\SW{Replace svg figs with Tikz:}
+Here are the decomposition of $P_X$ without constraints.
+%\begin{equation}
+%\includegraphics{KnottyPF/recursionPX}
+%\end{equation}
 
 \begin{equation}
 \begin{GRule}
-  %LHS
-  \GRgapfragDeco[right arc/.style={dotted arc}]{$P_{\text{fromR,l*O}}$}{lO}
+  \GRgapfragDeco{$\PLnone$}{L}{}
   \GRdecompTo
-  %RHS
-  \GRgapfragDeco[inner arc/.style={solid arc},ktype/.style=free]{}{lO}\GRseclabel{$P_{\text{M,l*O}}$}
-  \GRconcatWBefore{k}\GRwfrag[itype/.style=fix]{$W\!P$}\GRrestorelast
-  \GRor        
-  \GRgapfrag[outer arc/.style={solid arc},ltype/.style=free]{$P_{\text{O}}$} %%
-  \GRconcat\GRwfrag[ltype/.style=fix]{$W\!P$}
-\end{GRule}
-\end{equation}
-
-\begin{equation}
-\begin{GRule}
-  \GRgapfragDeco[outer arc/.style={dotted arc}]{$P_{\text{fromO}}$}{lO}
-  \GRdecompTo
-  \GRwfrag[itype/.style=fix]{$W\!P$}\GRconcat
-  \GRgapfrag[left arc/.style={solid arc},itype/.style=free]{$P_{\text{L}}$}
+  \GRgapfragDeco{$\PLnone{_{\text{,iloop}}}$}{L}{}
   \GRor
-  \GRgapfrag[right arc/.style={solid arc},ltype/.style=free]{$P_{\text{R}}$}
-  \GRconcat\GRwfrag[ltype/.style=fix]{$W\!P$}
-  %
+  \GRgapfragDeco{$\PLnone{_{\text{,mloop}}}$}{L}{}
+  \GRor
+  \GRgapfragDeco[itype/.style={fix,shift={(-0.3,0)}},
+                 jtype/.style={fix,shift={(+0.3,0)}}]{$\PfromLnone$}{fromL}{}
+
   \GRnewrule
-  \GRgapfragDeco[right arc/.style={dotted arc}]{$P_{\text{fromR,l*O}}$}{lO}
+
+  \GRgapfragDeco{$\PMnone$}{M}{}
   \GRdecompTo
-  \GRgapfragDeco[inner arc/.style={solid arc},ktype/.style=free]{}{lO}\GRseclabel{$P_{\text{M,l*O}}$}
-  \GRconcatWBefore{k}\GRwfrag[itype/.style=fix]{$W\!P$}\GRrestorelast
-  \GRor        
-  \GRgapfrag[outer arc/.style={solid arc},ltype/.style=free]{$P_{\text{O}}$}
-  \GRconcat\GRwfrag[ltype/.style=fix]{$W\!P$}
-  %
+  \GRgapfragDeco{$\PMnone{_{\text{,iloop}}}$}{M}{}
+  \GRor
+  \GRgapfragDeco{$\PMnone{_{\text{,mloop}}}$}{M}{}
+  \GRor
+  \GRgapfragDeco[ktype/.style={fix,shift={(-0.3,0)}},
+                 jtype/.style={fix,shift={(+0.3,0)}}]{$\PfromMnone$}{fromM}{}
+
   \GRnewrule
-  \GRgapfragDeco[inner arc/.style={dotted arc}]{$P_{\text{fromM}}$}{lO}     
+
+  \GRgapfragDeco{$\PRnone$}{R}{}
   \GRdecompTo
-  \GRgapfragDeco[right arc/.style={solid arc},ktype/.style=free]{}{lO}\GRseclabel{$P_{\text{R,l*O}}$}
-  \GRconcatWBefore{k}\GRwfrag[itype/.style=fix]{$W\!P$}\GRrestorelast
+  \GRgapfragDeco{$\PRnone{_{\text{,iloop}}}$}{R}{}
+  \GRor
+  \GRgapfragDeco{$\PRnone{_{\text{,mloop}}}$}{R}{}
+  \GRor
+  \GRgapfragDeco[ktype/.style={fix,shift={(-0.3,0)}},
+                 ltype/.style={fix,shift={(+0.3,0)}}]{$\PfromRnone$}{fromR}{}
+
+  \GRnewrule
+
+  \GRgapfragDeco{$\POnone$}{O}{}
+  \GRdecompTo
+  \GRgapfragDeco{$\POnone{_{\text{,iloop}}}$}{O}{}
+  \GRor
+  \GRgapfragDeco{$\POnone{_{\text{,mloop}}}$}{O}{}
+  \GRor
+  \GRgapfragDeco[itype/.style={fix,shift={(-0.3,0)}},
+                 ltype/.style={fix,shift={(+0.3,0)}}]{$\PfromOnone$}{fromO}{}
+  \GRor
+  \GRsingleOfrag
+  
 \end{GRule}
 \end{equation}
 
+The corresponding rules with constraints lO,oL,rO, and oR work exactly in the same way, where the constraint $c$ is simply carried over; note that in some cases, the constraint can be dropped, since it is already satisfied by the fragment; e.g.\ $\POnone$ already satisfies constraint lO, such that we do not distinguish $\POnone\lO$ from $\POnone$. We show the rule for $\PLnone$ with constraints: 
+
+\begin{equation}
+\begin{GRule}
+  \GRgapfragDeco{$\PLnone\constr$}{L}{}
+  \GRdecompTo
+  \GRgapfragDeco{$\PLnone{_{\text{,iloop}}}\constr$}{L}{}
+  \GRor
+  \GRgapfragDeco{$\PLnone{_{\text{,mloop}}}\constr$}{L}{}
+  \GRor
+  \GRgapfragDeco{$\PfromLnone\constr$}{L}{}
+\end{GRule}
+\end{equation}
+
+
+
+$P_{fromX}$-fragments are required to change the band; note that we need to unambiguously allow recursive substructure \emph{and} unambiguous band change. For the unconstrained $P_O$, the recursion to the unconstrained $P_\text{fromO}$ works like in the original recursions. 
+
+%\begin{equation}
+%\includegraphics{KnottyPF/recursionPfromX}
+%\end{equation}
+
+\begin{equation}
+\begin{GRule}
+  \GRgapfragDeco{$\PfromOnone$}{fromO}{lO}
+  \GRdecompTo
+  \GRdecwfrag[itype/.style=fix]{$\WPnone$}\GRconcat
+  \GRgapfragDeco{$\PLnone$}{L}{}
+  \GRor
+  \GRgapfragDeco[ltype/.style=free]{$\PRnone$}{R}{}
+  \GRconcat\GRdecwfrag[ltype/.style=fix]{$\WPnone$}
+  %
+  \GRnewrule
+  \GRgapfragDeco{$\PfromRnone\lO$}{fromR}{lO}
+  \GRdecompTo
+  \GRgapfragDeco[ktype/.style=free]{}{M}{lO}\GRseclabel{$\PMnone\lO$}
+  \GRconcatWBefore{k}\GRdecwfrag[itype/.style=fix]{$\WPnone$}\GRrestorelast
+  \GRor        
+  \GRgapfragDeco[ltype/.style=free]{$P_{\text{O}}$}{O}{}
+  \GRconcat\GRdecwfrag[ltype/.style=fix]{$\WPnone$}
+  %
+  \GRnewrule
+  \GRgapfragDeco{$\PfromMnone$}{fromM}{lO}     
+  \GRdecompTo
+  \GRgapfragDeco[ktype/.style=free]{}{R}{lO}\GRseclabel{$\PRnone\lO$}
+  \GRconcatWBefore{k}\GRdecwfrag[itype/.style=fix]{$\WPnone$}\GRrestorelast
+\end{GRule}
+\end{equation}
 
 Note that we unambiguously add recursive substructure by adding the substructure (WP-fragments) always between the bands of each transition (note that in each possible transition, but L to R, there is such a unique position between the two bands; for L to R transitions, we do not include substructure).
 
 The set of allowed transitions can be sketched as transition diagram.
 Note the asymmetry in the allowed transitions.
 
-\begin{tikzpicture}[scale=1.7,very thick]
-\node (O) at (0,0) {O};
-\node (L) at (1,0) {L};
-\node (M) at (2,0) {M};
-\node (R) at (3,0) {R};
-\node (RlO) at (0,1) {R,{l*O}};
-\node (MlO) at (0,2) {M,{l*O}};
-\node (RoL) at (1,2) {R,{o*L}};
-\node (MoL) at (1,1) {M,{o*L}};
-\node (LrO) at (2,1) {L,{r*O}};
-\node (MrO) at (2,2) {M,{r*O}};
-\node (LoR) at (3,2) {L,{o*R}};
-\node (MoR) at (3,1) {M,{o*R}};
+\begin{center}
+\begin{tikzpicture}[thick]
+\newcommand{\pkpre}{2}
+\newcommand{\classdist}{3.5}
+
+%mark O as terminal state
+\node (O) at (0,0) [shape=circle,draw] {O};
+\draw (O) circle [thick,radius=0.28];
+
+\path (O)
+      ++ (\classdist,0) node (M) {M}
+      ++ (\classdist,0) node (L) {L}
+      ++ (\classdist,0) node (R) {R};
+
+\path (O) ++ (0,1) node (RlO) {R\lO}
+      ++(0,1) node (MlO) {M\lO};
+
+\path (M) ++ (0,1) node (LrO) {L\rO}
+      ++ (0,1) node (MrO) {M\rO};
+
+\path (L) ++ (0,1) node (MoL) {M\oL}
+      ++ (0,1) node (RoL) {R\oL};
+
+\path (R) ++ (0,1) node (MoR) {M\oR}
+          ++ (0,1) node (LoR) {L\oR};
 \draw
   (MlO) edge [<->] (RlO)
   (RlO) edge [->] (O)
@@ -554,19 +877,45 @@ Note the asymmetry in the allowed transitions.
   (MrO) edge [<->] (LrO)
   (LrO) edge [->] (O)
   (LoR) edge [<->] (MoR)
-  (LoR) edge [->,bend left] (R)
+  (LoR) edge [->,out=0,in=0] (R)
   (MoR) edge [->] (R)
 %
   (R) edge [<->,bend left] (O)
-  (R) edge [<->] (M)
-  (L) edge [->,bend left] (R)
+  (R) edge [<->,bend left] (M)
+  (L) edge [->] (R)
   (L) edge [<->] (M)
-  (L) edge [<->] (O);
-\end{tikzpicture}
+  (L) edge [<->,bend left] (O);
 
-\SW{
-\textbf{Not elaborated yet:} How to handle the $PK_{o*L}$, $PK_{r*O}$, and $PK_{o*R}$ fragments?
-}
+%PK init states
+\path[red] (O) ++(-\pkpre,1) node (PKlO) {\PKnone\lO}
+          ++(-0.3,1) node (start) {} 
+      (start) edge [->] (PKlO) 
+      (PKlO) edge [->] (O)
+             edge [->] (RlO)
+             edge [->] (MlO);
+
+\path[red] (L) ++(-\pkpre,1) node (PKoL) {\PKnone\oL}
+          ++(-0.3,1) node (start) {} 
+      (start) edge [->] (PKoL) 
+      (PKoL) edge [->] (L)
+             edge [->] (RoL)
+             edge [->] (MoL);
+
+\path[red] (M) ++(-\pkpre,1) node (PKrO) {\PKnone\rO}
+          ++(-0.3,1) node (start) {} 
+      (start) edge [->] (PKrO) 
+      (PKrO) edge [->] (O)
+             edge [->] (LrO)
+             edge [->] (MrO);
+
+\path[red] (R) ++(-\pkpre,1) node (PKoR) {\PKnone\oR}
+          ++(-0.3,1) node (start) {} 
+      (start) edge [->] (PKoR) 
+      (PKoR) edge [->] (R)
+             edge [->] (LoR)
+             edge [->] (MoR);
+\end{tikzpicture}
+\end{center}
 
 \SW{Idea: We should formally define \emph{band decomposition order (bdo)} (as a word over $\{L,R,M,O\}$ for decompositions of a structure
 represented by $P$. Proving the uniqueness of bdo (given our restrictions) would be an essential step to showing the uniqueness of the recursions. For showing completeness, it is important to precisely define all the fragments (in terms of the represented structures).}
