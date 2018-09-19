@@ -152,54 +152,43 @@
 
 \newcommand{\PKnone}{P\!K}
 \newcommand {\pk}[4]{\PKnone(#1,#2,#3,#4)}
-\newcommand{\PKnones}{\PKnone^s}
-\newcommand {\pki}[3]{\PKnone^{i}(#1,#2,#3)}
-\newcommand {\pks}[4]{\PKnone^s(#1,#2,#3,#4)}
 
 \newcommand{\PXnone}{P_{X}}
 \newcommand {\PX}[4]{\PXnone(#1,#2,#3,#4)}
-\newcommand{\PXnones}{\PXnone^s}
-\newcommand {\PXi}[3]{\PXnone^i(#1,#2,#3)}
 
 \newcommand{\PLnone}{P_{\text{L}}}
 \newcommand {\PL}[4]{\PLnone(#1,#2,#3,#4)}
-\newcommand{\PLnones}{\PLnone^s}
-\newcommand {\PLi}[3]{\PLnone^i(#1,#2,#3)}
 
 \newcommand{\PRnone}{P_{\text{R}}}
 \newcommand {\PR}[4]{\PRnone(#1,#2,#3,#4)}
-\newcommand{\PRnones}{\PRnone^s}
-\newcommand {\PRi}[3]{\PRnone^i(#1,#2,#3)}
 
 \newcommand{\PMnone}{P_{\text{M}}}
 \newcommand {\PM}[4]{\PMnone(#1,#2,#3,#4)}
-\newcommand{\PMnones}{\PMnone^s}
-\newcommand {\PMi}[3]{\PMnone^i(#1,#2,#3)}
 
 \newcommand{\POnone}{P_{\text{O}}}
 \newcommand {\PO}[4]{\POnone(#1,#2,#3,#4)}
-\newcommand{\POnones}{ \POnone^s}
-\newcommand {\POi}[3]{\POnone^i(#1,#2,#3)}
+
+\newcommand{\POSnone}{P_{\text{Os}}}
+\newcommand {\POS}[4]{\POSnone(#1,#2,#3,#4)}
+
+\newcommand{\PONSnone}{P_{\text{Ons}}}
+\newcommand {\PONS}[4]{\PONSnone(#1,#2,#3,#4)}
+
 
 \newcommand{\PfromLnone}{P_{\text{fromL}}}
 \newcommand {\PfromL}[4]{PfromLnone(#1,#2,#3,#4)}
-\newcommand{\PfromLnones}{ PfromLnone^s}
-\newcommand {\PfromLi}[3]{PfromLnone^i(#1,#2,#3)}
 
 \newcommand{\PfromRnone}{P_{\text{fromR}}}
 \newcommand {\PfromR}[4]{P_{\text{fromR}}(#1,#2,#3,#4)}
-\newcommand{\PfromRnones}{ P_{\text{fromR}}^s}
-\newcommand {\PfromRi}[3]{P_{\text{fromR}}^i(#1,#2,#3)}
 
 \newcommand{\PfromMnone}{P_{\text{fromM}}}
 \newcommand {\PfromM}[4]{P_{\text{fromM}}(#1,#2,#3,#4)}
-\newcommand{\PfromMnones}{ P_{\text{fromM}}^s}
-\newcommand {\PfromMi}[3]{P_{\text{fromM}}^i(#1,#2,#3)}
 
 \newcommand{\PfromOnone}{P_{\text{fromO}}}
 \newcommand {\PfromO}[4]{P_{\text{fromO}}(#1,#2,#3,#4)}
-\newcommand{\PfromOnones}{ P_{\text{fromO}}^s}
-\newcommand {\PfromOi}[3]{P_{\text{fromO}}^i(#1,#2,#3)}
+
+\newcommand{\PfromONSnone}{P_{\text{fromOns}}}
+\newcommand {\PfromONS}[4]{P_{\text{fromOns}}(#1,#2,#3,#4)}
 
 \newcommand{\PfromXnone}{P_{\text{from}X}}
 \newcommand {\PfromX}[4]{P_{\text{from}X}(#1,#2,#3,#4)}
@@ -553,16 +542,18 @@ We obtain the following decompositions of PK-fragments
 %\includegraphics{KnottyPF/recursionPKlstarO}
 %\end{equation}
 
+\SW{Apparently, we should forbid decompositions of PK fragments that start in $M$, since otherwise it could be flipped to an $L$ band or $R$ band of the other PK-fragment in the P decomposition and make it ambiguous. It remains to describe this well; I already simplified the PK rules. Even worse: the same could happen for single O-band PK-fragments, we need to introduce special treatment!}
+
 \begin{equation}
 \begin{GRule}
 
   \GRgapfragDeco{$\PKnone\lO$}{}{lO}
   \GRdecompTo
-  \GRgapfragDeco{$\POnone$}{O}{}
+  \GRgapfragDeco{$\PONSnone$}{O}{}
   \GRor
   \GRgapfragDeco{$\PRnone\lO$}{R}{lO} 
-  \GRor
-  \GRgapfragDeco{$\PMnone\lO$}{M}{lO} 
+  %\GRor
+  %\GRgapfragDeco{$\PMnone\lO$}{M}{lO}
 
   \GRnewrule
 
@@ -571,18 +562,18 @@ We obtain the following decompositions of PK-fragments
   \GRgapfragDeco{$\PLnone$}{L}{}
   \GRor
   \GRgapfragDeco{$\PRnone\oL$}{R}{oL} 
-  \GRor
-  \GRgapfragDeco{$\PMnone\oL$}{M}{oL} 
+  %\GRor
+  %\GRgapfragDeco{$\PMnone\oL$}{M}{oL} 
 
   \GRnewrule
 
   \GRgapfragDeco{$\PKnone\rO$}{}{rO}
   \GRdecompTo
-  \GRgapfragDeco{$\POnone$}{O}{rO}
+  \GRgapfragDeco{$\PONSnone$}{O}{rO}
   \GRor
   \GRgapfragDeco{$\PLnone\rO$}{L}{rO} 
-  \GRor
-  \GRgapfragDeco{$\PMnone\rO$}{M}{rO} 
+  %\GRor
+  %\GRgapfragDeco{$\PMnone\rO$}{M}{rO} 
 
   \GRnewrule
 
@@ -591,13 +582,13 @@ We obtain the following decompositions of PK-fragments
   \GRgapfragDeco{$\PRnone$}{R}{oR}
   \GRor
   \GRgapfragDeco{$\PLnone\oR$}{L}{oR} 
-  \GRor
-  \GRgapfragDeco{$\PMnone\oR$}{M}{oR} 
+  %\GRor
+  %\GRgapfragDeco{$\PMnone\oR$}{M}{oR} 
 \end{GRule}
 \end{equation}
 
 
-Note that the recursion to $\POnone$ already satisfies the constraint due to the constraint $\lO$.
+Note that $\PONSnone$ is the matrix for decomposition at the $O$ band, where structures do not consist of a single O-band. Moreover, recursion to this matrix already satisfies the constraint due to the constraint $\lO$.
 
 We need to further decompose the $P_X$ fragments (which are optionally restricted by regular expressions). Generally, we distinguish three cases by the type of the closing base pair at position $X$. 1) it could close an interior loop in the same band, 2) a multi-loop in the same band (with costs for inner base pairs and unpaired based accounted in WB), or 3) it could `close' the band, i.e. it is the innermost base pair of its band for bands at L,R,O---outermost, in the case of M. Note that the decomposition is disjoint. In the
 third case, one changes to decomposing some other band (or terminates the final O-band). Also, in the third case, we allow recursive substructure between bands (WP), which needs to be inserted unambiguously.
@@ -725,17 +716,21 @@ It remains to ensure that the order in which bands are decomposed is never ambig
 The original CCJ algorithm already contains restrictions on the band-decomposition order, which are encoded in the rules for decomposition of $P\text{fromX}$-fragments ($X$ in $\{\text{L,R,M,O}\}$). These restrictions are
 \begin{itemize}
 \item (decomposition at) $R$ cannot be immediately followed by $L$
-\item $M$ cannot be immediately followed by $O$
+\item $M$ cannot be immediately followed by $O$ 
 \item $O$ cannot be immediately followed by $M$
 \end{itemize} 
-The latter two restrictions ensure that the position changes correspond to true changes of the band (in both cases one would just extend the same band). The first restriction is indeed a disambiguation, since immediately successive decompositions at $L$ and $R$ could be exchanged, but it is again required to ensure that position changes introduce band changes, since going back and forth between $L$ and $R$ like $LRL$ would just extend the $L$ band. 
+\SW{It seems that disallowing any change between M and O is too strong!!! We allow only O to M changes}
 
-These restrictions in the original CCJ algorithm were necessary for proper scoring, but at the same time ensure unambiguous decomposition. 
-%To see this, we go back to the properties of $P_X$-fragments:
-%in each structure of a $P_X$-fragment (with the exception of the terminal O-band).
+The first restriction is indeed a disambiguation, since immediately successive decompositions at $L$ and $R$ could be exchanged, but it is again required to ensure that position changes introduce band changes, since going back and forth between $L$ and $R$ like $LRL$ would just extend the $L$ band. 
 
 
 Here are the decomposition of $P_X$ without constraints.
+
+\SW{For resolving ambiguity, we need to forbid single O-band which is not crossing anything in $\POnone$. Let us introduce an extra matrix $\POSnone$ where single O-band is enforced.
+We express this in our rules as follows: there is an extra ruleset for $OS$ without the 'from'-case; the regular $O$ rules do not allow single $O$, but require a change of bands;
+and ther from matrices that change to $O$ can either change to $O$ or single $O$.
+} 
+
 %\begin{equation}
 %\includegraphics{KnottyPF/recursionPX}
 %\end{equation}
@@ -775,17 +770,31 @@ Here are the decomposition of $P_X$ without constraints.
 
   \GRnewrule
 
-  \GRgapfragDeco{$\POnone$}{O}{}
+  \GRgapfragDeco{$\POSnone$}{O}{}
   \GRdecompTo
-  \GRgapfragDeco{$\POnone{_{\text{,iloop}}}$}{O}{}
+  \GRgapfragDeco{$\POSnone{_{\text{,iloop}}}$}{O}{}
   \GRor
-  \GRgapfragDeco{$\POnone{_{\text{,mloop}}}$}{O}{}
-  \GRor
-  \GRgapfragDeco[itype/.style={fix,shift={(-0.3,0)}},
-                 ltype/.style={fix,shift={(+0.3,0)}}]{$\PfromOnone$}{fromO}{}
+  \GRgapfragDeco{$\POSnone{_{\text{,mloop}}}$}{O}{}
   \GRor
   \GRsingleOfrag
   
+  \GRnewrule
+
+  \GRgapfragDeco{$\PONSnone$}{O}{}
+  \GRdecompTo
+  \GRgapfragDeco{$\PONSnone{_{\text{,iloop}}}$}{O}{}
+  \GRor
+  \GRgapfragDeco{$\PONSnone{_{\text{,mloop}}}$}{O}{}
+  \GRor
+  \GRgapfragDeco[itype/.style={fix,shift={(-0.3,0)}},
+                 ltype/.style={fix,shift={(+0.3,0)}}]{$\PfromONSnone$}{fromO}{}
+
+  \GRnewrule
+  \GRgapfragDeco{$\POnone$}{O}{}
+  \GRdecompTo
+  \GRgapfragDeco{$\POSnone$}{O}{}
+  \GRor
+  \GRgapfragDeco{$\PONSnone$}{O}{}
 \end{GRule}
 \end{equation}
 
@@ -813,13 +822,15 @@ $P_{fromX}$-fragments are required to change the band; note that we need to unam
 
 \begin{equation}
 \begin{GRule}
-  \GRgapfragDeco{$\PfromOnone$}{fromO}{lO}
+  \GRgapfragDeco{$\PfromOnone$}{fromO}{}
   \GRdecompTo
   \GRdecwfrag[itype/.style=fix]{$\WPnone$}\GRconcat
   \GRgapfragDeco{$\PLnone$}{L}{}
   \GRor
   \GRgapfragDeco[ltype/.style=free]{$\PRnone$}{R}{}
   \GRconcat\GRdecwfrag[ltype/.style=fix]{$\WPnone$}
+  \GRor
+  \GRgapfragDeco{$\PMnone$}{M}{}
   %
   \GRnewrule
   \GRgapfragDeco{$\PfromRnone\lO$}{fromR}{lO}
@@ -827,11 +838,14 @@ $P_{fromX}$-fragments are required to change the band; note that we need to unam
   \GRgapfragDeco[ktype/.style=free]{}{M}{lO}\GRseclabel{$\PMnone\lO$}
   \GRconcatWBefore{k}\GRdecwfrag[itype/.style=fix]{$\WPnone$}\GRrestorelast
   \GRor        
-  \GRgapfragDeco[ltype/.style=free]{$P_{\text{O}}$}{O}{}
+  \GRgapfragDeco[ltype/.style=free]{$\POnone$}{O}{}
+  \GRconcat\GRdecwfrag[ltype/.style=fix]{$\WPnone$}
+  \GRor        
+  \GRgapfragDeco[ltype/.style=free]{$\POSnone$}{O}{}
   \GRconcat\GRdecwfrag[ltype/.style=fix]{$\WPnone$}
   %
   \GRnewrule
-  \GRgapfragDeco{$\PfromMnone$}{fromM}{lO}     
+  \GRgapfragDeco{$\PfromMnone\lO$}{fromM}{lO}     
   \GRdecompTo
   \GRgapfragDeco[ktype/.style=free]{}{R}{lO}\GRseclabel{$\PRnone\lO$}
   \GRconcatWBefore{k}\GRdecwfrag[itype/.style=fix]{$\WPnone$}\GRrestorelast
@@ -849,13 +863,15 @@ Note the asymmetry in the allowed transitions.
 \newcommand{\classdist}{3.5}
 
 %mark O as terminal state
-\node (O) at (0,0) [shape=circle,draw] {O};
+\node (O) at (0,0) [circle,draw] {O};
 \draw (O) circle [thick,radius=0.28];
 
 \path (O)
+      +  (0,-1) node (Ons) {Ons}
       ++ (\classdist,0) node (M) {M}
       ++ (\classdist,0) node (L) {L}
       ++ (\classdist,0) node (R) {R};
+
 
 \path (O) ++ (0,1) node (RlO) {R\lO}
       ++(0,1) node (MlO) {M\lO};
@@ -877,20 +893,22 @@ Note the asymmetry in the allowed transitions.
   (MrO) edge [<->] (LrO)
   (LrO) edge [->] (O)
   (LoR) edge [<->] (MoR)
-  (LoR) edge [->,out=0,in=0] (R)
+  (LoR) edge [->,out=330,in=40] (R)
   (MoR) edge [->] (R)
 %
-  (R) edge [<->,bend left] (O)
-  (R) edge [<->,bend left] (M)
+  (R) edge [<->,out=210,in=330] (O)
+  (R) edge [<->,out=200,in=340] (M)
   (L) edge [->] (R)
   (L) edge [<->] (M)
-  (L) edge [<->,bend left] (O);
+  (L) edge [<->,out=200,in=340] (O)
+  (O) edge [->] (M)
+  (Ons) edge [->] (M) edge [->] (R) edge [->] (L);
 
 %PK init states
 \path[red] (O) ++(-\pkpre,1) node (PKlO) {\PKnone\lO}
           ++(-0.3,1) node (start) {} 
       (start) edge [->] (PKlO) 
-      (PKlO) edge [->] (O)
+      (PKlO) edge [->] (Ons)
              edge [->] (RlO)
              edge [->] (MlO);
 
@@ -904,7 +922,7 @@ Note the asymmetry in the allowed transitions.
 \path[red] (M) ++(-\pkpre,1) node (PKrO) {\PKnone\rO}
           ++(-0.3,1) node (start) {} 
       (start) edge [->] (PKrO) 
-      (PKrO) edge [->] (O)
+      (PKrO) edge [->] (Ons)
              edge [->] (LrO)
              edge [->] (MrO);
 
