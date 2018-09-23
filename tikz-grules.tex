@@ -194,7 +194,7 @@
 
 % secondary label
 \newcommand{\GRseclabel}[1]{%
-  \path (l) + (-0.4,0.6) node [text ragged,anchor=west,align=left] (label) {#1};%
+  \path (l) + (-0.3,0.6) node [text ragged,anchor=west,align=left] (label) {#1};%
   \path (label.east) ++ (-0.2,-0.6) node (last) [] {};%
 }
 
@@ -208,6 +208,26 @@
   \path (last) ++(0.6,0) node (last) {};
 }
 
+%% Decompositions into W-like fragment and gapped fragment
+% decomposition, split at i
+\newcommand{\GRgapfragWDecompI}[5][]{%
+  \GRdecwfrag[itype/.style=fix,label/.style={above=0.15},#1]{#5}\GRconcat
+  \GRgapfragDeco[itype/.style=free,#1]{#2}{#3}{#4}
+}
+\newcommand{\GRgapfragWDecompJ}[5][]{%
+  \GRgapfragDeco[jtype/.style=free,#1]{}{#3}{#4}
+  \GRseclabel{#2}
+  \GRconcatWAfter{j}\GRdecwfrag[ltype/.style=fix,#1]{#5}\GRrestorelast
+}
+\newcommand{\GRgapfragWDecompK}[5][]{%
+  \GRgapfragDeco[ktype/.style=free,#1]{}{#3}{#4}
+  \GRseclabel{#2}
+  \GRconcatWBefore{k}\GRdecwfrag[itype/.style=fix,#1]{#5}\GRrestorelast
+}
+\newcommand{\GRgapfragWDecompL}[5][]{%
+  \GRgapfragDeco[ltype/.style=free,#1]{#2}{#3}{#4}
+  \GRconcat\GRdecwfrag[ltype/.style=fix,label/.style={above=0.15},#1]{#5}
+}
 
 \newenvironment{GRule}{%
   \begin{tikzpicture}[fix/.style={fill,circle,scale=0.4,red!50!black!90},

@@ -613,26 +613,21 @@ Now, the complete rules for multi-loop decomposition within bands are:
   %
   \GRgapfragDeco{$\PLnone{_\text{,mloop10}}$}{L}{}
   \GRdecompTo
-  \GRgapfragDeco[jtype/.style=free]{}{L}{}
-  \GRseclabel{$\PLnone$}
-  \GRconcatWAfter{j}\GRdecwfrag[ltype/.style=fix]{$\WBnone$}\GRrestorelast
+  \GRgapfragWDecompJ{$\PLnone$}{L}{}{$\WBnone$}
 \end{GRule}\qquad
-&\begin{GRule}
+&
+\begin{GRule}
   \GRgapfragDeco{$\PLnone{_\text{,mloop00}}$}{L}{}
   \GRdecompTo
-  \GRdecwfrag[itype/.style=fix,label/.style={above=0.2}]{$\WBnone'$}\GRconcat
-  \GRgapfragDeco[itype/.style=free]{$\PLnone{_\text{,mloop10}}$}{fromL}{}
+  \GRgapfragWDecompI{$\PLnone{_\text{,mloop10}}$}{fromL}{}{$\WBnone'$}
   \GRor
-  \GRgapfragDeco[jtype/.style=free]{}{fromL}{}
-  \GRseclabel{$\PLnone{_\text{,mloop01}}$}
-  \GRconcatWAfter{j}\GRdecwfrag[ltype/.style=fix]{$\WBnone'$}\GRrestorelast
+  \GRgapfragWDecompJ{$\PLnone{_\text{,mloop01}}$}{fromL}{}{$\WBnone'$}
   %
   \GRnewrule
   %
   \GRgapfragDeco{$\PLnone{_\text{,mloop01}}$}{L}{}
   \GRdecompTo
-  \GRdecwfrag[itype/.style=fix,label/.style={above=0.2}]{$\WBnone$}\GRconcat
-  \GRgapfragDeco[itype/.style=free]{$\PLnone$}{L}{}
+  \GRgapfragWDecompI{$\PLnone$}{L}{}{$\WBnone$}
 \end{GRule}
 \\
 \begin{GRule}
@@ -646,69 +641,26 @@ Now, the complete rules for multi-loop decomposition within bands are:
   %
   \GRgapfragDeco{$\PMnone{_\text{,mloop10}}$}{M}{}
   \GRdecompTo
-  \GRgapfragDeco[jtype/.style=free]{}{M}{}
-  \GRseclabel{$\PMnone$}
-  \GRconcatWAfter{j}\GRdecwfrag[ltype/.style=fix]{$\WBnone$}\GRrestorelast
+  \GRgapfragWDecompJ{$\PMnone$}{M}{}{$\WBnone$}
 \end{GRule}\qquad
-&\begin{GRule}
+&
+\begin{GRule}
   \GRgapfragDeco{$\PMnone{_\text{,mloop00}}$}{M}{}
   \GRdecompTo
-  \GRdecwfrag[itype/.style=fix,label/.style={above=0.2}]{$\WBnone'$}\GRconcat
-  \GRgapfragDeco[itype/.style=free]{$\PMnone{_\text{,mloop10}}$}{fromM}{}
+  \GRgapfragWDecompI{$\PMnone{_\text{,mloop10}}$}{fromM}{}{$\WBnone'$}
   \GRor
-  \GRgapfragDeco[jtype/.style=free]{}{fromM}{}
-  \GRseclabel{$\PMnone{_\text{,mloop01}}$}
-  \GRconcatWAfter{j}\GRdecwfrag[ltype/.style=fix]{$\WBnone'$}\GRrestorelast
+  \GRgapfragWDecompJ{$\PMnone{_\text{,mloop01}}$}{fromM}{}{$\WBnone'$}
   %
   \GRnewrule
   %
   \GRgapfragDeco{$\PMnone{_\text{,mloop01}}$}{M}{}
   \GRdecompTo
-  \GRgapfragDeco[ktype/.style=free]{}{M}{}
-  \GRseclabel{$\PMnone$}
-  \GRconcatWBefore{k}\GRdecwfrag[itype/.style=fix]{$\WBnone$}\GRrestorelast
+  \GRgapfragWDecompK{$\PMnone$}{M}{}{$\WBnone$}
 \end{GRule}
-%
 \end{align}
 \SW{TODO: rules for R,mloop; O,mloop}
 
-
-The corresponding rules with constraints look exactly like the unconstrained rules, but pass through the constraint. For example,
-\begin{align}
-\begin{GRule}
-  \GRgapfragDeco{$\PLnone{_\text{,mloop}}\constr$}{L}{}
-  \GRdecompTo
-  \GRgapfragDeco[itype/.style={fix,shift={(-0.3,0)}},
-                 jtype/.style={fix,shift={(+0.3,0)}}]
-                {$\PLnone{_\text{,mloop00}}\constr$}{fromL}{}
-  % 
-  \GRnewrule
-  %
-  \GRgapfragDeco{$\PLnone{_\text{,mloop10}}\constr$}{L}{}
-  \GRdecompTo
-  \GRgapfragDeco[jtype/.style=free]{}{L}{}
-  \GRseclabel{$\PLnone\constr$}
-  \GRconcatWAfter{j}\GRdecwfrag[ltype/.style=fix]{$\WBnone$}\GRrestorelast
-\end{GRule}\qquad
-&\begin{GRule}
-  \GRgapfragDeco{$\PLnone{_\text{,mloop00}}\constr$}{L}{}
-  \GRdecompTo
-  \GRdecwfrag[itype/.style=fix,label/.style={above=0.2}]{$\WBnone'$}\GRconcat
-  \GRgapfragDeco[itype/.style=free]{$\PLnone{_\text{,mloop10}}\constr$}{fromL}{}
-  \GRor
-  \GRgapfragDeco[jtype/.style=free]{}{fromL}{}
-  \GRseclabel{$\PLnone{_\text{,mloop01}}\constr$}
-  \GRconcatWAfter{j}\GRdecwfrag[ltype/.style=fix]{$\WBnone'$}\GRrestorelast
-  %
-  \GRnewrule
-  %
-  \GRgapfragDeco{$\PLnone{_\text{,mloop01}}\constr$}{L}{}
-  \GRdecompTo
-  \GRdecwfrag[itype/.style=fix,label/.style={above=0.2}]{$\WBnone$}\GRconcat
-  \GRgapfragDeco[itype/.style=free]{$\PLnone\constr$}{L}{}
-\end{GRule}
-\end{align}
-
+The corresponding rules with constraints look exactly like the unconstrained rules, but pass through the constraint.
 
 It remains to ensure that the order in which bands are decomposed is never ambiguous. Note that in the handling of interior loops and multi-loops within a band, we can simply pass through any constraints on the order of band-decompositions.
 
@@ -824,31 +776,25 @@ $P_{fromX}$-fragments are required to change the band; note that we need to unam
 \begin{GRule}
   \GRgapfragDeco{$\PfromOnone$}{fromO}{}
   \GRdecompTo
-  \GRdecwfrag[itype/.style=fix]{$\WPnone$}\GRconcat
-  \GRgapfragDeco{$\PLnone$}{L}{}
+  \GRgapfragWDecompI{$\PLnone$}{L}{}{$\WPnone$}
   \GRor
-  \GRgapfragDeco[ltype/.style=free]{$\PRnone$}{R}{}
-  \GRconcat\GRdecwfrag[ltype/.style=fix]{$\WPnone$}
+  \GRgapfragWDecompL{$\PRnone$}{R}{}{$\WPnone$}
   \GRor
   \GRgapfragDeco{$\PMnone$}{M}{}
   %
   \GRnewrule
   \GRgapfragDeco{$\PfromRnone\lO$}{fromR}{lO}
   \GRdecompTo
-  \GRgapfragDeco[ktype/.style=free]{}{M}{lO}\GRseclabel{$\PMnone\lO$}
-  \GRconcatWBefore{k}\GRdecwfrag[itype/.style=fix]{$\WPnone$}\GRrestorelast
+  \GRgapfragWDecompK{$\PMnone\lO$}{M}{lO}{$\WPnone$}
   \GRor        
-  \GRgapfragDeco[ltype/.style=free]{$\POnone$}{O}{}
-  \GRconcat\GRdecwfrag[ltype/.style=fix]{$\WPnone$}
+  \GRgapfragWDecompL{$\POnone$}{O}{}{$\WPnone$}
   \GRor        
-  \GRgapfragDeco[ltype/.style=free]{$\POSnone$}{O}{}
-  \GRconcat\GRdecwfrag[ltype/.style=fix]{$\WPnone$}
+  \GRgapfragWDecompL{$\POSnone$}{O}{}{$\WPnone$}
   %
   \GRnewrule
   \GRgapfragDeco{$\PfromMnone\lO$}{fromM}{lO}     
   \GRdecompTo
-  \GRgapfragDeco[ktype/.style=free]{}{R}{lO}\GRseclabel{$\PRnone\lO$}
-  \GRconcatWBefore{k}\GRdecwfrag[itype/.style=fix]{$\WPnone$}\GRrestorelast
+  \GRgapfragWDecompK{$\PRnone\lO$}{R}{lO}{$\WPnone$}
 \end{GRule}
 \end{equation}
 
