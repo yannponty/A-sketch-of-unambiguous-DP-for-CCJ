@@ -201,15 +201,64 @@
 \newcommand{\WNnone}{W_{\text{N}}}
 
 %% constraints as 'decoration' of matrix symbols
-\newcommand{\lO}{\text{:$\overline{\text{L}}$*O}}
-\newcommand{\oL}{\text{:$\overline{\text{O}}$*L}}
-\newcommand{\rO}{\text{:$\overline{\text{R}}$*O}}
-\newcommand{\oR}{\text{:$\overline{\text{O}}$*R}}
-\newcommand{\constr}{\text{:$c$}}
+\newcommand{\constrIO} {_\text{O}}
+\newcommand{\constrIL} {_\text{L}}
+\newcommand{\constrIIO}{_\text{O}}
+\newcommand{\constrIIR}{_\text{R}}
+\newcommand{\constr}   {_c}
 
+\newcommand{\Pdecomposition}{
+  \renewcommand{\GRarcratio}{0.6}
+  \renewcommand{\GRunitlength}{0.1}
+  \path[draw=none]
+    (last)                node (i1) [scale=0.1] {}
+    ++(\GRsubseqlength,0) node (j1) [scale=0.1] {}
+    ++(\GRunitlength,0)   node (w1l) [scale=0.1] {}
+    ++(\GRdecwfraglength,0)   node (w1r) [scale=0.1] {}
+    ++(\GRunitlength,0)   node (i2) [scale=0.1] {}
+    ++(\GRsubseqlength,0) node (j2) [scale=0.1] {}
+    ++(\GRunitlength,0)   node (w2l) [scale=0.1] {}
+    ++(\GRdecwfraglength,0)   node (w2r) [scale=0.1] {}
+    ++(\GRunitlength,0)   node (k1) [scale=0.1] {}
+    ++(\GRsubseqlength,0) node (l1) [scale=0.1] {}
+    ++(\GRunitlength,0)   node (w3l) [scale=0.1] {}
+    ++(\GRdecwfraglength,0)   node (w3r) [scale=0.1] {}
+    ++(\GRunitlength,0)   node (k2) [scale=0.1] {}
+    ++(\GRsubseqlength,0) node (l2) [scale=0.1] {};
+
+  \draw[backbone]
+    (i1) edge [] (j1)
+    (k1) edge [] (l1)
+    (i2) edge [] (j2)
+    (k2) edge [] (l2);
+
+  \pgfmathsetmacro\outerradiusX{(4*\GRunitlength+3*\GRsubseqlength+2*\GRdecwfraglength)/2}
+  \pgfmathsetmacro\outerradiusY{\outerradiusX*\GRarcratio}
+  \pgfmathsetmacro\innerradiusX{(4*\GRunitlength+1*\GRsubseqlength+2*\GRdecwfraglength)/2}
+  \pgfmathsetmacro\innerradiusY{\innerradiusX*\GRarcratio}
+
+  \draw
+    (w1l) edge [backbone] (w1r)
+    (w1l) edge [arc,very densely dashed,out=90,in=90] (w1r)
+    (w2l) edge [backbone] (w2r)
+    (w2l) edge [arc,very densely dashed,out=90,in=90] (w2r)
+    (w3l) edge [backbone] (w3r)
+    (w3l) edge [arc,very densely dashed,out=90,in=90] (w3r);
+
+  \draw[arc,very densely dashed]
+    (i1) arc [radius=\outerradiusX, y radius=\outerradiusY, start angle=180,end angle=0];
+  \draw[arc,very densely dashed]
+    (i2) arc [radius=\outerradiusX, y radius=\outerradiusY, start angle=180,end angle=0];
+  \draw[arc,very densely dashed]
+    (j1) arc [radius=\innerradiusX, y radius=\innerradiusY, start angle=180,end angle=0];
+  \draw[arc,very densely dashed]
+    (j2) arc [radius=\innerradiusX, y radius=\innerradiusY, start angle=180,end angle=0];
+}
 
 %%%%% END matrix symbols/macros
 
+
+\newcommand{\Def}[1]{\emph{#1}}
 
 %% graphical notation of grammar rules with tikz
 \input{tikz-grules.tex}
@@ -396,15 +445,15 @@ Two base pairs $(i,j)$ and $(i',j')$ are \emph{nested} iff $i<i'<j'<j$ or $i'<i<
 A \emph{band} $B$ of a structure $R$ is a set of sequence positions with the following properties:
 \begin{itemize}
 \item $B=[i,j]\cup[k,l]$, ($i\leq j, j<k-1, k\leq l$)
-\item $(i,l)$ and $(j,k)$ are base pairs of $R$, the \emph{closing base pairs of $B$}.
+\item $i.l$ and $j.k$ are base pairs of $R$, the \emph{closing base pairs of $B$}.
 \item Define the \emph{base pairs of $B$} as the base pairs of $R$
-in the chain $(i,l)=(i_1,j_1), \dots, (i_q,j_q)=(j,k)$, where all successive base pairs are directly nested.
+in the chain $i.l=i_1.j_1, \dots, i_q.j_q=j.k$, where all successive base pairs are directly nested.
  Each base pair in $R$ either crosses all or none of the base pairs of $B$. 
 \item $B$ is (set inclusion) maximal, subject to the preceeding properties.
 \end{itemize}
 \end{definition}
 
-In a RNA structure $R$, the band $[i,j]\cup[k,l]$ is called \emph{band of the base pair $(x,y)$}, iff $x\in[i,j]$ and $y\in[k,l]$. We emphasize that in this way each base pair uniquely determines a corresponding band (in a given RNA structure).
+In a RNA structure $R$, the band $[i,j]\cup[k,l]$ is called \emph{band of the base pair $x.y$}, iff $x\in[i,j]$ and $y\in[k,l]$. We emphasize that in this way each base pair uniquely determines a corresponding band (in a given RNA structure).
 
 \SW{It seems simpler to start over based on my first definition:}
 
@@ -413,59 +462,146 @@ Bands are equivalently defined as follows:
 \begin{definition}[Band]
 For an RNA structure $R$, a \emph{base pair band $\cal B\subseteq R$} is a maximal set of base pairs that 1) form a chain of directly nested base pairs, and where 2) each base pair in $R$ either crosses all or no base pairs in $\cal B$.
 
-A \emph{band} is a subset $[i,j]\cup[k,l]$ of sequence positions, iff there is a base pair band, such that its outermost base pair is $(i,l)$ and its innermost base pair is $(j,k)$.
+A \emph{band} is a subset $[i,j]\cup[k,l]$ of sequence positions, iff there is a base pair band, such that its outermost base pair is $i.l$ and its innermost base pair is $j.k$.
 \end{definition}
 \textbf{HJ-} We say a base pair $d.e$ spans the band if it spans the gapped region $[i,j]\cup[k,l]$.
 
-\textbf{HJ-} Instead of "sequence of positions" we can simply use "regions" as we defined it before. I also think choosing i.j for base pair is a simpler way of showing base pairs and not mixing them up with boundaries.
 
 
 \subsection{Methods}
 
+\SW{I try to make clear how I understand the terms 'fragment' and 'rule':}
+
+We decompose classes of structures recursively, starting with the set of all CCJ-structures of the region $[1,n]$ (i.e. the entire sequence). 
+In the course of the recursive decomposition, we decompose sets of structures over gapped and ungapped regions. These sets are specific sub-classes of the CCJ structures over the region, which are defined by a number of additional properties (aka constraints) on the structures, like ``there must be a base pair $i.l$''.
+In the following, we use the terms \Def{(gapped/ungapped) fragment of type $T$}, briefly \Def{$T$-fragment}, referring to a (respectively, gapped/ungapped) region together with a type $T$, associated with a specific set of constraints on the structures of the $T$-fragment. Thus, $T$-fragments define a very specific set of RNA structures over the region of the fragment, which exists of all CCJ-structures that satisfy the $T$-associated constraints.
+
+Generally we formulate $T$-rules to describe the decomposition of $T$-fragments.
 Arbitrary CCJ-structures are decomposed unambiguosly due to
 \begin{equation}
 \includegraphics{KnottyPF/recursionW}
 \end{equation}
-% HJ- this is from our Knotty paper
-\textbf{HJ-}In this graphical notation, the RNA sequence is represented as a line with bases as index positions; solid arcs indicate base pairs; and dashed arcs enclose areas containing unconsumed (not decomposed?) structure. 
+In this graphical notation, the RNA sequence is represented as a line with bases as index positions. This specifies the region of each fragment.
+%
 Red circles represent fixed end points of a region. Blue squares are free indices (i.e. bases that are pivotal for boundary determinations). 
 To not clutter the representation, we do not mark end points that can be identified from bases directly before or after them.
-\YP{Regarding graphical notations, I think it would be better to use 'wavy line' instead of dashed base pairs in order to better distinguish recursive calls from arcs.}
+We annotate the fragments by their types (here, $W$, $V$, and $P$) and use \Def{decorations} to indicate the type. Such decorations, e.g. by solid arcs or dashed arcs, serve as mnemonics for the properties of the respective fragments; e.g. we use solid arcs to indicate base pairs like in the $V$-fragment, where all structures must pair the two ends, and dashed arcs to indicate the presence of some structure below the arc, as in $W$-fragments.
+
+\YP{Regarding graphical notations, I think it would be better to use 'wavy line' instead of dashed base pairs in order to better distinguish recursive calls from arcs.}\SW{Sure, we can have wavy lines; it's a simple change for the tikz-generated graphics; I even tested this already. Currently, unfortunately not all of the rules are TikZ, such that I would postpone this. Also, I am not super-convinced that this makes things clearer (it looks more fancy though).}
 
 Similar changes disambiguate the WB and WP recursions. 
 This moves the focus to the decomposition of $P$-fragments. 
-\textbf{HJ-} I think we should use $P$-rule instead.
-$P$-fragments represent structures $R$ of subsequences $i..l$, where
-$i$ and $l$ are paired and part of the same pseudoknot, i.e. in all those structures, there are base pairs $(i,i')$ and $(l',l)$, such that
+
+%\textbf{HJ-} I think we should use $P$-rule instead.
+$P$-fragments represent structures $R$ of regions $[i,l]$, where
+$i$ and $l$ are paired and part of the same pseudoknot, i.e. in all those structures, there are base pairs $i.i'$ and $l'.l$, such that
 \begin{enumerate}
-\item either $(i,i')$ and $(l',l)$ are crossing each other
-\item or $(i,i')$ and $(l',l)$ are both crossing a third base pair $(k,k')$, where $i<k<i'<l'<k'<l$.
-\item $(i,i')$ crosses a base pair $(k_1,k_1')$ that crosses $(k_2,k'_2)$ that crosses $(l',l)$ $(i<k_1<k_2<k'_1<k'_2<l)$.
+\item either $i.i'$ and $j.j'$ directly cross each other 
+\item or $i.i'$ and $l'.l$ are both crossing a third base pair $(k,k')$, where $i<k<i'<l'<k'<l$.
+\item $i.i'$ crosses a base pair $(k_1,k_1')$ that crosses $(k_2,k'_2)$ that crosses $l'.l$ $(i<k_1<k_2<k'_1<k'_2<l)$.
 \end{enumerate}
-\textbf{HJ-} I believe it would be better to talk about bands instead of single base pairs. \textbf{SW-} My feeling was this is less complex on the level of base pairs. We could mention that this implies the same relation on the level of bands (i.e. there is a band of i.i' and a band of l'.l, ...), or rather we should emphasize that a base pair uniquely determines a band. \textbf{HJ-} I think with current definition of base pairs identifying a band, a simple explanation as you suggested would suffice.
+
+Therefore, we distinguish three corresponding cases for their decomposition:
+\begin{equation}
+\renewcommand{\GRsubseqlength}{0.5}
+%
+\begin{GRule}
+\GRgapfrag[jtype/.style=free,ktype/.style=free,ltype/.style=free]{}{}{lO}
+\pgfmathsetmacro\radiusX{(\GRgaplength+1.5*\GRsubseqlength)/2}
+\pgfmathsetmacro\radiusY{\radiusX*\GRarcratio}
+\draw[red] (i) [arc] arc [x radius=\radiusX, y radius=\radiusY, start angle=180,end angle=0];
+%
+\path (last) ++(0.7,0) node (last) {};
+\begin{scope}[rotate=180]
+  \GRgapfrag[jtype/.style={draw=none},ktype/.style={draw=none},ltype/.style={draw=none}]{}{}{}
+  \draw[red] (i) [arc] arc [x radius=\radiusX, y radius=\radiusY, start angle=180,end angle=0];
+\end{scope}
+\end{GRule}
+%
+\qquad
+%
+\begin{GRule}
+\GRgapfrag[jtype/.style=free,ktype/.style=free,ltype/.style=free]{}{}{lO}
+\pgfmathsetmacro\radiusX{(\GRgaplength+1.5*\GRsubseqlength)/2}
+\pgfmathsetmacro\radiusY{\radiusX*\GRarcratio}
+\draw[red] (i) [arc] arc [x radius=\radiusX, y radius=\radiusY, start angle=180,end angle=0];
+%
+\path (last) ++(0.7,0) node (last) {};
+\begin{scope}[rotate=180]
+  \GRgapfrag[jtype/.style={draw=none},ktype/.style={draw=none},ltype/.style={draw=none}]{}{}{}
+  \pgfmathsetmacro\radiusX{(\GRgaplength+1.5*\GRsubseqlength - 0.15)/2}
+  \pgfmathsetmacro\radiusY{\radiusX*\GRarcratio}
+  \draw[blue] (i) +(0.15,0) [arc] arc [x radius=\radiusX, y radius=\radiusY, start angle=180,end angle=0];
+  %
+  \pgfmathsetmacro\radiusX{(0.8*\GRsubseqlength)/2}
+  \pgfmathsetmacro\radiusY{\radiusX*\GRarcratio}
+  \draw[red] (i) [arc] arc [x radius=\radiusX, y radius=\radiusY, start angle=180,end angle=0];
+\end{scope}
+\end{GRule}
+%
+\qquad
+%
+\begin{GRule}
+\GRgapfrag[jtype/.style=free,ktype/.style=free,ltype/.style=free]{}{}{lO}
+\pgfmathsetmacro\radiusX{(0.8*\GRsubseqlength)/2}
+\pgfmathsetmacro\radiusY{\radiusX*\GRarcratio}
+\draw[red] (i) [arc] arc [x radius=\radiusX, y radius=\radiusY, start angle=180,end angle=0];
+%
+\pgfmathsetmacro\radiusX{(\GRgaplength+1.5*\GRsubseqlength - 0.15)/2}
+\pgfmathsetmacro\radiusY{\radiusX*\GRarcratio}
+\draw[blue] (i) ++(0.15,0) [arc] arc [x radius=\radiusX, y radius=\radiusY, start angle=180,end angle=0];
+%
+\path (last) ++(0.7,0) node (last) {};
+\begin{scope}[rotate=180]
+  \GRgapfrag[jtype/.style={draw=none},ktype/.style={draw=none},ltype/.style={draw=none}]{}{}{}
+  \pgfmathsetmacro\radiusX{(0.8*\GRsubseqlength)/2}
+  \pgfmathsetmacro\radiusY{\radiusX*\GRarcratio}
+  \draw[red] (i) [arc] arc [x radius=\radiusX, y radius=\radiusY, start angle=180,end angle=0];
+  %
+  \pgfmathsetmacro\radiusX{(\GRgaplength+1.5*\GRsubseqlength - 0.15)/2}
+  \pgfmathsetmacro\radiusY{\radiusX*\GRarcratio}
+  \draw[blue] (i) +(0.15,0) [arc] arc [x radius=\radiusX, y radius=\radiusY, start angle=180,end angle=0];
+\end{scope}
+\end{GRule}
+\end{equation}
+
+We sketch the required base pairs in red, note that in all cases their have to be base pairs that span the region of the gapped fragments. In the cases, where such base pairs are required to connect the left and right end by a chain of crossing base pairs, we indicate them by a blue base pair.
 
 We observe that all these cases are disjoint and form a complete decomposition of CCJ structures, since CCJ structures do not allow three base pairs that all pairwise cross each other and the longest possible chains of crossing base pairs are $4$-chains (third case).
 
 In each case, we decompose the $P$-fragment over [i..l] into two gapped fragments over $[i..j]\cup[k..k']$ and $[j+1..k-1]\cup[k'+1..l]$. 
 
-\textbf{HJ-} I think we can safely replace "gapped fragments" with "gapped regions".
-
 %Gapped fragment: $\RNA{i-j----k-l}{1/10,3/8}$
 %
-%P-fragment decomposed into two gapped fragments: $\RNA{i-----------l}{1/10,3/8,4/13,7/11}$
 
-For case 1, we achieve crossing of $(i,i')$ and $(l',l)$ if and only if the
-base pairs 'span' the gap in their respective fragment. We define, in a gapped
-fragment over $[i..j]\cup[k..l]$ ($i\leq j<k\leq l$), a base pair (x,y)
-\emph{spans the gap} iff $x\in[i..j]$ and $y\in[k..l]$.
+For case 1, we achieve crossing of $i.i'$ and $l'.l$ if and only if the
+base pairs span the region in their fragment.
 
-Case 3 applies iff in both gapped fragments, the respective base pairs $(i,i')$ and $(l',l)$ do not span the gap.
+Case 3 applies iff in both gapped fragments, the respective base pairs $i.i'$ and $l'.l$ do not span the region.
 
 In the remaining case 2, one of the base pairs spans the gap and the other does
-not. We can arbitrarily break the implied symmetry by requiring $(i,i')$ to
+not. We can arbitrarily break the implied symmetry by requiring $i.i'$ to
 span the gap in its gapped fragment.
 
-\paragraph{Types of gapped fragments}
+\paragraph{Further ambiguity}
+
+Even after distinguishing the different cases of two-chains, three-chains, and four-chains of crossing  
+arcs that connect the two ends of the $P$-fragments. We are left with ambiguity arising from 
+equivalent possible decompositions into structures over gapped regions. For example the following decompositions are equivalent
+
+
+$\RNA[2/6]{ABCacb}{1/4,3/5}$ and $\RNA[2/6,3/5]{ABCacb}{1/4}$,
+or slightly more complex,\\ $\RNA[3/8]{ABCDbaec}{1/6,2/5,4/7}$, $\RNA[3/8,4/7]{ABCDbaec}{1/6,2/5}$, and $\RNA[3/8,4/7,2/5]{ABCDbaec}{1/6}$.
+
+Apparently, without further restrictions, right and middle bands of the first fragment can be 'flipped' to respective middle and left bands of the second fragment. 
+
+We break these symmetries by ruling out `flippable' $R$ and $M$ bands in the first gapped fragment of a $P$-decomposition rule; analogously, we rule out corresponding $L$ and $M$ bands in the second fragment. Both can be achieved by strengthening the constraints on those fragments.
+We observe that bands are flippable, if they are not crossing any other band. In addition there are cases, where two bands can be flipped simultaneously, e.g. the middle and right band of the first fragment.
+For the first fragment, we can `lock' the $M$ band by starting at the $L$ band, by forbidding decomposition at $R$ immediately after each $L$-band decomposition, this locks the $R$ band as well. Similarly, we lock both bands by starting the decomposition at $O$ and disallowing transitions from $O$ to $M$. \SW{This is pretty much unsorted; we need to introduce the ideas of band decompositions first.}
+
+\subsection{Types of gapped fragments}
+
+\SW{Since we need to rule out possible band flips, the following actually gets easier!!! The description is not updated yet, but considering the above consideration, the case distinctions boil down to distinguishing start at $O$ or $L$ ($O$ or $R$) for the first (second) gapped fragment, resepectively.}
 
 First of all, note that the decomposition of a P-fragment, can be unambiguous
 only, if we strengthen the requirements in the gapped fragments compared to the
@@ -481,14 +617,17 @@ required similar conditions only for $i$ and $l$.)
 Our considerations give rise to distinguishing two (disjoint) types of gapped
 fragments for the left component of $\PKnone$:
 \begin{enumerate}
-\item $(i,i')$ spans the gapped region, i.e.\ $i'\in[k,l]$
-\item $(i,i')$ does not span the gapped region, i.e.\ $i'\not\in[k,l]$ 
+\item $i.i'$ spans the gapped region, i.e.\ $i'\in[k,l]$
+\item $i.i'$ does not span the gapped region, i.e.\ $i'\not\in[k,l]$ 
 \end{enumerate}
 and analogously two types, for the right component:
 \begin{enumerate}
-\item $(l',l)$ spans the gapped region,
-\item $(l',l)$ does not span the gapped region.
+\item $l'.l$ spans the gapped region,
+\item $l'.l$ does not span the gapped region.
 \end{enumerate}
+
+
+
 
 Note that this suffices to (de)compose the different types of P-fragments in
 the disjoint case distinction that we discussed before.
@@ -503,10 +642,10 @@ E.g. the constraint (1) is ensured by not decomposing at the left band before th
 
 When we represent the band-decomposition order as word over $\{L,R,M,O\}$, then this corresponds to restricting the prefixes of this word. Therefore, we annotate matrices / fragment types with the allowed prefixes, using a regular expression like notation.
 
-\textbf{HJ-} I am not yet clear with the ``*'' notation. If it is regular-expression-like, then does it mean in $\PKnone\lO$ we can have more than one iteration to get from a $l$ state to an $O$ state? \YP{Yup, that is my understanding or, more precisely, $\PKnone\lO$ means {\em a (possibly empty) sequence of 'anything but $L$eft' base pairs, ultimately followed by an $O$utside base pair}.}
+\textbf{HJ-} I am not yet clear with the ``*'' notation. If it is regular-expression-like, then does it mean in $\PKnone\constrIO$ we can have more than one iteration to get from a $l$ state to an $O$ state? \YP{Yup, that is my understanding or, more precisely, $\PKnone\constrIO$ means {\em a (possibly empty) sequence of 'anything but $L$eft' base pairs, ultimately followed by an $O$utside base pair}.}
 
 To ensure the respective properties of the four different PK-type fragments, we thus denote them by
-$\PKnone\lO$, $\PKnone\oL$, $\PKnone\rO$, $\PKnone\oR$; where small letters refer to the negated character class of the corresponding capital letter, e.g. $l$ refers to $[RMO]$.
+$\PKnone\constrIO$, $\PKnone\constrIL$, $\PKnone\constrIIO$, $\PKnone\constrIIR$; where small letters refer to the negated character class of the corresponding capital letter, e.g. $l$ refers to $[RMO]$.
 % 
 Now, we obtain the following decomposition rule for P-fragments:
 
@@ -514,15 +653,25 @@ Now, we obtain the following decomposition rule for P-fragments:
 \includegraphics{KnottyPF/recursionP}
 \end{equation}
 
-where, generically, fragments $\PKnone{\star}1$ and $\PKnone{\star}2$ are decomposed into fragments $\PKnone{\star}$ and $\WPnone$ to account unambiguously for recursive substructure:
+where, generically, fragments $\PKnone1\constr$ and $\PKnone2\constr$ are decomposed into fragments $\PKnone\constr$ and $\WPnone$ to account unambiguously for recursive substructure:
 
-\begin{equation}
-\includegraphics{KnottyPF/recursionPK12}
-\end{equation}
-\YP{Well played, sir, well played! (although probably not completely clear at first sight... Any chance we could introduce new non-terminal names instead of continuously overloading the poor, innocent, $PK$?)}
+%\begin{equation}
+%\includegraphics{KnottyPF/recursionPK12}
+%\end{equation}
+\begin{GRule}
+  \GRgapfragDeco{$\PKnone1\constr$}{}{}
+  \GRdecompTo
+  \GRgapfragWDecompJ{$\PKnone\constr$}{}{}{$\WPnone$}
+\end{GRule}
+\qquad
+\begin{GRule}
+  \GRgapfragDeco{$\PKnone2\constr$}{}{}
+  \GRdecompTo
+  \GRgapfragWDecompK{$i\PKnone1\constr$}{}{}{$\WPnone$}
+\end{GRule}
 
-For decomposing fragments like $\PKnone\lO$, in general $\PKnone{regex}$ it is now crucial to satisfy the band-decomposition-order constraint.
-Let us start with the decomposition of $\PKnone\lO$. Generally $PK$-fragements are decomposed into $P_X$-type fragments, where we
+For decomposing fragments like $\PKnone\constrIO$, in general $\PKnone{regex}$ it is now crucial to satisfy the band-decomposition-order constraint.
+Let us start with the decomposition of $\PKnone\constrIO$. Generally $PK$-fragements are decomposed into $P_X$-type fragments, where we
 need to allow recursive substructure (i.e. $WP$-fragments) between the $P_X$-fragments.
 
 \begin{definition}
@@ -531,64 +680,59 @@ The structures represented by a $P_X$-rule over gapped region $[i..j]\cup [k..l]
 \item all ends $i$, $j$, $k$, and $l$ are paired, but not necessarily to each other.
 \item the closing bases at the ``$X$'' side of the gapped region form a base pair%``closed at $X$''
 ---there is a base pair at the position $X$ ($X\in\{L,R,M,O\}$).
-\item there is a base pair that spans the gap $i$ region $j+1..k-1$ -- \textbf{HJ-} I am not clear about the meaning of this part.
-\item unless $X=O$, the end bases cannot all be part of the same band (i.e. $i=j$ and $k=l$)n. (Note that we terminate with $O$, unlike the original CCJ recursions, which terminate at $M$.)
+\item there is a base pair that spans the gapped region $j+1..k-1$
+\item unless $X=O$, the end bases cannot all be part of the same band (i.e. $i=j$ and $k=l$). (Note that we terminate with $O$, unlike the original CCJ recursions, which terminate at $M$.)
 \end{itemize}
 \end{definition}
 
 
-We obtain the following decompositions of PK-fragments 
+We obtain the following decompositions of $PK$-fragments\SW{which are now degenerated and should be short cut / removed} 
 %\begin{equation}
 %\includegraphics{KnottyPF/recursionPKlstarO}
 %\end{equation}
 
-\SW{Apparently, we should forbid decompositions of PK fragments that start in $M$, since otherwise it could be flipped to an $L$ band or $R$ band of the other PK-fragment in the P decomposition and make it ambiguous. It remains to describe this well; I already simplified the PK rules. Even worse: the same could happen for single O-band PK-fragments, we need to introduce special treatment!}
-
 \begin{equation}
 \begin{GRule}
-
-  \GRgapfragDeco{$\PKnone\lO$}{}{lO}
+  \GRgapfragDeco{$\PKnone\constrIO$}{}{lO}
   \GRdecompTo
-  \GRgapfragDeco{$\PONSnone$}{O}{}
-  \GRor
-  \GRgapfragDeco{$\PRnone\lO$}{R}{lO} 
+  \GRgapfragDeco{$\POnone$}{O}{}
   %\GRor
-  %\GRgapfragDeco{$\PMnone\lO$}{M}{lO}
+  %\GRgapfragDeco{$\PRnone\constrIO$}{R}{lO} 
+  %\GRor
+  %\GRgapfragDeco{$\PMnone\constrIO$}{M}{lO}
 
   \GRnewrule
 
-  \GRgapfragDeco{$\PKnone\oL$}{}{oL}
+  \GRgapfragDeco{$\PKnone\constrIL$}{}{oL}
   \GRdecompTo
   \GRgapfragDeco{$\PLnone$}{L}{}
-  \GRor
-  \GRgapfragDeco{$\PRnone\oL$}{R}{oL} 
   %\GRor
-  %\GRgapfragDeco{$\PMnone\oL$}{M}{oL} 
+  %\GRgapfragDeco{$\PRnone\constrIL$}{R}{oL} 
+  %\GRor
+  %\GRgapfragDeco{$\PMnone\constrIL$}{M}{oL} 
 
   \GRnewrule
 
-  \GRgapfragDeco{$\PKnone\rO$}{}{rO}
+  \GRgapfragDeco{$\PKnone\constrIIO$}{}{rO}
   \GRdecompTo
-  \GRgapfragDeco{$\PONSnone$}{O}{rO}
-  \GRor
-  \GRgapfragDeco{$\PLnone\rO$}{L}{rO} 
+  \GRgapfragDeco{$\POnone$}{O}{}
   %\GRor
-  %\GRgapfragDeco{$\PMnone\rO$}{M}{rO} 
+  %\GRgapfragDeco{$\PLnone\constrIIO$}{L}{rO} 
+  %\GRor
+  %\GRgapfragDeco{$\PMnone\constrIIO$}{M}{rO} 
 
   \GRnewrule
 
-  \GRgapfragDeco{$\PKnone\oR$}{}{oR}
+  \GRgapfragDeco{$\PKnone\constrIIR$}{}{oR}
   \GRdecompTo
-  \GRgapfragDeco{$\PRnone$}{R}{oR}
-  \GRor
-  \GRgapfragDeco{$\PLnone\oR$}{L}{oR} 
+  \GRgapfragDeco{$\PRnone$}{R}{}
   %\GRor
-  %\GRgapfragDeco{$\PMnone\oR$}{M}{oR} 
+  %\GRgapfragDeco{$\PLnone\constrIIR$}{L}{oR} 
+  %\GRor
+  %\GRgapfragDeco{$\PMnone\constrIIR$}{M}{oR} 
 \end{GRule}
 \end{equation}
 
-
-Note that $\PONSnone$ is the matrix for decomposition at the $O$ band, where structures do not consist of a single O-band. Moreover, recursion to this matrix already satisfies the constraint due to the constraint $\lO$.
 
 We need to further decompose the $P_X$ fragments (which are optionally restricted by regular expressions). Generally, we distinguish three cases by the type of the closing base pair at position $X$. 1) it could close an interior loop in the same band, 2) a multi-loop in the same band (with costs for inner base pairs and unpaired based accounted in WB), or 3) it could `close' the band, i.e. it is the innermost base pair of its band for bands at L,R,O---outermost, in the case of M. Note that the decomposition is disjoint. In the
 third case, one changes to decomposing some other band (or terminates the final O-band). Also, in the third case, we allow recursive substructure between bands (WP), which needs to be inserted unambiguously.
@@ -750,23 +894,24 @@ and ther from matrices that change to $O$ can either change to $O$ or single $O$
 \end{GRule}
 \end{equation}
 
-The corresponding rules with constraints lO,oL,rO, and oR work exactly in the same way, where the constraint $c$ is simply carried over; note that in some cases, the constraint can be dropped, since it is already satisfied by the fragment; e.g.\ $\POnone$ already satisfies constraint lO, such that we do not distinguish $\POnone\lO$ from $\POnone$. We show the rule for $\PLnone$ with constraints: 
+% SW: seems like constraint annotation becomes obsolete
+%The corresponding rules with constraints lO,oL,rO, and oR work exactly in the same way, where the constraint $c$ is simply carried over; note that in some cases, the constraint can be dropped, since it is already satisfied by the fragment; e.g.\ $\POnone$ already satisfies constraint lO, such that we do not distinguish $\POnone\constrIO$ from $\POnone$. We show the rule for $\PLnone$ with constraints: 
+%
+%\begin{equation}
+%\begin{GRule}
+%  \GRgapfragDeco{$\PLnone\constr$}{L}{}
+%  \GRdecompTo
+%  \GRgapfragDeco{$\PLnone{_{\text{,iloop}}}\constr$}{L}{}
+%  \GRor
+%  \GRgapfragDeco{$\PLnone{_{\text{,mloop}}}\constr$}{L}{}
+%  \GRor
+%  \GRgapfragDeco{$\PfromLnone\constr$}{L}{}
+%\end{GRule}
+%\end{equation}
 
-\begin{equation}
-\begin{GRule}
-  \GRgapfragDeco{$\PLnone\constr$}{L}{}
-  \GRdecompTo
-  \GRgapfragDeco{$\PLnone{_{\text{,iloop}}}\constr$}{L}{}
-  \GRor
-  \GRgapfragDeco{$\PLnone{_{\text{,mloop}}}\constr$}{L}{}
-  \GRor
-  \GRgapfragDeco{$\PfromLnone\constr$}{L}{}
-\end{GRule}
-\end{equation}
 
 
-
-$P_{fromX}$-fragments are required to change the band; note that we need to unambiguously allow recursive substructure \emph{and} unambiguous band change. For the unconstrained $P_O$, the recursion to the unconstrained $P_\text{fromO}$ works like in the original recursions. 
+$P_{fromX}$-fragments are required to change the band; note that we need to unambiguously allow recursive substructure \emph{and} unambiguous band change. 
 
 %\begin{equation}
 %\includegraphics{KnottyPF/recursionPfromX}
@@ -783,18 +928,18 @@ $P_{fromX}$-fragments are required to change the band; note that we need to unam
   \GRgapfragDeco{$\PMnone$}{M}{}
   %
   \GRnewrule
-  \GRgapfragDeco{$\PfromRnone\lO$}{fromR}{lO}
+  \GRgapfragDeco{$\PfromRnone$}{fromR}{}
   \GRdecompTo
-  \GRgapfragWDecompK{$\PMnone\lO$}{M}{lO}{$\WPnone$}
+  \GRgapfragWDecompK{$\PMnone$}{M}{}{$\WPnone$}
   \GRor        
   \GRgapfragWDecompL{$\POnone$}{O}{}{$\WPnone$}
   \GRor        
   \GRgapfragWDecompL{$\POSnone$}{O}{}{$\WPnone$}
   %
   \GRnewrule
-  \GRgapfragDeco{$\PfromMnone\lO$}{fromM}{lO}     
+  \GRgapfragDeco{$\PfromMnone$}{fromM}{}     
   \GRdecompTo
-  \GRgapfragWDecompK{$\PRnone\lO$}{R}{lO}{$\WPnone$}
+  \GRgapfragWDecompK{$\PRnone$}{R}{}{$\WPnone$}
 \end{GRule}
 \end{equation}
 
@@ -803,81 +948,132 @@ Note that we unambiguously add recursive substructure by adding the substructure
 The set of allowed transitions can be sketched as transition diagram.
 Note the asymmetry in the allowed transitions.
 
+%\begin{center}
+%\begin{tikzpicture}[thick]
+%\newcommand{\pkpre}{2}
+%\newcommand{\classdist}{3.5}
+%
+%%mark O as terminal state
+%\node (O) at (0,0) [circle,draw] {O};
+%\draw (O) circle [thick,radius=0.28];
+%
+%\path (O)
+%      +  (0,-1) node (Ons) {Ons}
+%      ++ (\classdist,0) node (M) {M}
+%      ++ (\classdist,0) node (L) {L}
+%      ++ (\classdist,0) node (R) {R};
+%
+%
+%\path (O) ++ (0,1) node (RlO) {R\constrIO}
+%      ++(0,1) node (MlO) {M\constrIO};
+%
+%\path (M) ++ (0,1) node (LrO) {L\constrIIO}
+%      ++ (0,1) node (MrO) {M\constrIIO};
+%
+%\path (L) ++ (0,1) node (MoL) {M\constrIL}
+%      ++ (0,1) node (RoL) {R\constrIL};
+%
+%\path (R) ++ (0,1) node (MoR) {M\constrIIR}
+%          ++ (0,1) node (LoR) {L\constrIIR};
+%\draw
+%  (MlO) edge [<->] (RlO)
+%  (RlO) edge [->] (O)
+%  (RoL) edge [<->] (MoL)
+%  (MoL) edge [->] (L)
+%%
+%  (MrO) edge [<->] (LrO)
+%  (LrO) edge [->] (O)
+%  (LoR) edge [<->] (MoR)
+%  (LoR) edge [->,out=330,in=40] (R)
+%  (MoR) edge [->] (R)
+%%
+%  (R) edge [<->,out=210,in=330] (O)
+%  (R) edge [<->,out=200,in=340] (M)
+%  (L) edge [->] (R)
+%  (L) edge [<->] (M)
+%  (L) edge [<->,out=200,in=340] (O)
+%  (O) edge [->] (M)
+%  (Ons) edge [->] (M) edge [->] (R) edge [->] (L);
+%
+%%PK init states
+%\path[red] (O) ++(-\pkpre,1) node (PKlO) {\PKnone\constrIO}
+%          ++(-0.3,1) node (start) {} 
+%      (start) edge [->] (PKlO) 
+%      (PKlO) edge [->] (Ons)
+%             edge [->] (RlO)
+%             edge [->] (MlO);
+%
+%\path[red] (L) ++(-\pkpre,1) node (PKoL) {\PKnone\constrIL}
+%          ++(-0.3,1) node (start) {} 
+%      (start) edge [->] (PKoL) 
+%      (PKoL) edge [->] (L)
+%             edge [->] (RoL)
+%             edge [->] (MoL);
+%
+%\path[red] (M) ++(-\pkpre,1) node (PKrO) {\PKnone\constrIIO}
+%          ++(-0.3,1) node (start) {} 
+%      (start) edge [->] (PKrO) 
+%      (PKrO) edge [->] (Ons)
+%             edge [->] (LrO)
+%             edge [->] (MrO);
+%
+%\path[red] (R) ++(-\pkpre,1) node (PKoR) {\PKnone\constrIIR}
+%          ++(-0.3,1) node (start) {} 
+%      (start) edge [->] (PKoR) 
+%      (PKoR) edge [->] (R)
+%             edge [->] (LoR)
+%             edge [->] (MoR);
+%\end{tikzpicture}
+%\end{center}
 \begin{center}
 \begin{tikzpicture}[thick]
 \newcommand{\pkpre}{2}
 \newcommand{\classdist}{3.5}
 
 %mark O as terminal state
-\node (O) at (0,0) [circle,draw] {O};
-\draw (O) circle [thick,radius=0.28];
+\node (O) at (0,0) {O};
 
 \path (O)
-      +  (0,-1) node (Ons) {Ons}
+      +  (0,-1) node (Os) [circle,draw] {Os}
       ++ (\classdist,0) node (M) {M}
       ++ (\classdist,0) node (L) {L}
       ++ (\classdist,0) node (R) {R};
 
+\draw (Os) circle [thick,radius=0.28];
 
-\path (O) ++ (0,1) node (RlO) {R\lO}
-      ++(0,1) node (MlO) {M\lO};
-
-\path (M) ++ (0,1) node (LrO) {L\rO}
-      ++ (0,1) node (MrO) {M\rO};
-
-\path (L) ++ (0,1) node (MoL) {M\oL}
-      ++ (0,1) node (RoL) {R\oL};
-
-\path (R) ++ (0,1) node (MoR) {M\oR}
-          ++ (0,1) node (LoR) {L\oR};
 \draw
-  (MlO) edge [<->] (RlO)
-  (RlO) edge [->] (O)
-  (RoL) edge [<->] (MoL)
-  (MoL) edge [->] (L)
-%
-  (MrO) edge [<->] (LrO)
-  (LrO) edge [->] (O)
-  (LoR) edge [<->] (MoR)
-  (LoR) edge [->,out=330,in=40] (R)
-  (MoR) edge [->] (R)
-%
   (R) edge [<->,out=210,in=330] (O)
+      edge [->] (Os)
   (R) edge [<->,out=200,in=340] (M)
   (L) edge [->] (R)
+      edge [->] (Os)
   (L) edge [<->] (M)
   (L) edge [<->,out=200,in=340] (O)
-  (O) edge [->] (M)
-  (Ons) edge [->] (M) edge [->] (R) edge [->] (L);
+  (M) edge [->] (O)
+      edge [->] (Os);
+
+
 
 %PK init states
-\path[red] (O) ++(-\pkpre,1) node (PKlO) {\PKnone\lO}
-          ++(-0.3,1) node (start) {} 
-      (start) edge [->] (PKlO) 
-      (PKlO) edge [->] (Ons)
-             edge [->] (RlO)
-             edge [->] (MlO);
+\path[red] (O) ++(-\pkpre,1) node (PKlO) {}%{$\PKnone\constrIO$}
+      %    ++(-0.3,1) node (start) {} 
+      %(start) edge [->] (PKlO) 
+      (PKlO) edge [->] (O);
 
-\path[red] (L) ++(-\pkpre,1) node (PKoL) {\PKnone\oL}
-          ++(-0.3,1) node (start) {} 
-      (start) edge [->] (PKoL) 
-      (PKoL) edge [->] (L)
-             edge [->] (RoL)
-             edge [->] (MoL);
+\path[red] (L) ++(-\pkpre,1) node (PKoL) {}%{$\PKnone\constrIL$}
+      %    ++(-0.3,1) node (start) {} 
+      %(start) edge [->] (PKoL) 
+      (PKoL) edge [->] (L);
 
-\path[red] (M) ++(-\pkpre,1) node (PKrO) {\PKnone\rO}
-          ++(-0.3,1) node (start) {} 
-      (start) edge [->] (PKrO) 
-      (PKrO) edge [->] (Ons)
-             edge [->] (LrO)
-             edge [->] (MrO);
+%\path[red] (M) ++(-\pkpre,1) node (PKrO) {}%{$\PKnone\constrIIO$}
+%          ++(-0.3,1) node (start) {} 
+%      (start) edge [->] (PKrO) 
+%      (PKrO) edge [->] (O);
 
-\path[red] (R) ++(-\pkpre,1) node (PKoR) {\PKnone\oR}
-          ++(-0.3,1) node (start) {} 
-      (start) edge [->] (PKoR) 
-      (PKoR) edge [->] (R)
-             edge [->] (LoR)
-             edge [->] (MoR);
+\path[red] (R) ++(-\pkpre,1) node (PKoR) {}%{$\PKnone\constrIIR$}
+          %++(-0.3,1) node (start) {} 
+      %(start) edge [->] (PKoR) 
+      (PKoR) edge [->] (R);
 \end{tikzpicture}
 \end{center}
 
