@@ -1049,9 +1049,7 @@ Note the asymmetry in the allowed transitions.
       edge [->] (Os)
   (L) edge [<->] (M)
   (L) edge [<->,out=200,in=340] (O)
-  (M) edge [->] (O)
-      edge [->] (Os);
-
+  (M) edge [->] (O);
 
 
 %PK init states
@@ -1077,6 +1075,8 @@ Note the asymmetry in the allowed transitions.
 \end{tikzpicture}
 \end{center}
 
+Note that there is no transition from $M$ to the terminal state $Os$, which represents the decomposition of the singleton $O$-band. Such a transition would lead to wrong scoring and ambiguity. Otherwise, transition from $M$ to the singleton $O$-band is the only forbidden transition from $M$ to $O$! This is the reason for introducing the $Os$-states in the first place.  
+
 \SW{Idea: We should formally define \emph{band decomposition order (bdo)} (as a word over $\{L,R,M,O\}$ for decompositions of a structure
 represented by $P$. Proving the uniqueness of bdo (given our restrictions) would be an essential step to showing the uniqueness of the recursions. For showing completeness, it is important to precisely define all the fragments (in terms of the represented structures).}
 
@@ -1094,5 +1094,8 @@ represented by $P$. Proving the uniqueness of bdo (given our restrictions) would
     \item Target (journals): Sebastian says 'NAR' or 'RNA', Hosna says whatever (I am fine with Bioinformatics or RNA), Yann, uncharacteristically, doesn't say anything...
   \end{itemize}
 \end{itemize}
+
+
+Some
 
 \end{document}
