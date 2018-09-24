@@ -205,7 +205,7 @@
 \newcommand{\constrIL} {_\text{L}}
 \newcommand{\constrIIO}{_\text{O}}
 \newcommand{\constrIIR}{_\text{R}}
-\newcommand{\constr}   {_c}
+\newcommand{\constr}   {_X}
 
 \newcommand{\Pdecomposition}{
   \renewcommand{\GRarcratio}{0.6}
@@ -631,18 +631,12 @@ and analogously two types, for the right component:
 
 Note that this suffices to (de)compose the different types of P-fragments in
 the disjoint case distinction that we discussed before.
-\YP{A picture may be worth a thousand words, and sorely missing here... :)}
 
 We observe that the different types of gapped fragments can be distinguished by limiting
 the possible decomposition orders in terms of decomposition at the bands L,R,M, and O.
 E.g. the constraint (1) is ensured by not decomposing at the left band before the first decomposition at the O-band. 
-\SW{Picture!}
-
-\textbf{HJ-} It is not clear to me what is meant by ``constraint (1)''.
 
 When we represent the band-decomposition order as word over $\{L,R,M,O\}$, then this corresponds to restricting the prefixes of this word. Therefore, we annotate matrices / fragment types with the allowed prefixes, using a regular expression like notation.
-
-\textbf{HJ-} I am not yet clear with the ``*'' notation. If it is regular-expression-like, then does it mean in $\PKnone\constrIO$ we can have more than one iteration to get from a $l$ state to an $O$ state? \YP{Yup, that is my understanding or, more precisely, $\PKnone\constrIO$ means {\em a (possibly empty) sequence of 'anything but $L$eft' base pairs, ultimately followed by an $O$utside base pair}.}
 
 To ensure the respective properties of the four different PK-type fragments, we thus denote them by
 $\PKnone\constrIO$, $\PKnone\constrIL$, $\PKnone\constrIIO$, $\PKnone\constrIIR$; where small letters refer to the negated character class of the corresponding capital letter, e.g. $l$ refers to $[RMO]$.
@@ -659,15 +653,15 @@ where, generically, fragments $\PKnone1\constr$ and $\PKnone2\constr$ are decomp
 %\includegraphics{KnottyPF/recursionPK12}
 %\end{equation}
 \begin{GRule}
-  \GRgapfragDeco{$\PKnone1\constr$}{}{}
+  \GRgapfragDeco{$\PKnone^1\constr$}{}{}
   \GRdecompTo
   \GRgapfragWDecompJ{$\PKnone\constr$}{}{}{$\WPnone$}
 \end{GRule}
 \qquad
 \begin{GRule}
-  \GRgapfragDeco{$\PKnone2\constr$}{}{}
+  \GRgapfragDeco{$\PKnone^2\constr$}{}{}
   \GRdecompTo
-  \GRgapfragWDecompK{$i\PKnone1\constr$}{}{}{$\WPnone$}
+  \GRgapfragWDecompK{$i\PKnone^1\constr$}{}{}{$\WPnone$}
 \end{GRule}
 
 For decomposing fragments like $\PKnone\constrIO$, in general $\PKnone{regex}$ it is now crucial to satisfy the band-decomposition-order constraint.
@@ -1094,8 +1088,5 @@ represented by $P$. Proving the uniqueness of bdo (given our restrictions) would
     \item Target (journals): Sebastian says 'NAR' or 'RNA', Hosna says whatever (I am fine with Bioinformatics or RNA), Yann, uncharacteristically, doesn't say anything...
   \end{itemize}
 \end{itemize}
-
-
-Some
 
 \end{document}
