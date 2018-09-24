@@ -35,6 +35,7 @@
 \usepackage{colortbl}
 
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{xifthen}
 \usepackage{tikz}
 \usepackage{relsize}
@@ -44,9 +45,11 @@
 \usetikzlibrary{math}
 \usetikzlibrary{shapes}
 
+
 \usepackage{theorem}
 \newtheorem{definition}{Definition}
-
+\newtheorem{proposition}{Proposition}
+\newenvironment{proofsketch}{\paragraph{Proof sketch.}}{\hfill$\Box$}
 
 % These packages are all incorporated in the memoir class to one degree or another...
 
@@ -205,26 +208,27 @@
 \newcommand{\constrIL} {_\text{L}}
 \newcommand{\constrIIO}{_\text{O}}
 \newcommand{\constrIIR}{_\text{R}}
-\newcommand{\constr}   {_c}
+\newcommand{\constr}   {_X}
 
 \newcommand{\Pdecomposition}{
   \renewcommand{\GRarcratio}{0.6}
+  \renewcommand{\GRsubseqlength}{1}
   \renewcommand{\GRunitlength}{0.1}
   \path[draw=none]
-    (last)                node (i1) [scale=0.1] {}
-    ++(\GRsubseqlength,0) node (j1) [scale=0.1] {}
+    (last)                node (i1) [label=below:$i_1$] {}
+    ++(\GRsubseqlength,0) node (j1) [label=below:$j_1$] {}
     ++(\GRunitlength,0)   node (w1l) [scale=0.1] {}
     ++(\GRdecwfraglength,0)   node (w1r) [scale=0.1] {}
-    ++(\GRunitlength,0)   node (i2) [scale=0.1] {}
-    ++(\GRsubseqlength,0) node (j2) [scale=0.1] {}
+    ++(\GRunitlength,0)   node (i2) [label=below:$i_2$] {}
+    ++(\GRsubseqlength,0) node (j2) [label=below:$j_2$] {}
     ++(\GRunitlength,0)   node (w2l) [scale=0.1] {}
     ++(\GRdecwfraglength,0)   node (w2r) [scale=0.1] {}
-    ++(\GRunitlength,0)   node (k1) [scale=0.1] {}
-    ++(\GRsubseqlength,0) node (l1) [scale=0.1] {}
+    ++(\GRunitlength,0)   node (k1) [label=below:$k_1$] {}
+    ++(\GRsubseqlength,0) node (l1) [label=below:$l_1$] {}
     ++(\GRunitlength,0)   node (w3l) [scale=0.1] {}
     ++(\GRdecwfraglength,0)   node (w3r) [scale=0.1] {}
-    ++(\GRunitlength,0)   node (k2) [scale=0.1] {}
-    ++(\GRsubseqlength,0) node (l2) [scale=0.1] {};
+    ++(\GRunitlength,0)   node (k2) [label=below:$k_2$] {}
+    ++(\GRsubseqlength,0) node (l2) [label=below:$l_2$] {};
 
   \draw[backbone]
     (i1) edge [] (j1)
@@ -653,26 +657,35 @@ Now, we obtain the following decomposition rule for P-fragments:
 \includegraphics{KnottyPF/recursionP}
 \end{equation}
 
-where, generically, fragments $\PKnone1\constr$ and $\PKnone2\constr$ are decomposed into fragments $\PKnone\constr$ and $\WPnone$ to account unambiguously for recursive substructure:
+where, generically, fragments $\PKnone^1\constr$ and $\PKnone^2\constr$ are decomposed into fragments $\PXnone$ and $\WPnone$ to account unambiguously for recursive substructure, such that we finally decompose $P$-fragments as follows:
+
+\begin{equation}
+\raisebox{36pt}{\text{$P$-structure}
+=}
+\begin{GRule}
+\Pdecomposition{}
+\end{GRule}
+%\label{eq:pdecomposition}
+\end{equation}
+
+The rules for doing this efficiently are:
 
 %\begin{equation}
 %\includegraphics{KnottyPF/recursionPK12}
 %\end{equation}
 \begin{GRule}
-  \GRgapfragDeco{$\PKnone1\constr$}{}{}
+  \GRgapfragDeco{$\PKnone^1\constr$}{}{}
   \GRdecompTo
-  \GRgapfragWDecompJ{$\PKnone\constr$}{}{}{$\WPnone$}
+  \GRgapfragWDecompJ{$\PXnone$}{}{}{$\WPnone$}
 \end{GRule}
 \qquad
 \begin{GRule}
-  \GRgapfragDeco{$\PKnone2\constr$}{}{}
+  \GRgapfragDeco{$\PKnone^2\constr$}{}{}
   \GRdecompTo
-  \GRgapfragWDecompK{$i\PKnone1\constr$}{}{}{$\WPnone$}
+  \GRgapfragWDecompK{$\PKnone^1\constr$}{}{}{$\WPnone$}
 \end{GRule}
 
-For decomposing fragments like $\PKnone\constrIO$, in general $\PKnone{regex}$ it is now crucial to satisfy the band-decomposition-order constraint.
-Let us start with the decomposition of $\PKnone\constrIO$. Generally $PK$-fragements are decomposed into $P_X$-type fragments, where we
-need to allow recursive substructure (i.e. $WP$-fragments) between the $P_X$-fragments.
+ 
 
 \begin{definition}
 The structures represented by a $P_X$-rule over gapped region $[i..j]\cup [k..l]$ satisfy the following properties:
@@ -686,53 +699,53 @@ The structures represented by a $P_X$-rule over gapped region $[i..j]\cup [k..l]
 \end{definition}
 
 
-We obtain the following decompositions of $PK$-fragments\SW{which are now degenerated and should be short cut / removed} 
+%We obtain the following decompositions of $PK$-fragments\SW{which are now degenerated and should be short cut / removed} 
+%%\begin{equation}
+%%\includegraphics{KnottyPF/recursionPKlstarO}
+%%\end{equation}
+%
 %\begin{equation}
-%\includegraphics{KnottyPF/recursionPKlstarO}
+%\begin{GRule}
+%  \GRgapfragDeco{$\PKnone\constrIO$}{}{lO}
+%  \GRdecompTo
+%  \GRgapfragDeco{$\POnone$}{O}{}
+%  %\GRor
+%  %\GRgapfragDeco{$\PRnone\constrIO$}{R}{lO} 
+%  %\GRor
+%  %\GRgapfragDeco{$\PMnone\constrIO$}{M}{lO}
+%
+%  \GRnewrule
+%
+%  \GRgapfragDeco{$\PKnone\constrIL$}{}{oL}
+%  \GRdecompTo
+%  \GRgapfragDeco{$\PLnone$}{L}{}
+%  %\GRor
+%  %\GRgapfragDeco{$\PRnone\constrIL$}{R}{oL} 
+%  %\GRor
+%  %\GRgapfragDeco{$\PMnone\constrIL$}{M}{oL} 
+%
+%  \GRnewrule
+%
+%  \GRgapfragDeco{$\PKnone\constrIIO$}{}{rO}
+%  \GRdecompTo
+%  \GRgapfragDeco{$\POnone$}{O}{}
+%  %\GRor
+%  %\GRgapfragDeco{$\PLnone\constrIIO$}{L}{rO} 
+%  %\GRor
+%  %\GRgapfragDeco{$\PMnone\constrIIO$}{M}{rO} 
+%
+%  \GRnewrule
+%
+%  \GRgapfragDeco{$\PKnone\constrIIR$}{}{oR}
+%  \GRdecompTo
+%  \GRgapfragDeco{$\PRnone$}{R}{}
+%  %\GRor
+%  %\GRgapfragDeco{$\PLnone\constrIIR$}{L}{oR} 
+%  %\GRor
+%  %\GRgapfragDeco{$\PMnone\constrIIR$}{M}{oR} 
+%\end{GRule}
 %\end{equation}
-
-\begin{equation}
-\begin{GRule}
-  \GRgapfragDeco{$\PKnone\constrIO$}{}{lO}
-  \GRdecompTo
-  \GRgapfragDeco{$\POnone$}{O}{}
-  %\GRor
-  %\GRgapfragDeco{$\PRnone\constrIO$}{R}{lO} 
-  %\GRor
-  %\GRgapfragDeco{$\PMnone\constrIO$}{M}{lO}
-
-  \GRnewrule
-
-  \GRgapfragDeco{$\PKnone\constrIL$}{}{oL}
-  \GRdecompTo
-  \GRgapfragDeco{$\PLnone$}{L}{}
-  %\GRor
-  %\GRgapfragDeco{$\PRnone\constrIL$}{R}{oL} 
-  %\GRor
-  %\GRgapfragDeco{$\PMnone\constrIL$}{M}{oL} 
-
-  \GRnewrule
-
-  \GRgapfragDeco{$\PKnone\constrIIO$}{}{rO}
-  \GRdecompTo
-  \GRgapfragDeco{$\POnone$}{O}{}
-  %\GRor
-  %\GRgapfragDeco{$\PLnone\constrIIO$}{L}{rO} 
-  %\GRor
-  %\GRgapfragDeco{$\PMnone\constrIIO$}{M}{rO} 
-
-  \GRnewrule
-
-  \GRgapfragDeco{$\PKnone\constrIIR$}{}{oR}
-  \GRdecompTo
-  \GRgapfragDeco{$\PRnone$}{R}{}
-  %\GRor
-  %\GRgapfragDeco{$\PLnone\constrIIR$}{L}{oR} 
-  %\GRor
-  %\GRgapfragDeco{$\PMnone\constrIIR$}{M}{oR} 
-\end{GRule}
-\end{equation}
-
+%
 
 We need to further decompose the $P_X$ fragments (which are optionally restricted by regular expressions). Generally, we distinguish three cases by the type of the closing base pair at position $X$. 1) it could close an interior loop in the same band, 2) a multi-loop in the same band (with costs for inner base pairs and unpaired based accounted in WB), or 3) it could `close' the band, i.e. it is the innermost base pair of its band for bands at L,R,O---outermost, in the case of M. Note that the decomposition is disjoint. In the
 third case, one changes to decomposing some other band (or terminates the final O-band). Also, in the third case, we allow recursive substructure between bands (WP), which needs to be inserted unambiguously.
@@ -1088,14 +1101,89 @@ represented by $P$. Proving the uniqueness of bdo (given our restrictions) would
   \item Expand full set of rules, Revise pictures $\to$ TikZ; (Sebastian)
   \item Unambiguity through disjointness of produced subsets; (At later time, once complete rules are known)
   \item Applications: 
-  \begin{itemize}
+   \begin{itemize}
     \item Tools: Statistical sampling (à la Ding-Lawrence), Inside-Outside for exact BP prob computation
     \item Tasks: Structure prediction (through Sampling-Clustering) possibly SHAPE directed, Pseudoknot detection (through comparing partition functions), Interaction prediction, kinetics (far-fetched?)...
     \item Target (journals): Sebastian says 'NAR' or 'RNA', Hosna says whatever (I am fine with Bioinformatics or RNA), Yann, uncharacteristically, doesn't say anything...
   \end{itemize}
 \end{itemize}
 
+\newpage
+\section{What we know about $P$-structures and their decomposition}
+\SW{I collect properties of $P$ and its decomposition in a new single place}
 
-Some
+\renewcommand{\P}{{\cal P}}
+
+Let $\P$ be the set of $P$-structures over $[i,l]$.
+
+Recall: These $P$-structures are the structures of a $P$-fragment (over region $[i,l]$), i.e. the structures that can be decomposed by the $P$-rule.
+
+\paragraph{Some simple truths:}
+\begin{enumerate}
+\item the ends are paired; there are base pairs (i,i') and (l',l) in each $R\in \P$.
+\item the ends are not part of recursive substructure, i.e.\ there is a chain of crossing base pairs connecting the two ends.
+\item the chain has either length 2, 3, or 4; this leads to a disjoint decomposition of $\P$; formally
+$$\P = \P_2 \cup \P_3 \cup \P_4,$$
+where the $\P_i$ (i=2,3,4) are pairwise disjoint, and 
+\begin{enumerate}
+\item $\P_2 = \{R\in \P \mid \exists i',l': (i,i')\in R, (l',l)\in R, l'<i'\}$
+\item $\P_3 = \{R\in \P \mid \exists i',l',p,p': (i,i')\in R, (p,p')\in R, (l',l)\in R, p<i'<l'<p'\}$ 
+\item $\P_4 = \{R\in \P \mid \exists i',l',p,p',: (i,i')\in R, (p,p')\in R, (q,q')\in R, (l',l)\in R, p<i'<q<p'<l'<q'\}$.
+\end{enumerate}
+\item all $P$-structures can be decomposed into two $PK$-fragments
+\item each structure of a $PK$-fragment contains one base pair that spans the region; there cannot be two such base pairs that cross each other
+\item each structure of a $PK$-fragment can be decomposed by a series of decompositions of bands at positions $L$,$M$,$R$,$O$; in a non-ambiguous set of decomposition rules, there is exactly one order of decompositions for each structure.
+\item We can specify rules to decompose only structures from each of the single subclasses from specialized $PK$-fragments.
+\begin{enumerate}
+\item $\P_2$ is generated by requiring that in (all structures of) the first $PK$-fragment $(i,i')$ spans the gapped region; and in the second, (l',l) spans the gapped region.
+\item $\P_3$ is generated by requiring that in the first fragment $(i,i')$ spans the gapped region; and in the second, (l',l) does not span the gapped region.
+\item $\P_4$ is generated by requiring that in the first fragment $(i,i')$ does not span the gapped region; and in the second, (l',l) does not span the gapped region.
+\end{enumerate}
+\end{enumerate}
+
+\paragraph{Characterization of a $\PXnone$-fragment}
+While $PK$-fragments are used in the decomposition of $P$-fragments, there only purpose is to decompose $P$-fragments into a $P_X$ and a $P_Y$-fragment ($X,Y\in\{L,R,M,O\}$), while unambigously allowing recursive substructure.
+Thus, we should first of all characterize $P_X$ fragments in order to understand the $P$-decomposition.
+\begin{equation}
+\raisebox{36pt}{\text{$P$-structure}
+=}
+\begin{GRule}
+\Pdecomposition{}
+\end{GRule}
+\label{eq:pdecomposition}
+\end{equation}
+
+\begin{definition}[$\POnone$-structures]
+The structures of a $\POnone$-fragment, i.e. the $P_X$-structures, are the $PK$-structures $R$ over the fragment's region $[i,j]\cup[k,l]$, where
+\begin{itemize}
+\item $(i,l) \in R$
+\item $\exists j.j'\in R, k.k'\in R$ 
+\item if $(j,k)\in R$, then $R$ consists of a single band
+\item otherwise, $j.j'$ and $k.k'$ belong to different bands; one of them could be an $O$-band. In this case, this must be the band of $(i,l)$.
+\end{itemize}
+\end{definition}
+
+\begin{proposition}
+Each structure $R$ of $\P_2$ over region $[i,l]$ can be decomposed into recursive substructure and two $\POnone$-fragments over respective regions $[i_1,j_1]\cup[k_1,l_1]$ and $[i_2,j_2]\cup[k_2,l_2]$ such that $i=i_1$, $l=l_2$, $(i,l_1)\in R$, and $(i_2,l)\in R$. 
+\end{proposition}
+
+\begin{proofsketch}
+
+\end{proofsketch}
+
+\begin{proposition}
+Each structure $R$ of $\P_3$ over region $[i,l]$ can be decomposed into recursive substructure, a $\POnone$-fragment and a $\PLnone$-fragment over respective regions $[i_1,j_1]\cup[k_1,l_1]$ and $[i_2,j_2]\cup[k_2,l_2]$ such that $i=i_1$, $l=l_2$, $(i,l_1)\in R$, and $(i_2,l)\not\in R$. 
+\end{proposition}
+%\begin{proofsketch}
+%\end{proofsketch}
+%
+
+\begin{proposition}
+Each structure $R$ of $\P_4$ over region $[i,l]$ can be decomposed into recursive substructure, a $\POnone$-fragment and a $\PLnone$-fragment over respective regions $[i_1,j_1]\cup[k_1,l_1]$ and $[i_2,j_2]\cup[k_2,l_2]$ such that $i=i_1$, $l=l_2$, $(i,l_1)\not\in R$, and $(i_2,l)\not\in R$. 
+\end{proposition}
+%\begin{proofsketch}
+%\end{proofsketch}
+%
+
 
 \end{document}
