@@ -635,18 +635,12 @@ and analogously two types, for the right component:
 
 Note that this suffices to (de)compose the different types of P-fragments in
 the disjoint case distinction that we discussed before.
-\YP{A picture may be worth a thousand words, and sorely missing here... :)}
 
 We observe that the different types of gapped fragments can be distinguished by limiting
 the possible decomposition orders in terms of decomposition at the bands L,R,M, and O.
 E.g. the constraint (1) is ensured by not decomposing at the left band before the first decomposition at the O-band. 
-\SW{Picture!}
-
-\textbf{HJ-} It is not clear to me what is meant by ``constraint (1)''.
 
 When we represent the band-decomposition order as word over $\{L,R,M,O\}$, then this corresponds to restricting the prefixes of this word. Therefore, we annotate matrices / fragment types with the allowed prefixes, using a regular expression like notation.
-
-\textbf{HJ-} I am not yet clear with the ``*'' notation. If it is regular-expression-like, then does it mean in $\PKnone\constrIO$ we can have more than one iteration to get from a $l$ state to an $O$ state? \YP{Yup, that is my understanding or, more precisely, $\PKnone\constrIO$ means {\em a (possibly empty) sequence of 'anything but $L$eft' base pairs, ultimately followed by an $O$utside base pair}.}
 
 To ensure the respective properties of the four different PK-type fragments, we thus denote them by
 $\PKnone\constrIO$, $\PKnone\constrIL$, $\PKnone\constrIIO$, $\PKnone\constrIIR$; where small letters refer to the negated character class of the corresponding capital letter, e.g. $l$ refers to $[RMO]$.
@@ -1108,6 +1102,7 @@ represented by $P$. Proving the uniqueness of bdo (given our restrictions) would
   \end{itemize}
 \end{itemize}
 
+<<<<<<< HEAD
 \newpage
 \section{What we know about $P$-structures and their decomposition}
 \SW{I collect properties of $P$ and its decomposition in a new single place}
@@ -1184,6 +1179,5 @@ Each structure $R$ of $\P_4$ over region $[i,l]$ can be decomposed into recursiv
 %\begin{proofsketch}
 %\end{proofsketch}
 %
-
 
 \end{document}
