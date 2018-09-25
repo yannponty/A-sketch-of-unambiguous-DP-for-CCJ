@@ -481,7 +481,7 @@ In the course of the recursive decomposition, we decompose sets of structures ov
 In the following, we use the terms \Def{(gapped/ungapped) fragment of type $T$}, briefly \Def{$T$-fragment}, referring to a (respectively, gapped/ungapped) region together with a type $T$, associated with a specific set of constraints on the structures of the $T$-fragment. Thus, $T$-fragments define a very specific set of RNA structures over the region of the fragment, which exists of all CCJ-structures that satisfy the $T$-associated constraints.
 
 Generally we formulate $T$-rules to describe the decomposition of $T$-fragments.
-Arbitrary CCJ-structures are decomposed unambiguosly due to
+Arbitrary CCJ-structures are decomposed unambiguously due to
 \begin{equation}
 \includegraphics{KnottyPF/recursionW}
 \end{equation}
@@ -569,11 +569,11 @@ Therefore, we distinguish three corresponding cases for their decomposition:
 \end{GRule}
 \end{equation}
 
-We sketch the required base pairs in red, note that in all cases their have to be base pairs that span the region of the gapped fragments. In the cases, where such base pairs are required to connect the left and right end by a chain of crossing base pairs, we indicate them by a blue base pair.
+We sketch the required base pairs in red; note that in all cases there have to be base pairs that span the region of the gapped fragments. In the cases, where such base pairs are required to connect the left and right end by a chain of crossing base pairs, we indicate them by a blue base pair.
 
 We observe that all these cases are disjoint and form a complete decomposition of CCJ structures, since CCJ structures do not allow three base pairs that all pairwise cross each other and the longest possible chains of crossing base pairs are $4$-chains (third case).
 
-In each case, we decompose the $P$-fragment over [i..l] into two gapped fragments over $[i..j]\cup[k..k']$ and $[j+1..k-1]\cup[k'+1..l]$. 
+In each case, we decompose the $P$-fragment over [i..l] into two gapped regions $[i..j]\cup[k..k']$ and $[j+1..k-1]\cup[k'+1..l]$. 
 
 %Gapped fragment: $\RNA{i-j----k-l}{1/10,3/8}$
 %
@@ -605,7 +605,10 @@ For the first fragment, we can `lock' the $M$ band by starting at the $L$ band, 
 
 \subsection{Types of gapped fragments}
 
-\SW{Since we need to rule out possible band flips, the following actually gets easier!!! The description is not updated yet, but considering the above consideration, the case distinctions boil down to distinguishing start at $O$ or $L$ ($O$ or $R$) for the first (second) gapped fragment, resepectively.}
+\SW{Since we need to rule out possible band flips, the following actually gets easier!!! The description is not updated yet, but considering the above consideration, the case distinctions boil down to distinguishing start at $O$ or $L$ ($O$ or $R$) for the first (second) gapped fragment, respectively.}
+
+\SW{I (re)started to collect properties of the $P$-structures and the decomposition in 
+\ref{sec:pdecomposition}; I also started to proof the disjoint decomposition. Sorry for the currently still unsorted mess...}
 
 First of all, note that the decomposition of a P-fragment, can be unambiguous
 only, if we strengthen the requirements in the gapped fragments compared to the
@@ -829,14 +832,7 @@ The first restriction is indeed a disambiguation, since immediately successive d
 
 Here are the decomposition of $P_X$ without constraints.
 
-\SW{For resolving ambiguity, we need to forbid single O-band which is not crossing anything in $\POnone$. Let us introduce an extra matrix $\POSnone$ where single O-band is enforced.
-We express this in our rules as follows: there is an extra ruleset for $OS$ without the 'from'-case; the regular $O$ rules do not allow single $O$, but require a change of bands;
-and ther from matrices that change to $O$ can either change to $O$ or single $O$.
-} 
-
-%\begin{equation}
-%\includegraphics{KnottyPF/recursionPX}
-%\end{equation}
+Note that for resolving ambiguity, we introduce extra matrices $\POSnone$ and $\POnone$ where single O-band is respectively enforced or forbidden. This is later used to rule out transitions from $M$ to single $O$-band, which would otherwise not result in a true change of bands and introduce ambiguity.
 
 \begin{equation}
 \begin{GRule}
@@ -901,28 +897,7 @@ and ther from matrices that change to $O$ can either change to $O$ or single $O$
 \end{GRule}
 \end{equation}
 
-% SW: seems like constraint annotation becomes obsolete
-%The corresponding rules with constraints lO,oL,rO, and oR work exactly in the same way, where the constraint $c$ is simply carried over; note that in some cases, the constraint can be dropped, since it is already satisfied by the fragment; e.g.\ $\POnone$ already satisfies constraint lO, such that we do not distinguish $\POnone\constrIO$ from $\POnone$. We show the rule for $\PLnone$ with constraints: 
-%
-%\begin{equation}
-%\begin{GRule}
-%  \GRgapfragDeco{$\PLnone\constr$}{L}{}
-%  \GRdecompTo
-%  \GRgapfragDeco{$\PLnone{_{\text{,iloop}}}\constr$}{L}{}
-%  \GRor
-%  \GRgapfragDeco{$\PLnone{_{\text{,mloop}}}\constr$}{L}{}
-%  \GRor
-%  \GRgapfragDeco{$\PfromLnone\constr$}{L}{}
-%\end{GRule}
-%\end{equation}
-
-
-
 $P_{fromX}$-fragments are required to change the band; note that we need to unambiguously allow recursive substructure \emph{and} unambiguous band change. 
-
-%\begin{equation}
-%\includegraphics{KnottyPF/recursionPfromX}
-%\end{equation}
 
 \begin{equation}
 \begin{GRule}
@@ -1032,6 +1007,7 @@ Note the asymmetry in the allowed transitions.
 %             edge [->] (MoR);
 %\end{tikzpicture}
 %\end{center}
+
 \begin{center}
 \begin{tikzpicture}[thick]
 \newcommand{\pkpre}{2}
@@ -1084,8 +1060,9 @@ Note the asymmetry in the allowed transitions.
 
 Note that there is no transition from $M$ to the terminal state $Os$, which represents the decomposition of the singleton $O$-band. Such a transition would lead to wrong scoring and ambiguity. Otherwise, transition from $M$ to the singleton $O$-band is the only forbidden transition from $M$ to $O$! This is the reason for introducing the $Os$-states in the first place.  
 
-\SW{Idea: We should formally define \emph{band decomposition order (bdo)} (as a word over $\{L,R,M,O\}$ for decompositions of a structure
-represented by $P$. Proving the uniqueness of bdo (given our restrictions) would be an essential step to showing the uniqueness of the recursions. For showing completeness, it is important to precisely define all the fragments (in terms of the represented structures).}
+%Probably not necessary anymore:
+%\SW{Idea: We should formally define \emph{band decomposition order (bdo)} (as a word over $\{L,R,M,O\}$ for decompositions of a structure
+%represented by $P$. Proving the uniqueness of bdo (given our restrictions) would be an essential step to showing the uniqueness of the recursions. For showing completeness, it is important to precisely define all the fragments (in terms of the represented structures).}
 
 \newpage
 {\bf TODO:}
@@ -1102,9 +1079,9 @@ represented by $P$. Proving the uniqueness of bdo (given our restrictions) would
   \end{itemize}
 \end{itemize}
 
-<<<<<<< HEAD
 \newpage
 \section{What we know about $P$-structures and their decomposition}
+\label{sec:pdecomposition}
 \SW{I collect properties of $P$ and its decomposition in a new single place}
 
 \renewcommand{\P}{{\cal P}}
@@ -1115,7 +1092,7 @@ Recall: These $P$-structures are the structures of a $P$-fragment (over region $
 
 \paragraph{Some simple truths:}
 \begin{enumerate}
-\item the ends are paired; there are base pairs (i,i') and (l',l) in each $R\in \P$.
+\item the ends in $P$-structures are paired; there are base pairs (i,i') and (l',l) in each $R\in \P$.
 \item the ends are not part of recursive substructure, i.e.\ there is a chain of crossing base pairs connecting the two ends.
 \item the chain has either length 2, 3, or 4; this leads to a disjoint decomposition of $\P$; formally
 $$\P = \P_2 \cup \P_3 \cup \P_4,$$
@@ -1125,7 +1102,7 @@ where the $\P_i$ (i=2,3,4) are pairwise disjoint, and
 \item $\P_3 = \{R\in \P \mid \exists i',l',p,p': (i,i')\in R, (p,p')\in R, (l',l)\in R, p<i'<l'<p'\}$ 
 \item $\P_4 = \{R\in \P \mid \exists i',l',p,p',: (i,i')\in R, (p,p')\in R, (q,q')\in R, (l',l)\in R, p<i'<q<p'<l'<q'\}$.
 \end{enumerate}
-\item all $P$-structures can be decomposed into two $PK$-fragments
+\item all $P$-structures can be decomposed into two $PK$-fragments (eventually, recursive substructure and two $\PXnone$-fragments)
 \item each structure of a $PK$-fragment contains one base pair that spans the region; there cannot be two such base pairs that cross each other
 \item each structure of a $PK$-fragment can be decomposed by a series of decompositions of bands at positions $L$,$M$,$R$,$O$; in a non-ambiguous set of decomposition rules, there is exactly one order of decompositions for each structure.
 \item We can specify rules to decompose only structures from each of the single subclasses from specialized $PK$-fragments.
@@ -1159,11 +1136,14 @@ The structures of a $\POnone$-fragment, i.e. the $P_X$-structures, are the $PK$-
 \end{definition}
 
 \begin{proposition}
-Each structure $R$ of $\P_2$ over region $[i,l]$ can be decomposed into recursive substructure and two $\POnone$-fragments over respective regions $[i_1,j_1]\cup[k_1,l_1]$ and $[i_2,j_2]\cup[k_2,l_2]$ such that $i=i_1$, $l=l_2$, $(i,l_1)\in R$, and $(i_2,l)\in R$. 
+Each structure $R$ of $\P_2$ over region $[i,l]$ can be decomposed into recursive substructure and two $\POnone$-fragments over respective regions $[i_1,j_1]\cup[k_1,l_1]$ and $[i_2,j_2]\cup[k_2,l_2]$ such that $i=i_1$, $l=l_2$, $(i,l_1)\in R$, and $(i_2,l)\in R$.
+Furthermore, this decomposition is unambiguous.
 \end{proposition}
 
 \begin{proofsketch}
+In each structure $R$ of $\P_2$, the base pairs $(i,l_1)$ and $(i_2,l)$ cross each other, but there are no base pairs that cross both of such base pairs. All base pairs that cross $(i,l_1)$ can be represented in the first $\POnone$-fragment; the same holds symmetrically for $(i_2,l)$. All base pair that cross neither of these two base pairs, must be part of either the first or the second region (i.e. $[i_1,j_1]\cup[k_1,l_1]$ or $[i_2,j_2]\cup[k_2,l_2]$).
 
+For the unambiguity, first note that the indices $(i,l_1)$ and $(i_2,l)$ are fixed.
 \end{proofsketch}
 
 \begin{proposition}
