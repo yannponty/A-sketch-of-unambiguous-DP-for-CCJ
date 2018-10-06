@@ -425,6 +425,10 @@ The \emph{region $[i,j]$} is the sequence of indices $k$, $i\leq k\leq j$.
 $i$ and $j$ are called the left and right ends of the region respectively. 
 \end{definition}
 
+\begin{definition}[Weakly closed region] 
+Region $[i,l]$ is weakly closed if all bases in $[i,l]$ are either unpaired or paired with other bases in $[i,l]$.  
+\end{definition}
+
 \begin{definition}[Gapped region]
 A gapped region is the union of two regions $[i, j]$ and $[k, l]$ with $i \le j<k \le l$.
 \end{definition}
@@ -470,6 +474,90 @@ A \emph{band} is a subset $[i,j]\cup[k,l]$ of sequence positions, iff there is a
 \end{definition}
 \textbf{HJ-} We say a base pair $d.e$ spans the band if it spans the gapped region $[i,j]\cup[k,l]$.
 
+% HJ- Definition from CCJ paper
+\begin{definition}[Three-Group-of-Band (TGB) structure]
+If $R$ is a secondary structure for a sequence of length
+$n$, let $R_{i,l}$ be the subset of base pairs of $R$ whose endpoints are in region $[i,l]$, and let $R_{[i, j] \cup [k,l]}$ be the subset of $R$
+whose endpoints are in $[i,j] \cup [k.l]$.  (Thus, $R = R_{1,n}$).
+\begin{enumerate}
+\item
+$R_{i \cup j}{k \cup l}$ is a {\em TGB structure} if either
+\begin{enumerate}
+\item
+$[i,j] \cup [k,l]$ is a gapped region,
+$R_{[i, j] \cup [k, l]}$ contains base pair(s) $i.l$ and $j.k$, any
+base pair of $R_{[i, j]\cup[k, l]}$ 
+which spans the gapped region $[i,j] \cup [k,l]$
+does not cross any other base pair of $R_{[i, j]\cup[k, l]}$, and any nested substructures $R_{[i, j]\cup[k, l]}$,
+in weakly closed regions $[i,j]$ or $[k,l]$ are CCJ
+structures.
+
+\item
+$R_{[i, j]\cup[k, l]}$ can be decomposed into a
+CCJ structure and a TGB structure in one of the following ways, for some $d$:
+
+\begin{center}
+\begin{tabular}{ccc} \hline
+\noalign{\smallskip} 
+range of $d$ & CCJ structure & TGB structure \\ 
+\noalign{\smallskip} 
+\hline \hline
+$i< d \le j$    & $R_{i, d-1}$  & $R_{[d, j] \cup [k, l]}$ \\[.01in]
+$i \le d< j$    & $R_{d+1, j}$  & $R_{[i, d] \cup[k, l]}$ \\[.01in]
+$k< d \le l$    & $R_{k, d-1}$  & $R_{[i,j] \cup [d, l]}$ \\[.01in]
+$k \le d< l$    & $R_{d+1, l}$  & $R_{[i, j] \cup [k, d]}$ \\[.01in]
+\noalign{\smallskip} 
+\hline
+\end{tabular}
+\end{center}
+
+\item
+$R_{[i,j] \cup [k,l]}$ can be decomposed into a band and a TGB structure in 
+one of the following ways, for some $d$ and $e$:
+
+\begin{center}
+\begin{tabular}{ccrlc} \hline
+\noalign{\smallskip} 
+range of $d$ & range of $e$ & \multicolumn{2}{c}{band borders}    & TGB structure      \\ 
+\noalign{\smallskip} 
+
+\hline \hline
+$i\le d<j$   & $i<e \le j$  &  $i.j$     & $d.e$    & $R_{[d+1,e-1] \cup [k,l]}$ \\[.01in]
+$i\le d<j$   & $k<e \le l$  &  $i.l$     & $d.e$    & $R_{[d+1,j] \cup [k,e-1]}$ \\[.01in]
+$i<d\le j$   & $k \le e<l$  &  $d.e$     & $j.k$    & $R_{[i,d-1] \cup [e+1,l]}$ \\[.01in]
+$k\le d<l$   & $k<e \le l$  &  $k.l$     & $d.e$    & $R_{[i,j] \cup [d+1,e-1]}$ \\
+\noalign{\smallskip} 
+\hline
+\end{tabular}
+\end{center}
+
+\end{enumerate}
+\end{enumerate}
+
+\end{definition}
+
+\begin{definition}[CCJ pseudoknot]
+$R_{i,l}$ is a {\em CCJ pseudoknot} if it is the union of
+two TGB structures $R_{[i,j]\cup[d+1, k]}$ and $R_{[j+1,d]\cup[k+1, l]}$.
+\end{definition}
+
+\begin{definition}[CCJ structure]
+Finally, $R_{i,l}$ is a {\em CCJ structure} if
+\begin{enumerate}
+\item
+$R_{i,l}$ is empty, or
+
+\item
+$i.l \in R_{i,l}$ and $R_{i+1,l-1}$ is a CCJ structure, or
+
+\item
+for some $k \in [i,l-1]$, $R_{i,l} = R_{i,k} \cup R_{k+1,l}$
+and both $R_{i,k}$ and $R_{k+1,l}$ are CCJ structures, or
+
+\item
+$R{i,l}$ is a CCJ pseudoknot.
+\end{enumerate}
+\end{definition}
 
 
 \subsection{Methods}
@@ -493,14 +581,16 @@ We annotate the fragments by their types (here, $W$, $V$, and $P$) and use \Def{
 
 \YP{Regarding graphical notations, I think it would be better to use 'wavy line' instead of dashed base pairs in order to better distinguish recursive calls from arcs.}\SW{Sure, we can have wavy lines; it's a simple change for the tikz-generated graphics; I even tested this already. Currently, unfortunately not all of the rules are TikZ, such that I would postpone this. Also, I am not super-convinced that this makes things clearer (it looks more fancy though).}
 
-Similar changes disambiguate the WB and WP recursions. 
+%HJ- I think we need to add definition of each recursion here as well.
+\textbf{HJ-} The W-rule over region $[i,l]$ describes decomposition of a W-fragment to find the minimum free energy structure that is not nested in a substructure. 
+Similar changes disambiguate the WB and WP recursions, which respectively are minimum free energy structures nested in a band or a pseudoloop. 
+V-fragment represents the structure R over region $[i,l]$ where i is paired with l; in this case R can be a hairpin loop, an internal loop or a multiloop.
 This moves the focus to the decomposition of $P$-fragments. 
 
-%\textbf{HJ-} I think we should use $P$-rule instead.
 $P$-fragments represent structures $R$ of regions $[i,l]$, where
 $i$ and $l$ are paired and part of the same pseudoknot, i.e. in all those structures, there are base pairs $i.i'$ and $l'.l$, such that
 \begin{enumerate}
-\item either $i.i'$ and $j.j'$ directly cross each other 
+\item either $i.i'$ and $l'.l$ directly cross each other 
 \item or $i.i'$ and $l'.l$ are both crossing a third base pair $(k,k')$, where $i<k<i'<l'<k'<l$.
 \item $i.i'$ crosses a base pair $(k_1,k_1')$ that crosses $(k_2,k'_2)$ that crosses $l'.l$ $(i<k_1<k_2<k'_1<k'_2<l)$.
 \end{enumerate}
@@ -569,7 +659,7 @@ Therefore, we distinguish three corresponding cases for their decomposition:
 \end{GRule}
 \end{equation}
 
-We sketch the required base pairs in red; note that in all cases there have to be base pairs that span the region of the gapped fragments. In the cases, where such base pairs are required to connect the left and right end by a chain of crossing base pairs, we indicate them by a blue base pair.
+We sketch the required base pairs (i.e. $i.i'$ and $l'.l$) in red; note that in all cases there have to be base pairs that span the region of the gapped fragments. In the cases, where such base pairs are required to connect the left and right end by a chain of crossing base pairs, we indicate them by a blue base pair.
 
 We observe that all these cases are disjoint and form a complete decomposition of CCJ structures, since CCJ structures do not allow three base pairs that all pairwise cross each other and the longest possible chains of crossing base pairs are $4$-chains (third case).
 
@@ -826,6 +916,8 @@ The original CCJ algorithm already contains restrictions on the band-decompositi
 \item $O$ cannot be immediately followed by $M$
 \end{itemize} 
 \SW{It seems that disallowing any change between M and O is too strong!!! We allow only O to M changes}
+
+\noindent \textbf{HJ-} I checked CCJ algorithm again, and it was an error in my thesis to remove transition from M to O case. In the published version there is a transition from M to O but not the other way.
 
 The first restriction is indeed a disambiguation, since immediately successive decompositions at $L$ and $R$ could be exchanged, but it is again required to ensure that position changes introduce band changes, since going back and forth between $L$ and $R$ like $LRL$ would just extend the $L$ band. 
 
@@ -1092,29 +1184,29 @@ Recall: These $P$-structures are the structures of a $P$-fragment (over region $
 
 \paragraph{Some simple truths:}
 \begin{enumerate}
-\item the ends in $P$-structures are paired; there are base pairs (i,i') and (l',l) in each $R\in \P$.
+\item the ends in $P$-structures are paired; there are base pairs $i.i'$ and $l'.l$ in each $R\in \P$.
 \item the ends are not part of recursive substructure, i.e.\ there is a chain of crossing base pairs connecting the two ends.
 \item the chain has either length 2, 3, or 4; this leads to a disjoint decomposition of $\P$; formally
 $$\P = \P_2 \cup \P_3 \cup \P_4,$$
 where the $\P_i$ (i=2,3,4) are pairwise disjoint, and 
 \begin{enumerate}
-\item $\P_2 = \{R\in \P \mid \exists i',l': (i,i')\in R, (l',l)\in R, l'<i'\}$
-\item $\P_3 = \{R\in \P \mid \exists i',l',p,p': (i,i')\in R, (p,p')\in R, (l',l)\in R, p<i'<l'<p'\}$ 
-\item $\P_4 = \{R\in \P \mid \exists i',l',p,p',: (i,i')\in R, (p,p')\in R, (q,q')\in R, (l',l)\in R, p<i'<q<p'<l'<q'\}$.
+\item $\P_2 = \{R\in \P \mid \exists i',l': i.i'\in R, l'.l \in R, l'<i'\}$
+\item $\P_3 = \{R\in \P \mid \exists i',l',p,p': i.i'\in R, p.p'\in R, l'.l\in R, p<i'<l'<p'\}$ 
+\item $\P_4 = \{R\in \P \mid \exists i',l',p,p',q, q': i.i'\in R, p.p'\in R, q.q'\in R, l'.l\in R, p<i'<q<p'<l'<q'\}$.
 \end{enumerate}
 \item all $P$-structures can be decomposed into two $PK$-fragments (eventually, recursive substructure and two $\PXnone$-fragments)
 \item each structure of a $PK$-fragment contains one base pair that spans the region; there cannot be two such base pairs that cross each other
 \item each structure of a $PK$-fragment can be decomposed by a series of decompositions of bands at positions $L$,$M$,$R$,$O$; in a non-ambiguous set of decomposition rules, there is exactly one order of decompositions for each structure.
 \item We can specify rules to decompose only structures from each of the single subclasses from specialized $PK$-fragments.
 \begin{enumerate}
-\item $\P_2$ is generated by requiring that in (all structures of) the first $PK$-fragment $(i,i')$ spans the gapped region; and in the second, (l',l) spans the gapped region.
-\item $\P_3$ is generated by requiring that in the first fragment $(i,i')$ spans the gapped region; and in the second, (l',l) does not span the gapped region.
-\item $\P_4$ is generated by requiring that in the first fragment $(i,i')$ does not span the gapped region; and in the second, (l',l) does not span the gapped region.
+\item $\P_2$ is generated by requiring that in (all structures of) the first $PK$-fragment $i.i'$ spans the gapped region; and in the second, $l'.l$ spans the gapped region.
+\item $\P_3$ is generated by requiring that in the first fragment $i.i'$ spans the gapped region; and in the second, $l'.l$ does not span the gapped region.
+\item $\P_4$ is generated by requiring that in the first fragment $i.i'$ does not span the gapped region; and in the second, $l'.l$ does not span the gapped region.
 \end{enumerate}
 \end{enumerate}
 
 \paragraph{Characterization of a $\PXnone$-fragment}
-While $PK$-fragments are used in the decomposition of $P$-fragments, there only purpose is to decompose $P$-fragments into a $P_X$ and a $P_Y$-fragment ($X,Y\in\{L,R,M,O\}$), while unambigously allowing recursive substructure.
+While $PK$-fragments are used in the decomposition of $P$-fragments, their only purpose is to decompose $P$-fragments into a $P_X$ and a $P_Y$-fragment ($X,Y\in\{L,R,M,O\}$), while unambigously allowing recursive substructure.
 Thus, we should first of all characterize $P_X$ fragments in order to understand the $P$-decomposition.
 \begin{equation}
 \raisebox{36pt}{\text{$P$-structure}
@@ -1126,35 +1218,36 @@ Thus, we should first of all characterize $P_X$ fragments in order to understand
 \end{equation}
 
 \begin{definition}[$\POnone$-structures]
-The structures of a $\POnone$-fragment, i.e. the $P_X$-structures, are the $PK$-structures $R$ over the fragment's region $[i,j]\cup[k,l]$, where
+The structures of a $\POnone$-fragment, 
+i.e. the $P_X$-structures, are the $PK$-structures $R$ over the fragment's region $[i,j]\cup[k,l]$, where
 \begin{itemize}
-\item $(i,l) \in R$
+\item $i.l \in R$
 \item $\exists j.j'\in R, k.k'\in R$ 
-\item if $(j,k)\in R$, then $R$ consists of a single band
-\item otherwise, $j.j'$ and $k.k'$ belong to different bands; one of them could be an $O$-band. In this case, this must be the band of $(i,l)$.
+\item if $j.k \in R$, then $R$ consists of a single band
+\item otherwise, $j.j'$ and $k.k'$ belong to different bands; one of them could be an $O$-band. In this case, this must be the band of $i.l$.
 \end{itemize}
 \end{definition}
 
 \begin{proposition}
-Each structure $R$ of $\P_2$ over region $[i,l]$ can be decomposed into recursive substructure and two $\POnone$-fragments over respective regions $[i_1,j_1]\cup[k_1,l_1]$ and $[i_2,j_2]\cup[k_2,l_2]$ such that $i=i_1$, $l=l_2$, $(i,l_1)\in R$, and $(i_2,l)\in R$.
+Each structure $R$ of $\P_2$ over region $[i,l]$ can be decomposed into recursive substructure and two $\POnone$-fragments over respective regions $[i_1,j_1]\cup[k_1,l_1]$ and $[i_2,j_2]\cup[k_2,l_2]$ such that $i=i_1$, $l=l_2$, $i.l_1\in R$, and $i_2.l\in R$.
 Furthermore, this decomposition is unambiguous.
 \end{proposition}
 
 \begin{proofsketch}
-In each structure $R$ of $\P_2$, the base pairs $(i,l_1)$ and $(i_2,l)$ cross each other, but there are no base pairs that cross both of such base pairs. All base pairs that cross $(i,l_1)$ can be represented in the first $\POnone$-fragment; the same holds symmetrically for $(i_2,l)$. All base pair that cross neither of these two base pairs, must be part of either the first or the second region (i.e. $[i_1,j_1]\cup[k_1,l_1]$ or $[i_2,j_2]\cup[k_2,l_2]$).
+In each structure $R$ of $\P_2$, the base pairs $i.l_1$ and $i_2.l$ cross each other, but there are no base pairs that cross both of such base pairs. All base pairs that cross $i.l_1$ can be represented in the first $\POnone$-fragment; the same holds symmetrically for $i_2.l$. All base pair that cross neither of these two base pairs, must be part of either the first or the second region (i.e. $[i_1,j_1]\cup[k_1,l_1]$ or $[i_2,j_2]\cup[k_2,l_2]$).
 
 For the unambiguity, first note that the indices $(i,l_1)$ and $(i_2,l)$ are fixed.
 \end{proofsketch}
 
 \begin{proposition}
-Each structure $R$ of $\P_3$ over region $[i,l]$ can be decomposed into recursive substructure, a $\POnone$-fragment and a $\PLnone$-fragment over respective regions $[i_1,j_1]\cup[k_1,l_1]$ and $[i_2,j_2]\cup[k_2,l_2]$ such that $i=i_1$, $l=l_2$, $(i,l_1)\in R$, and $(i_2,l)\not\in R$. 
+Each structure $R$ of $\P_3$ over region $[i,l]$ can be decomposed into recursive substructure, a $\POnone$-fragment and a $\PLnone$-fragment over respective regions $[i_1,j_1]\cup[k_1,l_1]$ and $[i_2,j_2]\cup[k_2,l_2]$ such that $i=i_1$, $l=l_2$, $i.l_1\in R$, and $i_2.l\not\in R$. 
 \end{proposition}
 %\begin{proofsketch}
 %\end{proofsketch}
 %
 
 \begin{proposition}
-Each structure $R$ of $\P_4$ over region $[i,l]$ can be decomposed into recursive substructure, a $\POnone$-fragment and a $\PLnone$-fragment over respective regions $[i_1,j_1]\cup[k_1,l_1]$ and $[i_2,j_2]\cup[k_2,l_2]$ such that $i=i_1$, $l=l_2$, $(i,l_1)\not\in R$, and $(i_2,l)\not\in R$. 
+Each structure $R$ of $\P_4$ over region $[i,l]$ can be decomposed into recursive substructure, a $\POnone$-fragment and a $\PLnone$-fragment over respective regions $[i_1,j_1]\cup[k_1,l_1]$ and $[i_2,j_2]\cup[k_2,l_2]$ such that $i=i_1$, $l=l_2$, $i.l_1\not\in R$, and $i_2.l\not\in R$. 
 \end{proposition}
 %\begin{proofsketch}
 %\end{proofsketch}
