@@ -119,6 +119,13 @@
 \newcommand{\SW}[1]{\textbf{SW-}#1}
 \newcommand{\YP}[1]{{\color{red!30!black}\textbf{YP-}#1}}
 
+%% band symbols
+\newcommand{\Ob}{\text{O}}
+\newcommand{\Rb}{\text{R}}
+\newcommand{\Lb}{\text{L}}
+\newcommand{\Mb}{\text{M}}
+
+
 %% Matrix symbol macros (from Knotty paper) 
 \newcommand{\Vnone}{V}
 \newcommand{\V}       [2]{V           (#1,#2)}
@@ -174,8 +181,8 @@
 \newcommand{\POSnone}{P_{\text{Os}}}
 \newcommand {\POS}[4]{\POSnone(#1,#2,#3,#4)}
 
-\newcommand{\PONSnone}{P_{\text{Ons}}}
-\newcommand {\PONS}[4]{\PONSnone(#1,#2,#3,#4)}
+\newcommand{\POMnone}{P_{\text{Om}}}
+\newcommand {\POM}[4]{\POMnone(#1,#2,#3,#4)}
 
 
 \newcommand{\PfromLnone}{P_{\text{fromL}}}
@@ -190,8 +197,8 @@
 \newcommand{\PfromOnone}{P_{\text{fromO}}}
 \newcommand {\PfromO}[4]{P_{\text{fromO}}(#1,#2,#3,#4)}
 
-\newcommand{\PfromONSnone}{P_{\text{fromOns}}}
-\newcommand {\PfromONS}[4]{P_{\text{fromOns}}(#1,#2,#3,#4)}
+\newcommand{\PfromOMnone}{P_{\text{fromOm}}}
+\newcommand {\PfromOM}[4]{P_{\text{fromOm}}(#1,#2,#3,#4)}
 
 \newcommand{\PfromXnone}{P_{\text{from}X}}
 \newcommand {\PfromX}[4]{P_{\text{from}X}(#1,#2,#3,#4)}
@@ -483,7 +490,8 @@ In the following, we use the terms \Def{(gapped/ungapped) fragment of type $T$},
 Generally we formulate $T$-rules to describe the decomposition of $T$-fragments.
 Arbitrary CCJ-structures are decomposed unambiguously due to
 \begin{equation}
-\includegraphics{KnottyPF/recursionW}
+  \label{eq:wrule}
+  \includegraphics{KnottyPF/recursionW}
 \end{equation}
 In this graphical notation, the RNA sequence is represented as a line with bases as index positions. This specifies the region of each fragment.
 %
@@ -599,13 +607,13 @@ or slightly more complex,\\ $\RNA[3/8]{ABCDbaec}{1/6,2/5,4/7}$, $\RNA[3/8,4/7]{A
 
 Apparently, without further restrictions, right and middle bands of the first fragment can be 'flipped' to respective middle and left bands of the second fragment. 
 
-We break these symmetries by ruling out `flippable' $R$ and $M$ bands in the first gapped fragment of a $P$-decomposition rule; analogously, we rule out corresponding $L$ and $M$ bands in the second fragment. Both can be achieved by strengthening the constraints on those fragments.
+We break these symmetries by ruling out `flippable' \Rb{} and \Mb-bands in the first gapped fragment of a $P$-decomposition rule; analogously, we rule out corresponding \Lb{} and \Mb{} bands in the second fragment. Both can be achieved by strengthening the constraints on those fragments.
 We observe that bands are flippable, if they are not crossing any other band. In addition there are cases, where two bands can be flipped simultaneously, e.g. the middle and right band of the first fragment.
-For the first fragment, we can `lock' the $M$ band by starting at the $L$ band, by forbidding decomposition at $R$ immediately after each $L$-band decomposition, this locks the $R$ band as well. Similarly, we lock both bands by starting the decomposition at $O$ and disallowing transitions from $O$ to $M$. \SW{This is pretty much unsorted; we need to introduce the ideas of band decompositions first.}
+For the first fragment, we can `lock' the \Mb{} band by starting at the \Lb{} band, by forbidding decomposition at \Rb{} immediately after each \Lb-band decomposition, this locks the \Rb{} band as well. Similarly, we lock both bands by starting the decomposition at \Ob{} and disallowing transitions from \Ob{} to \Mb. \SW{This is pretty much unsorted; we need to introduce the ideas of band decompositions first.}
 
 \subsection{Types of gapped fragments}
 
-\SW{Since we need to rule out possible band flips, the following actually gets easier!!! The description is not updated yet, but considering the above consideration, the case distinctions boil down to distinguishing start at $O$ or $L$ ($O$ or $R$) for the first (second) gapped fragment, respectively.}
+\SW{Since we need to rule out possible band flips, the following actually gets easier!!! The description is not updated yet, but considering the above consideration, the case distinctions boil down to distinguishing start at \Ob{} or \Lb{} (\Ob{} or \Rb{}) for the first (second) gapped fragment, respectively.}
 
 \SW{I (re)started to collect properties of the $P$-structures and the decomposition in 
 \ref{sec:pdecomposition}; I also started to proof the disjoint decomposition. Sorry for the currently still unsorted mess...}
@@ -691,7 +699,7 @@ The structures represented by a $P_X$-rule over gapped region $[i..j]\cup [k..l]
 \item the closing bases at the ``$X$'' side of the gapped region form a base pair%``closed at $X$''
 ---there is a base pair at the position $X$ ($X\in\{L,R,M,O\}$).
 \item there is a base pair that spans the gapped region $j+1..k-1$
-\item unless $X=O$, the end bases cannot all be part of the same band (i.e. $i=j$ and $k=l$). (Note that we terminate with $O$, unlike the original CCJ recursions, which terminate at $M$.)
+\item unless $X=O$, the end bases cannot all be part of the same band (i.e. $i=j$ and $k=l$). (Note that we terminate with \Ob, unlike the original CCJ recursions, which terminate at \Mb.)
 \end{itemize}
 \end{definition}
 
@@ -821,18 +829,17 @@ It remains to ensure that the order in which bands are decomposed is never ambig
 \paragraph{Unambiguous decomposition order:}
 The original CCJ algorithm already contains restrictions on the band-decomposition order, which are encoded in the rules for decomposition of $P\text{fromX}$-fragments ($X$ in $\{\text{L,R,M,O}\}$). These restrictions are
 \begin{itemize}
-\item (decomposition at) $R$ cannot be immediately followed by $L$
-\item $M$ cannot be immediately followed by $O$ 
-\item $O$ cannot be immediately followed by $M$
+\item (decomposition at) \Rb{} cannot be immediately followed by \Lb
+\item \Mb{} cannot be immediately followed by \Ob{} 
+\item \Ob{} cannot be immediately followed by \Mb
 \end{itemize} 
-\SW{It seems that disallowing any change between M and O is too strong!!! We allow only O to M changes}
 
-The first restriction is indeed a disambiguation, since immediately successive decompositions at $L$ and $R$ could be exchanged, but it is again required to ensure that position changes introduce band changes, since going back and forth between $L$ and $R$ like $LRL$ would just extend the $L$ band. 
+The first restriction is indeed a disambiguation, since immediately successive decompositions at \Lb{} and \Rb{} could be exchanged, but it is again required to ensure that position changes introduce band changes, since going back and forth between \Lb{} and \Rb{} like $LRL$ would just extend the \Lb{} band. 
 
 
 Here are the decomposition of $P_X$ without constraints.
 
-Note that for resolving ambiguity, we introduce extra matrices $\POSnone$ and $\POnone$ where single O-band is respectively enforced or forbidden. This is later used to rule out transitions from $M$ to single $O$-band, which would otherwise not result in a true change of bands and introduce ambiguity.
+Note that for resolving ambiguity, we introduce extra matrices $\POSnone$ and $\POnone$ where single O-band is respectively enforced or forbidden. This is later used to rule out transitions from \Mb{} to single \Ob-band, which would otherwise not result in a true change of bands and introduce ambiguity.
 
 \begin{equation}
 \begin{GRule}
@@ -879,11 +886,11 @@ Note that for resolving ambiguity, we introduce extra matrices $\POSnone$ and $\
   
   \GRnewrule
 
-  \GRgapfragDeco{$\PONSnone$}{O}{}
+  \GRgapfragDeco{$\POMnone$}{O}{}
   \GRdecompTo
-  \GRgapfragDeco{$\PONSnone{_{\text{,iloop}}}$}{O}{}
+  \GRgapfragDeco{$\POMnone{_{\text{,iloop}}}$}{O}{}
   \GRor
-  \GRgapfragDeco{$\PONSnone{_{\text{,mloop}}}$}{O}{}
+  \GRgapfragDeco{$\POMnone{_{\text{,mloop}}}$}{O}{}
   \GRor
   \GRgapfragDeco[itype/.style={fix,shift={(-0.3,0)}},
                  ltype/.style={fix,shift={(+0.3,0)}}]{$\PfromOnone$}{fromO}{}
@@ -893,41 +900,95 @@ Note that for resolving ambiguity, we introduce extra matrices $\POSnone$ and $\
   \GRdecompTo
   \GRgapfragDeco{$\POSnone$}{O}{}
   \GRor
-  \GRgapfragDeco{$\PONSnone$}{O}{}
+  \GRgapfragDeco{$\POMnone$}{O}{}
 \end{GRule}
 \end{equation}
 
-$P_{fromX}$-fragments are required to change the band; note that we need to unambiguously allow recursive substructure \emph{and} unambiguous band change. 
+$P_{fromX}$-fragments are required to change the band; note that we need to decompise recursive substructure unambiguously \emph{and} allow unambiguous band change. 
+Note that recursive substructure from different fromX-matrices cannot be decomposed in different ways.
 
 \begin{equation}
 \begin{GRule}
+  % fromO
   \GRgapfragDeco{$\PfromOnone$}{fromO}{}
   \GRdecompTo
-  \GRgapfragWDecompI{$\PLnone$}{L}{}{$\WPnone$}
+  \GRgapfragWDecompI{$\PfromOnone'$}{fromO}{}{$\WPnone$}
+
+  \GRsetlast[1]{l}
+
+  \GRgapfragDeco{$\PfromOnone'$}{fromO}{}
+  \GRdecompTo
+  \GRgapfragWDecompL{$\PfromOnone''$}{fromO}{}{$\WPnone$}
+
+  \GRnewrule
+
+  \GRgapfragDeco{$\PfromOnone''$}{fromO}{}
+  \GRdecompTo
+  \GRgapfragDeco{$\PLnone$}{L}{}
   \GRor
-  \GRgapfragWDecompL{$\PRnone$}{R}{}{$\WPnone$}
-  \GRor
-  \GRgapfragDeco{$\PMnone$}{M}{}
+  \GRgapfragDeco{$\PRnone$}{R}{}
+
+  \GRnewrule
+
+  % fromL
+  \GRgapfragDeco{$\PfromLnone$}{fromL}{}
+  \GRdecompTo
+  \GRgapfragWDecompI{$\PfromLnone'$}{fromL}{}{$\WPnone$}
+  %
+  \GRsetlast[1]{l}
+  \GRgapfragDeco{$\PfromLnone'$}{fromL}{}
+  \GRdecompTo
+  \GRgapfragWDecompJ{$\PfromLnone''$}{fromL}{}{$\WPnone$}
   %
   \GRnewrule
+  \GRgapfragDeco{$\PfromLnone''$}{fromL}{}
+  \GRdecompTo
+  \GRgapfragDeco{$\PMnone$}{M}{}
+  \GRor        
+  \GRgapfragDeco{$\POnone$}{O}{}
+  \GRor
+  \GRgapfragDeco{$\PRnone$}{R}{}
+  
+  \GRnewrule
+
+  % fromR
   \GRgapfragDeco{$\PfromRnone$}{fromR}{}
   \GRdecompTo
-  \GRgapfragWDecompK{$\PMnone$}{M}{}{$\WPnone$}
+  \GRgapfragWDecompK{$\PfromRnone'$}{fromR}{}{$\WPnone$}
+  \GRsetlast[1]{last}
+  \GRgapfragDeco{$\PfromRnone'$}{fromR}{}
+  \GRdecompTo
+  \GRgapfragWDecompL{$\PfromRnone''$}{fromR}{}{$\WPnone$}
+
+  \GRnewrule
+  \GRgapfragDeco{$\PfromRnone''$}{fromR}{}
+  \GRdecompTo
+  \GRgapfragDeco{$\PMnone$}{M}{}
   \GRor        
-  \GRgapfragWDecompL{$\POnone$}{O}{}{$\WPnone$}
-  \GRor        
-  \GRgapfragWDecompL{$\POSnone$}{O}{}{$\WPnone$}
+  \GRgapfragDeco{$\POnone$}{O}{}
   %
   \GRnewrule
   \GRgapfragDeco{$\PfromMnone$}{fromM}{}     
   \GRdecompTo
-  \GRgapfragWDecompK{$\PRnone$}{R}{}{$\WPnone$}
+  \GRgapfragWDecompJ{$\PfromMnone'$}{fromM}{}{$\WPnone$}
+  \GRsetlast[1]{last}
+  \GRgapfragDeco{$\PfromMnone'$}{fromM}{}     
+  \GRdecompTo
+  \GRgapfragWDecompK{$\PfromMnone''$}{fromM}{}{$\WPnone$}
+
+  \GRnewrule
+  \GRgapfragDeco{$\PfromMnone'$}{fromM}{}     
+  \GRdecompTo
+  \GRgapfragDeco{$\PLnone$}{L}{}
+  \GRor
+  \GRgapfragDeco{$\PRnone$}{R}{}
+  \GRor
+  \GRgapfragDeco{$\POMnone$}{O}{}
 \end{GRule}
 \end{equation}
 
-Note that we unambiguously add recursive substructure by adding the substructure (WP-fragments) always between the bands of each transition (note that in each possible transition, but L to R, there is such a unique position between the two bands; for L to R transitions, we do not include substructure).
 
-The set of allowed transitions can be sketched as transition diagram.
+The fromX rules express the allowed transitions between band decompositions; for clarity, we sketch them again as transition diagram.
 Note the asymmetry in the allowed transitions.
 
 %\begin{center}
@@ -940,7 +1001,7 @@ Note the asymmetry in the allowed transitions.
 %\draw (O) circle [thick,radius=0.28];
 %
 %\path (O)
-%      +  (0,-1) node (Ons) {Ons}
+%      +  (0,-1) node (Om) {Om}
 %      ++ (\classdist,0) node (M) {M}
 %      ++ (\classdist,0) node (L) {L}
 %      ++ (\classdist,0) node (R) {R};
@@ -975,13 +1036,13 @@ Note the asymmetry in the allowed transitions.
 %  (L) edge [<->] (M)
 %  (L) edge [<->,out=200,in=340] (O)
 %  (O) edge [->] (M)
-%  (Ons) edge [->] (M) edge [->] (R) edge [->] (L);
+%  (Om) edge [->] (M) edge [->] (R) edge [->] (L);
 %
 %%PK init states
 %\path[red] (O) ++(-\pkpre,1) node (PKlO) {\PKnone\constrIO}
 %          ++(-0.3,1) node (start) {} 
 %      (start) edge [->] (PKlO) 
-%      (PKlO) edge [->] (Ons)
+%      (PKlO) edge [->] (Om)
 %             edge [->] (RlO)
 %             edge [->] (MlO);
 %
@@ -995,7 +1056,7 @@ Note the asymmetry in the allowed transitions.
 %\path[red] (M) ++(-\pkpre,1) node (PKrO) {\PKnone\constrIIO}
 %          ++(-0.3,1) node (start) {} 
 %      (start) edge [->] (PKrO) 
-%      (PKrO) edge [->] (Ons)
+%      (PKrO) edge [->] (Om)
 %             edge [->] (LrO)
 %             edge [->] (MrO);
 %
@@ -1008,61 +1069,11 @@ Note the asymmetry in the allowed transitions.
 %\end{tikzpicture}
 %\end{center}
 
-\begin{center}
-\begin{tikzpicture}[thick]
-\newcommand{\pkpre}{2}
-\newcommand{\classdist}{3.5}
-
-%mark O as terminal state
-\node (O) at (0,0) {O};
-
-\path (O)
-      +  (0,-1) node (Os) [circle,draw] {Os}
-      ++ (\classdist,0) node (M) {M}
-      ++ (\classdist,0) node (L) {L}
-      ++ (\classdist,0) node (R) {R};
-
-\draw (Os) circle [thick,radius=0.28];
-
-\draw
-  (R) edge [<->,out=210,in=330] (O)
-      edge [->] (Os)
-  (R) edge [<->,out=200,in=340] (M)
-  (L) edge [->] (R)
-      edge [->] (Os)
-  (L) edge [<->] (M)
-  (L) edge [<->,out=200,in=340] (O)
-  (M) edge [->] (O);
-
-
-%PK init states
-\path[red] (O) ++(-\pkpre,1) node (PKlO) {}%{$\PKnone\constrIO$}
-      %    ++(-0.3,1) node (start) {} 
-      %(start) edge [->] (PKlO) 
-      (PKlO) edge [->] (O);
-
-\path[red] (L) ++(-\pkpre,1) node (PKoL) {}%{$\PKnone\constrIL$}
-      %    ++(-0.3,1) node (start) {} 
-      %(start) edge [->] (PKoL) 
-      (PKoL) edge [->] (L);
-
-%\path[red] (M) ++(-\pkpre,1) node (PKrO) {}%{$\PKnone\constrIIO$}
-%          ++(-0.3,1) node (start) {} 
-%      (start) edge [->] (PKrO) 
-%      (PKrO) edge [->] (O);
-
-\path[red] (R) ++(-\pkpre,1) node (PKoR) {}%{$\PKnone\constrIIR$}
-          %++(-0.3,1) node (start) {} 
-      %(start) edge [->] (PKoR) 
-      (PKoR) edge [->] (R);
-\end{tikzpicture}
-\end{center}
-
-Note that there is no transition from $M$ to the terminal state $Os$, which represents the decomposition of the singleton $O$-band. Such a transition would lead to wrong scoring and ambiguity. Otherwise, transition from $M$ to the singleton $O$-band is the only forbidden transition from $M$ to $O$! This is the reason for introducing the $Os$-states in the first place.  
+Note that there is no transition from \Mb{} to the terminal state $Os$, which represents the decomposition of the singleton \Ob-band. Such a transition would lead to wrong scoring and ambiguity. Otherwise, transition from \Mb{} to the singleton \Ob-band is the only forbidden transition from \Mb{} to \Ob-band! This is the reason for introducing the $Os$-states in the first place.  
 
 %Probably not necessary anymore:
-%\SW{Idea: We should formally define \emph{band decomposition order (bdo)} (as a word over $\{L,R,M,O\}$ for decompositions of a structure
-%represented by $P$. Proving the uniqueness of bdo (given our restrictions) would be an essential step to showing the uniqueness of the recursions. For showing completeness, it is important to precisely define all the fragments (in terms of the represented structures).}
+%\SW{Idea: We should formally define \emph{band decomposition order (BDO)} (as a word over $\{L,R,M,O\}$ for decompositions of a structure
+%represented by $P$. Proving the uniqueness of BDO (given our restrictions) would be an essential step to showing the uniqueness of the recursions. For showing completeness, it is important to precisely define all the fragments (in terms of the represented structures).}
 
 \newpage
 {\bf TODO:}
@@ -1080,84 +1091,506 @@ Note that there is no transition from $M$ to the terminal state $Os$, which repr
 \end{itemize}
 
 \newpage
-\section{What we know about $P$-structures and their decomposition}
+\section{Systematic restart}
 \label{sec:pdecomposition}
-\SW{I collect properties of $P$ and its decomposition in a new single place}
 
-\renewcommand{\P}{{\cal P}}
+\newcommand{\CGR}{CGR} %% closed gapped structures
+\newcommand{\CR}{CR}   %% closed (ungapped) structures
+    
 
-Let $\P$ be the set of $P$-structures over $[i,l]$.
+An RNA sequence is a word over $\{A,C,G,U\}.$
 
-Recall: These $P$-structures are the structures of a $P$-fragment (over region $[i,l]$), i.e. the structures that can be decomposed by the $P$-rule.
+A \emph{region} is a set of positive integers, the positions of the region.
 
-\paragraph{Some simple truths:}
-\begin{enumerate}
-\item the ends in $P$-structures are paired; there are base pairs (i,i') and (l',l) in each $R\in \P$.
-\item the ends are not part of recursive substructure, i.e.\ there is a chain of crossing base pairs connecting the two ends.
-\item the chain has either length 2, 3, or 4; this leads to a disjoint decomposition of $\P$; formally
-$$\P = \P_2 \cup \P_3 \cup \P_4,$$
-where the $\P_i$ (i=2,3,4) are pairwise disjoint, and 
-\begin{enumerate}
-\item $\P_2 = \{R\in \P \mid \exists i',l': (i,i')\in R, (l',l)\in R, l'<i'\}$
-\item $\P_3 = \{R\in \P \mid \exists i',l',p,p': (i,i')\in R, (p,p')\in R, (l',l)\in R, p<i'<l'<p'\}$ 
-\item $\P_4 = \{R\in \P \mid \exists i',l',p,p',: (i,i')\in R, (p,p')\in R, (q,q')\in R, (l',l)\in R, p<i'<q<p'<l'<q'\}$.
-\end{enumerate}
-\item all $P$-structures can be decomposed into two $PK$-fragments (eventually, recursive substructure and two $\PXnone$-fragments)
-\item each structure of a $PK$-fragment contains one base pair that spans the region; there cannot be two such base pairs that cross each other
-\item each structure of a $PK$-fragment can be decomposed by a series of decompositions of bands at positions $L$,$M$,$R$,$O$; in a non-ambiguous set of decomposition rules, there is exactly one order of decompositions for each structure.
-\item We can specify rules to decompose only structures from each of the single subclasses from specialized $PK$-fragments.
-\begin{enumerate}
-\item $\P_2$ is generated by requiring that in (all structures of) the first $PK$-fragment $(i,i')$ spans the gapped region; and in the second, (l',l) spans the gapped region.
-\item $\P_3$ is generated by requiring that in the first fragment $(i,i')$ spans the gapped region; and in the second, (l',l) does not span the gapped region.
-\item $\P_4$ is generated by requiring that in the first fragment $(i,i')$ does not span the gapped region; and in the second, (l',l) does not span the gapped region.
-\end{enumerate}
-\end{enumerate}
+An \emph{RNA secondary structure over the region $r$} is a set of pairs $i.j$ of positions of $r$, such that for all base pairs $i.j$, $i'.j'$ of the structure,
+$\{i,j\}\cup\{i',j'\}\neq 1.$
 
-\paragraph{Characterization of a $\PXnone$-fragment}
-While $PK$-fragments are used in the decomposition of $P$-fragments, there only purpose is to decompose $P$-fragments into a $P_X$ and a $P_Y$-fragment ($X,Y\in\{L,R,M,O\}$), while unambigously allowing recursive substructure.
-Thus, we should first of all characterize $P_X$ fragments in order to understand the $P$-decomposition.
-\begin{equation}
-\raisebox{36pt}{\text{$P$-structure}
-=}
+In the following, we define bands and band decomposition orders of closed structures over gapped regions (\CGR-structures). This leads to defining decomposition orders, which characterize subsets of those structures.
+
+The maximal bands of an RNA structure over a region are the regions that are closed by the base pairs at the ends of a maximal chain of immediately nested base pairs that all have the same crossing pattern to the base pairs in the structure. Here two base pairs in a structure are \emph{immediately nested}, iff they are nested and their is no other base pair that is nested in the outer base pair and enclosing the inner base pair.
+
+Recursive substructure of a structure over a region is a structure over a connected subregion in the region, where no base pair of the structure has one end in the subregion and one base pair outside of the subregion.
+
+A \emph{\CGR-structure} over the gapped region $[i,j]\cup[k,l]$ is a structure $R$ of this region iff
+\begin{itemize}
+  \item $R$ contains a base pair that spans the region, i.e. there is a base pair $x.y\in R$, where $x\in[i,j]$ and $y\in[k,l]$;
+  \item Two of the positions $i,j,k,$ and $l$ are paired to each other by $R$ and
+    none of these positions is part of recursive substructure.
+  \item Unless the region is a single band of the structure $R$, the structure 
+    can be decomposed into the maximal band containing this base pair;
+    potential recursive substructure involving either index $i,j,k,l$; 
+    and a CG structure.
+\end{itemize}
+For a \CGR-structure $R$, we call a band of $R$ an \Ob-band, if it contains $i.l$; $\Lb$-band, $i.j$; \Rb-band, if $k.l$; and otherwise \Mb-band, if it contains $j.k$. Note that there are \CGR-structure that consist of only a single band, which then must be an \Ob-band.
+
+A band decomposition order (BDO) of a \CGR-structure is a sequence over $\{O,L,R,M\}$, such that the structure can be decomposed by iterated decompositions into $X$-bands (and remaining structure) in this order of the BDO.
+To avoid obvious ambiguity in BDOs, we retrict BDOs additionally by forbidding the subwords RL and OM. Note that BDOs of structures, do not contain homo-$q$-mers, $q\geq 2$ and cannot end in $MO$, due to maximality of the split-off bands. 
+
+Claim: There is a single, uniquely determined  BDO for each \CGR-structures.
+
+Proofsketch: Each \CGR-structure either corresponds to a single (O-)band, or can be decomposed into at least one X-band, potentially recursive substructure and a remaining \CGR-structure. If decomposition is as well possible for a $Y$-band, $X\neq Y$, then either $X,Y\in\{L,R\}$ or $X,Y\in\{M,O\}$. In these cases, the ambiguity is broken by forbidding subwords RL and OM. Since this enforces to start the decomposition with respectively LR or MO, this breaks all remaining ambiguity. More elaborately, this could be shown by induction over the length of the BDO.
+
+For a regular expression $x$ over alphabet $\{O,L,M,R\}$, we define \emph{$CG_x$-fragments over the region $[i,j]\cup[k,l]$}, whose structures are exactly the \CGR-structures with BDOs that start with decomposition described by $x$.
+
+We consider closed structures over regions $[i,l]$ (\CR) as structures that are decomposable into two \CGR-structures and recursive substructure due to
+$$
 \begin{GRule}
 \Pdecomposition{}
 \end{GRule}
-\label{eq:pdecomposition}
+$$
+and where all occurring recursive substructure are \CR-structures; idea: CCJ-structures are the structures that can be decomposed into a sequence of \CR-structures and recursive substructures, which are CCJ-structures (compare $W$-rule, Eq.~\ref{eq:wrule})
+
+We define the set of closed structures $\CR_{x/y}$ that are decomposable into 
+a $\CGR_x$-structure over $[i_1,j_1]\cup[k_1,l_1]$ and
+a $\CGR_y$-structure over $[i_2,j_2]\cup[k_2,l_2]$.
+%
+We observe the following equivalences (due to flipping bands from the first gapped fragment to the second one):
+\begin{itemize}
+  \item $\CR_{Mx/y}=\CR_{x/Ly}$
+  \item $\CR_{Rx/y}=\CR_{x/My}$
+\end{itemize}
+We can thus shift all middle and right bands from the first to the second gapped fragment, maintaining equivalence and avoiding ambiguity; in graphical notation:%
+\begin{equation}
+% M -> L
+\begin{GRule}
+  \GRgapfragCoordinates{0.6}{0.6}
+  \GRgapfragEatBandM[red,very thick]{}
+  \GRgapfragArcs[thin]{}
+  \draw[solid,thick] (i) -- (j) (k) -- (l);
+
+  \GRsetlast[0.1]{j}
+  \begin{scope}[yscale=-1]
+    \GRgapfragCoordinates{0.6}{0.7}
+    \GRgapfragEatBandL[draw=none]{}
+    \GRgapfragArcs[thin]{}
+    \draw[solid,thick] (i) -- (j) (k) -- (l);
+    \GRsetlast{l}
+  \end{scope}
+
+  \GRdecompTo
+
+  \GRgapfragCoordinates{0.6}{0.6}
+  \GRgapfragEatBandM[draw=none]{}
+  \GRgapfragArcs[thin]{}
+  \draw[solid,thick] (i) -- (j) (k) -- (l);
+  \GRsetlast[0.1]{j}
+  \begin{scope}[yscale=-1]
+    \GRgapfragCoordinates{0.6}{0.7}
+    \GRgapfragEatBandL[red,very thick]{}
+    \GRgapfragArcs[thin]{}
+    \draw[solid,thick] (i) -- (j) (k) -- (l);
+  \end{scope}
+\end{GRule}
+\qquad
+% R -> M
+\begin{GRule}
+  \GRgapfragCoordinates{0.6}{0.7}
+  \GRgapfragEatBandR[red,very thick]{}
+  \GRgapfragArcs[thin]{}
+  \draw[solid,thick] (i) -- (j) (k) -- (l);
+
+  \GRsetlast[0.1]{j}
+  \begin{scope}[yscale=-1]
+    \GRgapfragCoordinates{0.6}{0.6}
+    \GRgapfragEatBandM[draw=none]{}
+    \GRgapfragArcs[thin]{}
+    \draw[solid,thick] (i) -- (j) (k) -- (l);
+    \GRsetlast{l}
+  \end{scope}
+
+  \GRdecompTo
+
+  \GRgapfragCoordinates{0.6}{0.7}
+  \GRgapfragEatBandR[draw=none]{}
+  \GRgapfragArcs[thin]{}
+  \draw[solid,thick] (i) -- (j) (k) -- (l);
+  \GRsetlast[0.1]{j}
+  \begin{scope}[yscale=-1]
+    \GRgapfragCoordinates{0.6}{0.6}
+    \GRgapfragEatBandM[red,very thick]{}
+    \GRgapfragArcs[thin]{}
+    \draw[solid,thick] (i) -- (j) (k) -- (l);
+  \end{scope}
+\end{GRule}
+  \label{eq:band-shift}
+\end{equation}
+%
+Consequently, we consider only first gapped fragments that start with \Ob{} or \Lb.For completeness, we cannot restrict the second fragment in the same way.
+
+    TODO: define \emph{exposed} L,R,M,O band
+
+
+In the decomposition of closed gap-less fragments, we need to rule out all cases,
+where the first fragment has an exposed \Mb-band and the second, exposed \Lb-band,
+since they would split a band of the joint structure (which would cause ambiguity and lead to miscounting the number of band and band changes).
+Analogously, this happens for exposed \Rb-band in fragment one and \Mb-band in fragment two.
+
+Note we limit the band decomposition order, such that start in \Ob{} rules out exposed the \Mb-band; as well, start in \Rb, exposed \Lb.   
+Thus, the only remaining band splitting case is 
+$$\CR_{\Lb\Rb{}x/\Mb{}y} =
+\begin{GRule}
+  \GRgapfragCoordinates{0.6}{0.7}
+  \GRgapfragEatBandL[red,very thick]{}
+  \GRgapfragEatBandR[red,very thick]{}
+  \GRgapfragArcs[thin]{}
+  \draw[solid,thick] (i) -- (j) (k) -- (l);
+
+  \GRsetlast[0.2]{j}
+  \begin{scope}[yscale=-1]
+    \GRgapfragCoordinates{0.6}{0.6}
+    \GRgapfragEatBandM[draw=none]{}
+    \GRgapfragEatBandM[red,very thick]{}
+    \GRgapfragArcs[thin]{}
+    \draw[solid,thick] (i) -- (j) (k) -- (l);
+    \GRsetlast{l}
+  \end{scope}
+\end{GRule}
+$$
+This can be fixed by forbidding exposed middle band (corresponding to start in $\Mb$) for the second fragment, if the first fragment starts with $\Lb$.
+
+Futhermore, there is ambiguity how the chains of crossing base pairs that transitively connect the left end to the right end of a $\CR$-structure can be distributed over the first and second gapped fragment.
+For example, in the case of three-chains:
+$$
+\begin{GRule}
+  \GRgapfragCoordinates{0.7}{0.8}
+  \GRgapfragEatBandO[red,very thick]{}
+  \GRgapfragEatBandR[draw=none]{}
+  \GRgapfragArcs[thin]{}
+  \draw[solid,thick] (i) -- (j) (k) -- (l);
+
+  \GRsetlast[0.1]{j}
+  \begin{scope}[yscale=-1]
+    \GRgapfragCoordinates{0.7}{0.6}
+    \GRgapfragEatBandR[red,very thick]{}
+    \GRgapfragEatBandO[red,very thick]{}
+    \GRgapfragArcs[thin]{}
+    \draw[solid,thick] (i) -- (j) (k) -- (l);
+    \GRsetlast{l}
+  \end{scope}
+\end{GRule}
+\qquad
+\begin{GRule}
+  \GRgapfragCoordinates{0.6}{0.8}
+  \GRgapfragEatBandL[red,very thick]{}
+  \GRgapfragEatBandO[red,very thick]{}
+  \GRgapfragArcs[thin]{}
+  \draw[solid,thick] (i) -- (j) (k) -- (l);
+
+  \GRsetlast[0.2]{j}
+  \begin{scope}[yscale=-1]
+    \GRgapfragCoordinates{0.6}{0.8}
+    \GRgapfragEatBandO[red,very thick]{}
+    \GRgapfragArcs[thin]{}
+    \draw[solid,thick] (i) -- (j) (k) -- (l);
+    \GRsetlast{l}
+  \end{scope}
+\end{GRule}
+$$
+
+Due to the above considerations, we handle the disjoint cases of two-chains, three-chains and four-chains separately:
+
+\newcommand{\GRfragLabel}[2][]{%
+  \path (i) -- node [below,#1] {#2} (l);
+}
+
+\def\tokenize#1{\ifx#1\tokenize\else#1{, }\expandafter\tokenize\fi}
+
+\newcommand{\GRgapfragBandEater}[1]{%
+  \GRgapfragCoordinates{0.8}{0.7}
+  \foreach \x in {#1}{%
+    \csname GRgapfragEatBand\x \endcsname[red,very thick]{}%
+  }
+  \GRgapfragArcs[thin]{}
+  \draw[solid,thick] (i) -- (j) (k) -- (l);
+  \GRfragLabel{#1}
+}
+  
+\begin{itemize}
+  \item 
+    In the case of two-chains, the (BDO of the) first fragment needs to start with \Ob-band, such that the base pair from the left most index of the structure spans the region. Moreover, the base pair from the right most index in the second gapped fragment has to span the region. We guarantee this, by limiting the BDO-prefix of the second fragment by the regular expression $[L,M]^*\Ob$. Here are examples of allowed second fragment prefix decomposition:
+   \begin{equation}
+\begin{GRule}
+  \GRgapfragCoordinates{0.8}{0.7}
+  \GRgapfragEatBandO[red,very thick]{}
+  \GRgapfragArcs[thin]{}
+  \draw[solid,thick] (i) -- (j) (k) -- (l);
+  \GRfragLabel{O}
+
+  \GRsetlast[1]{l}
+  \GRgapfragBandEater{M, L, O}
+%  \GRgapfragEatBandM[red,very thick]{}
+%  \GRgapfragEatBandL[red,very thick]{}
+%  \GRgapfragEatBandO[red,very thick]{}
+
+  \GRsetlast[1]{l}
+
+  \GRgapfragCoordinates{0.8}{0.7}
+  \GRgapfragEatBandL[red,very thick]{}
+  \GRgapfragEatBandM[red,very thick]{}
+  \GRgapfragEatBandO[red,very thick]{}
+  \GRgapfragArcs[thin]{}
+  \draw[solid,thick] (i) -- (j) (k) -- (l);
+  \GRfragLabel{LMO}
+
+  \GRsetlast[1]{l}
+
+  \GRgapfragCoordinates{0.8}{0.7}
+  \GRgapfragEatBandL[red,very thick]{}
+  \GRgapfragEatBandM[red,very thick]{}
+  \GRgapfragEatBandL[red,very thick]{}
+  \GRgapfragEatBandM[red,very thick]{}
+  \GRgapfragEatBandO[red,very thick]{}
+  \GRgapfragArcs[thin]{}
+  \draw[solid,thick] (i) -- (j) (k) -- (l);
+  \GRfragLabel{LMLMO}
+\end{GRule}
+    \end{equation}
+  \item
+    In the case of three-chains, we limit the BDO of the first gapped fragment to prefix \Ob{} and the second gapped fragment to $[L,M]^*\Rb$.
+Examples:
+   \begin{equation}
+\begin{GRule}
+  \GRgapfragCoordinates{0.8}{0.7}
+  \GRgapfragEatBandR[red,very thick]{}
+  \GRgapfragArcs[thin]{}
+  \draw[solid,thick] (i) -- (j) (k) -- (l);
+  \GRfragLabel{R}
+
+  \GRsetlast[1]{l}
+
+  \GRgapfragCoordinates{0.8}{0.7}
+  \GRgapfragEatBandM[red,very thick]{}
+  \GRgapfragEatBandL[red,very thick]{}
+  \GRgapfragEatBandR[red,very thick]{}
+  \GRgapfragArcs[thin]{}
+  \draw[solid,thick] (i) -- (j) (k) -- (l);
+
+  \GRsetlast[1]{l}
+  \GRgapfragCoordinates{0.8}{0.7}
+  \GRgapfragEatBandL[red,very thick]{}
+  \GRgapfragEatBandM[red,very thick]{}
+  \GRgapfragEatBandR[red,very thick]{}
+  \GRgapfragArcs[thin]{}
+  \draw[solid,thick] (i) -- (j) (k) -- (l);
+
+  \GRsetlast[1]{l}
+
+  \GRgapfragCoordinates{0.8}{0.7}
+  \GRgapfragEatBandL[red,very thick]{}
+  \GRgapfragEatBandM[red,very thick]{}
+  \GRgapfragEatBandL[red,very thick]{}
+  \GRgapfragEatBandM[red,very thick]{}
+  \GRgapfragEatBandR[red,very thick]{}
+  \GRgapfragArcs[thin]{}
+  \draw[solid,thick] (i) -- (j) (k) -- (l);
+\end{GRule}
+    \end{equation}
+
+  \item Only in the case of four-chains we use $\CGR_\Lb$ for the first fragment. The second fragment is constrained like in the case of three chains, where we additionally need to avoid exposing the \Mb-band. Thus, we restrict it by $\Lb[\Lb,\Mb]^*\Rb | \Rb$.
+Examples:
+   \begin{equation}
+\begin{GRule}
+  \GRgapfragCoordinates{0.8}{0.7}
+  \GRgapfragEatBandR[red,very thick]{}
+  \GRgapfragArcs[thin]{}
+  \draw[solid,thick] (i) -- (j) (k) -- (l);
+
+  \GRsetlast[1]{l}
+
+  \GRgapfragCoordinates{0.8}{0.7}
+  \GRgapfragEatBandL[red,very thick]{}
+  \GRgapfragEatBandR[red,very thick]{}
+  \GRgapfragArcs[thin]{}
+  \draw[solid,thick] (i) -- (j) (k) -- (l);
+
+  \GRsetlast[1]{l}
+
+  \GRgapfragCoordinates{0.8}{0.7}
+  \GRgapfragEatBandL[red,very thick]{}
+  \GRgapfragEatBandM[red,very thick]{}
+  \GRgapfragEatBandR[red,very thick]{}
+  \GRgapfragArcs[thin]{}
+  \draw[solid,thick] (i) -- (j) (k) -- (l);
+
+  \GRsetlast[1]{l}
+
+  \GRgapfragCoordinates{0.8}{0.7}
+  \GRgapfragEatBandL[red,very thick]{}
+  \GRgapfragEatBandM[red,very thick]{}
+  \GRgapfragEatBandL[red,very thick]{}
+  \GRgapfragEatBandM[red,very thick]{}
+  \GRgapfragEatBandR[red,very thick]{}
+  \GRgapfragArcs[thin]{}
+  \draw[solid,thick] (i) -- (j) (k) -- (l);
+\end{GRule}
+    \end{equation}
+\end{itemize}
+
+Here is the fragment decomposition transition diagram coming out of the above considerations:
+%
+\begin{equation}
+\label{eq:transitions}
+\begin{tikzpicture}[thick]
+\newcommand{\pkpre}{2}
+\newcommand{\classdist}{2.5}
+
+%mark O as terminal state
+\path (0,0) node (Om) [outer sep=3] {Om}
+      +  (-1.5,-1) node (Os) [outer sep=3.25] {Os}
+      + (\classdist,0) node (R) {R}
+      + (0,-2) node (L) {L}
+      + (\classdist,-2) node (M) {M};
+
+\draw (Os) circle [thick,radius=0.275];
+\draw (Os) circle [thick,radius=0.35];
+
+\draw
+  (R) edge [<->] (Om)
+  edge [->,in=0,out=200] (Os)
+  (R) edge [<->] (M)
+  (L) edge [->] (R)
+      edge [->] (Os)
+  (L) edge [<->] (M)
+  (L) edge [<->] (Om)
+  (M) edge [->] (Om);
+
+
+\path (-3,0) node (LLMsO) {$\Lb[\Lb\Mb]^*\Ob$}
+      +(0,-2) node (MLMsO) {$\Mb[\Lb\Mb]^*\Ob$}
+      (4.75,0) node (LLMsR) {$\Lb[\Lb\Mb]^*\Rb$}
+      +(0,-2) node (MLMsR) {$\Mb[\Lb\Mb]^*\Rb$};
+
+\draw (LLMsO) edge [<->] (MLMsO)
+      (LLMsR) edge [<->] (MLMsR)
+      (LLMsO) edge [->] (Os) edge [->] (Om)
+      (MLMsO) edge [->] (Os) edge [->,bend right] (Om)
+      (LLMsR) edge [->] (R)
+      (MLMsR) edge [->] (R);
+
+% draw start arrows
+\draw[red]
+  (Os) ++ (0.75,2) node {1.~frag, 2-/3-chain} edge [->] (Om)
+  edge [->] (Os)
+  (L) ++ (-1.5,-0.75) node {1.~frag, 4-chain} edge [->] (L)
+  (R) ++ (0.25,1) node {2.~frag, 4-chain} edge [->] (LLMsR) edge [->] (R)
+  (LLMsO) ++ (-1,1) node {2.~frag, 2-chain} 
+  edge [->] (LLMsO) edge [->,bend right] (MLMsO)
+  (LLMsR) ++ (1,1) node {2.~frag, 3-chain} 
+  edge [->] (LLMsR) edge [->,bend left] (MLMsR);
+
+\end{tikzpicture}
 \end{equation}
 
-\begin{definition}[$\POnone$-structures]
-The structures of a $\POnone$-fragment, i.e. the $P_X$-structures, are the $PK$-structures $R$ over the fragment's region $[i,j]\cup[k,l]$, where
-\begin{itemize}
-\item $(i,l) \in R$
-\item $\exists j.j'\in R, k.k'\in R$ 
-\item if $(j,k)\in R$, then $R$ consists of a single band
-\item otherwise, $j.j'$ and $k.k'$ belong to different bands; one of them could be an $O$-band. In this case, this must be the band of $(i,l)$.
-\end{itemize}
-\end{definition}
 
-\begin{proposition}
-Each structure $R$ of $\P_2$ over region $[i,l]$ can be decomposed into recursive substructure and two $\POnone$-fragments over respective regions $[i_1,j_1]\cup[k_1,l_1]$ and $[i_2,j_2]\cup[k_2,l_2]$ such that $i=i_1$, $l=l_2$, $(i,l_1)\in R$, and $(i_2,l)\in R$.
-Furthermore, this decomposition is unambiguous.
-\end{proposition}
+---------------------------
 
-\begin{proofsketch}
-In each structure $R$ of $\P_2$, the base pairs $(i,l_1)$ and $(i_2,l)$ cross each other, but there are no base pairs that cross both of such base pairs. All base pairs that cross $(i,l_1)$ can be represented in the first $\POnone$-fragment; the same holds symmetrically for $(i_2,l)$. All base pair that cross neither of these two base pairs, must be part of either the first or the second region (i.e. $[i_1,j_1]\cup[k_1,l_1]$ or $[i_2,j_2]\cup[k_2,l_2]$).
+%\renewcommand{\P}{{\cal P}}
 
-For the unambiguity, first note that the indices $(i,l_1)$ and $(i_2,l)$ are fixed.
-\end{proofsketch}
+%Let $\P$ be the set of $P$-structures over $[i,l]$.
 
-\begin{proposition}
-Each structure $R$ of $\P_3$ over region $[i,l]$ can be decomposed into recursive substructure, a $\POnone$-fragment and a $\PLnone$-fragment over respective regions $[i_1,j_1]\cup[k_1,l_1]$ and $[i_2,j_2]\cup[k_2,l_2]$ such that $i=i_1$, $l=l_2$, $(i,l_1)\in R$, and $(i_2,l)\not\in R$. 
-\end{proposition}
+%Recall: These $P$-structures are the structures of a $P$-fragment (over region $[i,l]$), i.e. the structures that can be decomposed by the $P$-rule.
+
+%\paragraph{Some simple truths:}
+%\begin{enumerate}
+%\item the ends in $P$-structures are paired; there are base pairs (i,i') and (l',l) in each $R\in \P$.
+%\item the ends are not part of recursive substructure, i.e.\ there is a chain of crossing base pairs connecting the two ends.
+%\item the chain has either length 2, 3, or 4; this leads to the disjoint decomposition
+%$$\P = \P_2 \uplus \P_3 \uplus \P_4,$$
+%where the $\P_i$ (i=2,3,4) are pairwise disjoint, and 
+%\begin{enumerate}
+%\item $\P_2 = \{R\in \P \mid \exists i',l': (i,i')\in R, (l',l)\in R, l'<i'\}$
+%\item $\P_3 = \{R\in \P \mid \exists i',l',p,p': (i,i')\in R, (p,p')\in R, (l',l)\in R, p<i'<l'<p'\}$ 
+%\item $\P_4 = \{R\in \P \mid \exists i',l',p,p',: (i,i')\in R, (p,p')\in R, (q,q')\in R, (l',l)\in R, p<i'<q<p'<l'<q'\}$.
+%\end{enumerate}
+%\item all $P$-structures can be decomposed into two $PK$-fragments (eventually, recursive substructure and two $\PXnone$-fragments)
+%\item each structure of a $PK$-fragment contains one base pair that spans the region; there cannot be two such base pairs that cross each other
+%\item each structure of a $PK$-fragment can be decomposed by a series of decompositions of bands at positions \Lb,\Mb,\Rb{},\Ob; in a non-ambiguous set of decomposition rules, there is exactly one order of decompositions for each structure.
+%\item We can specify rules to decompose only structures from each of the single subclasses from specialized $PK$-fragments.
+%\begin{enumerate}
+%\item $\P_2$ is generated by requiring that in (all structures of) the first $PK$-fragment $(i,i')$ spans the gapped region; and in the second, (l',l) spans the gapped region.
+%\item $\P_3$ is generated by requiring that in the first fragment $(i,i')$ spans the gapped region; and in the second, (l',l) does not span the gapped region.
+%\item $\P_4$ is generated by requiring that in the first fragment $(i,i')$ does not span the gapped region; and in the second, (l',l) does not span the gapped region.
+%\end{enumerate}
+%\end{enumerate}
+
+%\paragraph{Characterization of a $\PXnone$-fragment}
+%While $PK$-fragments are used in the decomposition of $P$-fragments, there only purpose is to decompose $P$-fragments into a $P_X$ and a $P_Y$-fragment ($X,Y\in\{\Lb,\Rb,\Mb,\Ob\}$), while unambigously allowing recursive substructure.
+%Thus, we should first of all characterize $P_X$ fragments in order to understand the $P$-decomposition.
+%\begin{equation}
+%\raisebox{36pt}{\text{$P$-structure}
+%=}
+%\begin{GRule}
+%\Pdecomposition{}
+%\end{GRule}
+%\label{eq:pdecomposition}
+%\end{equation}
+%
+%
+%\begin{definition}[$\POnone$-structures]
+%The structures of a $\POnone$-fragment, i.e. the $P_X$-structures, are the $PK$-structures $R$ over the fragment's region $[i,j]\cup[k,l]$, where
+%\begin{itemize}
+%\item $(i,l) \in R$
+%\item $\exists j.j'\in R, k.k'\in R$ 
+%\item if $(j,k)\in R$, then $R$ consists of a single band
+%\item otherwise, $j.j'$ and $k.k'$ belong to different bands; one of them could be an \Ob-band. In this case, this must be the band of $(i,l)$.
+%\end{itemize}
+%\end{definition}
+%
+%\SW{define $\PLnone$, $\PRnone$, $\PMnone$-structures}
+%\SW{define base pair at the X-position for a gapped region}
+%
+%\begin{proposition}
+%The $\POnone$, $\PLnone$, $\PRnone$, $\PMnone$-structures over a region $[i,j]\cup[k,l]$ are disjoint.
+%\end{proposition}
 %\begin{proofsketch}
+%  Each $\PXnone$-structure contains a (band closing) base pair at the $X$ position. Two base pairs in 
+%  resptivee positions L or R and O or M are mutually exlcusive.
+%  Moreover, we explicitely guarantee (in the recursions enforced by the possible band decomposition orders), 
+%  that $\PLnone$-structures cannot have a base pair in position \Rb{}, 
+%  and $\POnone$-structures cannot have a base pair in position \Mb. 
 %\end{proofsketch}
 %
-
-\begin{proposition}
-Each structure $R$ of $\P_4$ over region $[i,l]$ can be decomposed into recursive substructure, a $\POnone$-fragment and a $\PLnone$-fragment over respective regions $[i_1,j_1]\cup[k_1,l_1]$ and $[i_2,j_2]\cup[k_2,l_2]$ such that $i=i_1$, $l=l_2$, $(i,l_1)\not\in R$, and $(i_2,l)\not\in R$. 
-\end{proposition}
+%\begin{proposition}
+%Each structure $R$ of $\P_2$ over region $[i,l]$ can be decomposed into recursive substructure and two $\POnone$-fragments over respective regions $[i_1,j_1]\cup[k_1,l_1]$ and $[i_2,j_2]\cup[k_2,l_2]$ such that $i=i_1$, $l=l_2$, $(i,l_1)\in R$, and $(i_2,l)\in R$.
+%Furthermore, this decomposition is unambiguous.
+%\end{proposition}
+%
 %\begin{proofsketch}
+%Let $R$ be an arbitrary structure of region in $\P_2$ over $(i,l)$. Since $R$ is a $P$-structure there must be some decomposition into a $P_X$ structure, a $P_Y$ structure, and recursive substructure as in Eq.~$(\ref{eq:pdecomposition})$. 
+%Since $R$ is a two-chain $P$-structure,
+%there must exist uniquely determined $i'$ and $l'$ s.t. $(i,i')$ and $(l',l)$ are base pairs of $R$ and cross each other. (Moreover there are no other base pairs that cross both of such base pairs in $R$.)
+%
+%If we set $l_1=i'$ and $i_2=l'$ (which corresponds to decomposition into two $\PO$-structures), $R$ can be decomposed, i.e.~there exist 
+%$j_1$,$k_1$,$j_2$,$k_2$, .... (To be shown; idea: similar to argument for non-crossing, only that here we allow at most one crossing!).
+%
+%Take any base pair of $R$. It can be either crossing $(i_1,l_1)$ or $(i_2,l_2$) or none of them.
+%
+%Set $j_1$ to the right-most end of any connected base pair left of $i_2$.\dots
+%
+%-----------------------
+%
+%In other words, all base pairs that cross $(i_2,l)$ must be in the region $[i,l_1]$; moreover, they cannot cross each other. The symmetric statement holds for base pair $(i,l_1)$ and region $[i_2,l]$.
+%
+%All base pairs that cross $(i,l_1)$ can be represented in the first $\POnone$-fragment; the same holds symmetrically for $(i_2,l)$.
+%
+% All base pair that cross neither of these two base pairs, must be part of either the first or the second region (i.e. $[i_1,j_1]\cup[k_1,l_1]$ or $[i_2,j_2]\cup[k_2,l_2]$).
+%
+%
 %\end{proofsketch}
 %
+%\begin{proposition}
+%Each structure $R$ of $\P_3$ over region $[i,l]$ can be decomposed into recursive substructure, a $\POnone$-fragment and a $\PLnone$-fragment over respective regions $[i_1,j_1]\cup[k_1,l_1]$ and $[i_2,j_2]\cup[k_2,l_2]$ such that $i=i_1$, $l=l_2$, $(i,l_1)\in R$, and $(i_2,l)\not\in R$. 
+%\end{proposition}
+%%\begin{proofsketch}
+%%\end{proofsketch}
+%%
+%
+%\begin{proposition}
+%Each structure $R$ of $\P_4$ over region $[i,l]$ can be decomposed into recursive substructure, a $\POnone$-fragment and a $\PLnone$-fragment over respective regions $[i_1,j_1]\cup[k_1,l_1]$ and $[i_2,j_2]\cup[k_2,l_2]$ such that $i=i_1$, $l=l_2$, $(i,l_1)\not\in R$, and $(i_2,l)\not\in R$. 
+%\end{proposition}
+%
+%\begin{proofsketch}
+%\end{proofsketch}
+%%%
 
 \end{document}

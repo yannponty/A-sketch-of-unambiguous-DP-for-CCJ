@@ -4,6 +4,7 @@
 \newcommand{\GRdecwfraglength}{0.4}
 \newcommand{\GRunitlength}{0.15} % distance between concatenated fragments
 
+\usetikzlibrary{calc,intersections}
 \usetikzlibrary{decorations.pathmorphing}
 
 \tikzstyle{very densely dashed} = [dash pattern=on 2.5pt off 1.5pt]
@@ -12,13 +13,17 @@
 %% --------------------------------------------------------------------------- 
 %% Gapped fragments
 
+\newcommand{\GRgapfragCoordinates}[2]{%
+  \path[draw=none]
+  (last)                coordinate (i) []
+    ++(#1,0) coordinate (j)
+    ++(#2,0) coordinate (k)
+    ++(#1,0) coordinate (l);
+} 
+
 % draw base of gapped fragment (without arcs)
 \newcommand{\GRgapfragBase}[2][]{%
-  \path[draw=none]
-    (last)                node (i) [scale=0.1] {}
-    ++(\GRsubseqlength,0) node (j) [scale=0.1] {}
-    ++(\GRgaplength,0)    node (k) [scale=0.1] {}
-    ++(\GRsubseqlength,0) node (l) [scale=0.1] {};
+  \GRgapfragCoordinates{\GRsubseqlength}{\GRgaplength}
 %
   \draw [backbone]
       (i) -- (j)
@@ -43,19 +48,20 @@
 }
 
 %draw arcs of gapped fragment
-\newcommand{\GRgapfragOuterArc}[1]{%
-  \pgfmathsetmacro\outerradiusX{(\GRgaplength+2*\GRsubseqlength)/2}
-  \pgfmathsetmacro\outerradiusY{\outerradiusX*\GRarcratio}
-
+\newcommand{\GRarc}[3][]{%
+  %{0.5*veclen(\x1,\y1)}
   \draw[arc,#1]
-    (i) arc [radius=\outerradiusX, y radius=\outerradiusY, start angle=180,end angle=0];
+  let \p1=($(#3)-(#2)$),\n1={0.5*\x1},\n2={\GRarcratio*\n1}
+    in (#2) arc [radius=\n1,y radius=\n2,
+                 start angle=180,end angle=0];
 }
 
+\newcommand{\GRgapfragOuterArc}[1]{%
+  \GRarc[#1]{i}{l}
+}
+%
 \newcommand{\GRgapfragInnerArc}[1]{
-  \pgfmathsetmacro\innerradiusX{\GRgaplength/2}
-  \pgfmathsetmacro\innerradiusY{\innerradiusX*\GRarcratio}
-  \draw[arc,#1]
-    (j) arc [x radius=\innerradiusX, y radius=\innerradiusY, start angle=180,end angle=0];
+  \GRarc[#1]{j}{k}
 }
 
 % draw dashed inner and outer arcs
@@ -230,6 +236,33 @@
 \newcommand{\GRgapfragWDecompL}[5][]{%
   \GRgapfragDeco[ltype/.style=free,#1]{#2}{#3}{#4}
   \GRconcat\GRdecwfrag[ltype/.style=fix,label/.style={above=0.15},#1]{#5}
+}
+
+%%% decompose at positions
+\newcommand{\GRset}[2]{%
+  \path 
+    #2 coordinate (#1);%
+}
+
+\newcommand{\GRgapfragEatBand}[3][]{
+  \GRarc[#1]{#2}{#3}
+  \GRset{#2}{(#2)++(0.1,0)}
+  \GRset{#3}{(#3)++(-0.1,0)}
+}
+
+\newcommand{\GRgapfragEatBandO}[1][]{%
+  \GRgapfragEatBand[#1]{i}{l}
+}
+\newcommand{\GRgapfragEatBandL}[1][]{%
+  \GRgapfragEatBand[#1]{i}{j}
+}
+\newcommand{\GRgapfragEatBandR}[1][]{%
+  \GRgapfragEatBand[#1]{k}{l}
+}
+\newcommand{\GRgapfragEatBandM}[1][]{%
+  \GRarc[#1]{j}{k}
+  \GRset{k}{(k)++(0.1,0)}
+  \GRset{j}{(j)++(-0.1,0)}
 }
 
 \newenvironment{GRule}{%
