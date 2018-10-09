@@ -33,7 +33,7 @@
 \usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
 
 \usepackage{colortbl}
-
+\usepackage{color}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{xifthen}
@@ -285,6 +285,26 @@
 
 \begin{document}
 \maketitle
+
+\textcolor{red}{\textbf{SW - Disclaimer:} Currently, Sections 1 is quite unsorted. Section 1 still contains useful material but some parts may be outdated. Thus, it makes more sense to go through Section 2. In Section 2, I started over again, since I currently think, we should argue about Band-Decomposition-Orders (BDOs) of 'closed' structures over gapped regions (corresponding to $P_X$-fragments) as well as 'closed' pseudoknotted structures over un-gapped regions (corresponding to $P$-fragments). 'Closed' should be defined as a structure that can be reduced only by eating off crossing bands (in the gapped case) or decomposing into two gapped fragments (in the ungapped case); my intuition here is the analogy to closed structures in the non-crossing case, which are the structures that are 'closed' by a base pair.}
+
+\textcolor{red}{%
+Section 2 still needs elaboration (of course, final presentation needs a lot of improvements) and merge with Sec 1. For example, Section 1 currently gives rules only for $P_{L/R/M/O}$ whereas we additionally need matrices/states for certain BDO prefixes. The transition diagram of Eq.~(\ref{eq:transitions}) provides the quickest overview, but is certainly not immediately clear without context.}
+
+{\bf TODO}
+\begin{itemize}
+  \item Technical introduction: Basic definitions for the sake of self-completeness; (Hosna)
+  \item Elaborate formal outline of the unambigous decomposition. 
+  \item Expand full set of rules, Revise pictures $\to$ TikZ; (Sebastian)
+  \item Completeness using generating functions (see Nebel's 2012 JCB paper); (Yann)
+  \item Unambiguity through disjointness of produced subsets; (At later time, once complete rules are known)
+  \item Applications: 
+   \begin{itemize}
+    \item Tools: Statistical sampling (à la Ding-Lawrence), Inside-Outside for exact BP prob computation
+    \item Tasks: Structure prediction (through Sampling-Clustering) possibly SHAPE directed, Pseudoknot detection (through comparing partition functions), Interaction prediction, kinetics (far-fetched?)...
+    \item Target (journals): Sebastian says 'NAR' or 'RNA', Hosna says whatever (I am fine with Bioinformatics or RNA), Yann, uncharacteristically, doesn't say anything...
+  \end{itemize}
+\end{itemize}
 
 
 % The original DP decomposition underlying the CCJ algorithm is ambiguous on multiple levels.
@@ -820,7 +840,6 @@ Now, the complete rules for multi-loop decomposition within bands are:
   \GRgapfragWDecompK{$\PMnone$}{M}{}{$\WBnone$}
 \end{GRule}
 \end{align}
-\SW{TODO: rules for R,mloop; O,mloop}
 
 The corresponding rules with constraints look exactly like the unconstrained rules, but pass through the constraint.
 
@@ -1074,21 +1093,6 @@ Note that there is no transition from \Mb{} to the terminal state $Os$, which re
 %Probably not necessary anymore:
 %\SW{Idea: We should formally define \emph{band decomposition order (BDO)} (as a word over $\{L,R,M,O\}$ for decompositions of a structure
 %represented by $P$. Proving the uniqueness of BDO (given our restrictions) would be an essential step to showing the uniqueness of the recursions. For showing completeness, it is important to precisely define all the fragments (in terms of the represented structures).}
-
-\newpage
-{\bf TODO:}
-\begin{itemize}
-  \item Technical introduction: Basic definitions for the sake of self-completeness; (Hosna)
-  \item Completeness using generating functions (see Nebel's 2012 JCB paper); (Yann)
-  \item Expand full set of rules, Revise pictures $\to$ TikZ; (Sebastian)
-  \item Unambiguity through disjointness of produced subsets; (At later time, once complete rules are known)
-  \item Applications: 
-   \begin{itemize}
-    \item Tools: Statistical sampling (à la Ding-Lawrence), Inside-Outside for exact BP prob computation
-    \item Tasks: Structure prediction (through Sampling-Clustering) possibly SHAPE directed, Pseudoknot detection (through comparing partition functions), Interaction prediction, kinetics (far-fetched?)...
-    \item Target (journals): Sebastian says 'NAR' or 'RNA', Hosna says whatever (I am fine with Bioinformatics or RNA), Yann, uncharacteristically, doesn't say anything...
-  \end{itemize}
-\end{itemize}
 
 \newpage
 \section{Systematic restart}
