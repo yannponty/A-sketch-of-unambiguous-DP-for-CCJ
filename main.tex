@@ -926,6 +926,10 @@ Note that for resolving ambiguity, we introduce extra matrices $\POSnone$ and $\
 $P_{fromX}$-fragments are required to change the band; note that we need to decompise recursive substructure unambiguously \emph{and} allow unambiguous band change. 
 Note that recursive substructure from different fromX-matrices cannot be decomposed in different ways.
 
+The unambiguous splitting off of recursive substructure when changing between bands requires to split off the structure left and right of the source band in sequential order. To keep the complexity low, one would introduce an additional matrix in a DP; to indicate this, we use symbols $\PfromXnone'$ and $\PfromXnone''$ (the latter is not necessarily materialized as matrix by DP algorithms).
+
+The fromX rules express the allowed transitions between band decompositions; currently, we list only the transitions for the 'standard' cases, i.e. without the additional constraints on band ordering as explained in the next section. Compare this to the transition diagram of Eq.~\ref{eq:transitions}.
+
 \begin{equation}
 \begin{GRule}
   % fromO
@@ -1005,10 +1009,6 @@ Note that recursive substructure from different fromX-matrices cannot be decompo
   \GRgapfragDeco{$\POMnone$}{O}{}
 \end{GRule}
 \end{equation}
-
-
-The fromX rules express the allowed transitions between band decompositions; for clarity, we sketch them again as transition diagram.
-Note the asymmetry in the allowed transitions.
 
 %\begin{center}
 %\begin{tikzpicture}[thick]
@@ -1103,46 +1103,51 @@ Note that there is no transition from \Mb{} to the terminal state $Os$, which re
     
 
 An RNA sequence is a word over $\{A,C,G,U\}.$
+\textbf{HJ-} Each character is defined as a base and is referred to by its index. Index starts from 0?
+The pairs of bases (A,U), (C,G), (G,C), (G,U), (U,A), and (U,G) are said to be complementary base pairs.
+A base pair for an RNA sequence $S$ with length $n$ is an ordered pair $i.l$ with $1 \leq i <l \leq n$, such that $i$th and $l$th bases of $S$ are complementary. $i$ and $l$ are called the endpoints of the base pair. 
 
-A \emph{region} is a set of positive integers, the positions of the region.
+A \emph{region} is a set of positive integers, the positions of the region \SW{define and distinguish gapped and ungapped regions}. \textbf{HJ-} here we can just place the definitions of region and gapped region as in section 1.1.
 
-An \emph{RNA secondary structure over the region $r$} is a set of pairs $i.j$ of positions of $r$, such that for all base pairs $i.j$, $i'.j'$ of the structure,
-$\{i,j\}\cup\{i',j'\}\neq 1.$
+An \emph{RNA secondary structure over the region $r$} is a set of base pairs $i.j$ of positions of $r$, such that for all base pairs $i.j$, $i'.j'$ of the structure,
+$|\{i,j\}\cap\{i',j'\}|\neq 1.$
+
 
 In the following, we define bands and band decomposition orders of closed structures over gapped regions (\CGR-structures). This leads to defining decomposition orders, which characterize subsets of those structures.
 
-The maximal bands of an RNA structure over a region are the regions that are closed by the base pairs at the ends of a maximal chain of immediately nested base pairs that all have the same crossing pattern to the base pairs in the structure. Here two base pairs in a structure are \emph{immediately nested}, iff they are nested and their is no other base pair that is nested in the outer base pair and enclosing the inner base pair.
+The \emph{maximal bands} of an RNA structure over a region are the regions that are closed by the base pairs at the ends of a maximal chain of immediately nested base pairs that all have the same crossing pattern to the base pairs in the structure. Here two base pairs in a structure are \emph{immediately nested}, iff they are nested and their is no other base pair that is nested in the outer base pair and enclosing the inner base pair. \SW{This description of bands is probably too informal!}
 
-Recursive substructure of a structure over a region is a structure over a connected subregion in the region, where no base pair of the structure has one end in the subregion and one base pair outside of the subregion.
+\emph{Recursive substructure} of a structure over a region is a structure over a connected subregion in the region, where no base pair of the structure has one end in the subregion and one base pair outside of the subregion.
 
-A \emph{\CGR-structure} over the gapped region $[i,j]\cup[k,l]$ is a structure $R$ of this region iff
+A \emph{\CGR-structure} over the gapped region $[i,j]\cup[k,l]$ is a structure $R$ over this region iff
 \begin{itemize}
   \item $R$ contains a base pair that spans the region, i.e. there is a base pair $x.y\in R$, where $x\in[i,j]$ and $y\in[k,l]$;
-  \item Two of the positions $i,j,k,$ and $l$ are paired to each other by $R$ and
-    none of these positions is part of recursive substructure.
+  \item At least two of the positions $i,j,k,$ and $l$ are paired to each other by $R$ and
+    none of these positions is part of recursive substructure of $R$.
   \item Unless the region is a single band of the structure $R$, the structure 
     can be decomposed into the maximal band containing this base pair;
     potential recursive substructure involving either index $i,j,k,l$; 
-    and a CG structure.
+    and a CGR structure.
 \end{itemize}
-For a \CGR-structure $R$, we call a band of $R$ an \Ob-band, if it contains $i.l$; $\Lb$-band, $i.j$; \Rb-band, if $k.l$; and otherwise \Mb-band, if it contains $j.k$. Note that there are \CGR-structure that consist of only a single band, which then must be an \Ob-band.
+For a \CGR-structure $R$, we call a band of $R$ an \Ob-band, if it contains $i.l$; \Lb-band, $i.j$; \Rb-band, if $k.l$; and otherwise \Mb-band, if it contains $j.k$ and is not an \Ob-band.
 
-A band decomposition order (BDO) of a \CGR-structure is a sequence over $\{O,L,R,M\}$, such that the structure can be decomposed by iterated decompositions into $X$-bands (and remaining structure) in this order of the BDO.
-To avoid obvious ambiguity in BDOs, we retrict BDOs additionally by forbidding the subwords RL and OM. Note that BDOs of structures, do not contain homo-$q$-mers, $q\geq 2$ and cannot end in $MO$, due to maximality of the split-off bands. 
+A band decomposition order (BDO) of a \CGR-structure is a sequence over $\{O,L,R,M\}$, such that the structure can be decomposed by iterative decomposition into $X$-bands $X \in \{O,L,R,M\}$, (and remaining structure) in the order of the BDO.
+To avoid obvious ambiguity in BDOs, we restrict BDOs additionally by forbidding the subwords RL and OM. Note that BDOs of structures, do not contain homo-$q$-mers, $q\geq 2$ and cannot end in $MO$, due to maximality of the split-off bands. BDOs must end in \Ob{}.
 
 Claim: There is a single, uniquely determined  BDO for each \CGR-structures.
 
-Proofsketch: Each \CGR-structure either corresponds to a single (O-)band, or can be decomposed into at least one X-band, potentially recursive substructure and a remaining \CGR-structure. If decomposition is as well possible for a $Y$-band, $X\neq Y$, then either $X,Y\in\{L,R\}$ or $X,Y\in\{M,O\}$. In these cases, the ambiguity is broken by forbidding subwords RL and OM. Since this enforces to start the decomposition with respectively LR or MO, this breaks all remaining ambiguity. More elaborately, this could be shown by induction over the length of the BDO.
+Proofsketch: Each \CGR-structure either corresponds to a single (O-)band, or can be decomposed into at least one X-band, potentially recursive substructure and a remaining \CGR-structure. If a decomposition is as well possible for a $Y$-band, $X\neq Y$, then either $X,Y\in\{L,R\}$ or $X,Y\in\{M,O\}$. In these cases, the ambiguity is broken by forbidding subwords RL and OM. Since this enforces to start the decomposition with respectively LR or MO, this breaks all remaining ambiguity. More elaborately, this could be shown by induction over the length of the BDO.\\
+\textbf{HJ-} Should we say at all that the decomposition has an order, say from left to right of the RNA structure over the region?
 
-For a regular expression $x$ over alphabet $\{O,L,M,R\}$, we define \emph{$CG_x$-fragments over the region $[i,j]\cup[k,l]$}, whose structures are exactly the \CGR-structures with BDOs that start with decomposition described by $x$.
+For a regular expression $x$ over alphabet $\{O,L,M,R\}$, we define \emph{$CGR_x$-fragments over the region $[i,j]\cup[k,l]$}, whose structures are exactly the \CGR-structures with BDOs that start with the decomposition described by $x$.
 
-We consider closed structures over regions $[i,l]$ (\CR) as structures that are decomposable into two \CGR-structures and recursive substructure due to
+We consider closed structures over regions $[i,l]$ (\CR) as structures that are decomposable into two \CGR-structures and recursive substructures due to
 $$
 \begin{GRule}
 \Pdecomposition{}
 \end{GRule}
 $$
-and where all occurring recursive substructure are \CR-structures; idea: CCJ-structures are the structures that can be decomposed into a sequence of \CR-structures and recursive substructures, which are CCJ-structures (compare $W$-rule, Eq.~\ref{eq:wrule})
+and where all occurring recursive substructure are \CR-structures; idea: CCJ-structures are the structures that (unless they are non-crossing) can be decomposed into a sequence of \CR-structures and recursive substructures, which are CCJ-structures (compare $W$-rule, Eq.~\ref{eq:wrule})
 
 We define the set of closed structures $\CR_{x/y}$ that are decomposable into 
 a $\CGR_x$-structure over $[i_1,j_1]\cup[k_1,l_1]$ and
@@ -1219,17 +1224,17 @@ We can thus shift all middle and right bands from the first to the second gapped
   \label{eq:band-shift}
 \end{equation}
 %
-Consequently, we consider only first gapped fragments that start with \Ob{} or \Lb.For completeness, we cannot restrict the second fragment in the same way.
+Consequently, we only consider first gapped fragments (\textbf{HJ-} CR?) that start with \Ob{} or \Lb. For completeness, we cannot restrict the second fragment in the same way.
 
     TODO: define \emph{exposed} L,R,M,O band
 
 
-In the decomposition of closed gap-less fragments, we need to rule out all cases,
-where the first fragment has an exposed \Mb-band and the second, exposed \Lb-band,
+In the decomposition of closed ungapped fragments, we need to rule out all cases,
+where the first fragment has an exposed \Mb-band and the second has exposed \Lb-band,
 since they would split a band of the joint structure (which would cause ambiguity and lead to miscounting the number of band and band changes).
 Analogously, this happens for exposed \Rb-band in fragment one and \Mb-band in fragment two.
 
-Note we limit the band decomposition order, such that start in \Ob{} rules out exposed the \Mb-band; as well, start in \Rb, exposed \Lb.   
+Note we limit the band decomposition order, such that start in \Ob{} rules out exposed \Mb-band; as well, start in \Rb{} rules out exposed \Lb{}.   
 Thus, the only remaining band splitting case is 
 $$\CR_{\Lb\Rb{}x/\Mb{}y} =
 \begin{GRule}
@@ -1252,8 +1257,8 @@ $$\CR_{\Lb\Rb{}x/\Mb{}y} =
 $$
 This can be fixed by forbidding exposed middle band (corresponding to start in $\Mb$) for the second fragment, if the first fragment starts with $\Lb$.
 
-Futhermore, there is ambiguity how the chains of crossing base pairs that transitively connect the left end to the right end of a $\CR$-structure can be distributed over the first and second gapped fragment.
-For example, in the case of three-chains:
+Furthermore, there is ambiguity in how the chains of crossing base pairs that transitively connect the left end to the right end of a $\CR$-structure can be distributed over the first and second gapped fragment.
+For example, in the case of three-chains \SW{only case?}:
 $$
 \begin{GRule}
   \GRgapfragCoordinates{0.7}{0.8}
@@ -1368,6 +1373,7 @@ Examples:
   \GRgapfragEatBandR[red,very thick]{}
   \GRgapfragArcs[thin]{}
   \draw[solid,thick] (i) -- (j) (k) -- (l);
+  \GRfragLabel{MLR}
 
   \GRsetlast[1]{l}
   \GRgapfragCoordinates{0.8}{0.7}
@@ -1376,6 +1382,7 @@ Examples:
   \GRgapfragEatBandR[red,very thick]{}
   \GRgapfragArcs[thin]{}
   \draw[solid,thick] (i) -- (j) (k) -- (l);
+  \GRfragLabel{LMR}
 
   \GRsetlast[1]{l}
 
@@ -1387,6 +1394,7 @@ Examples:
   \GRgapfragEatBandR[red,very thick]{}
   \GRgapfragArcs[thin]{}
   \draw[solid,thick] (i) -- (j) (k) -- (l);
+  \GRfragLabel{LMLMR}
 \end{GRule}
     \end{equation}
 
@@ -1398,6 +1406,7 @@ Examples:
   \GRgapfragEatBandR[red,very thick]{}
   \GRgapfragArcs[thin]{}
   \draw[solid,thick] (i) -- (j) (k) -- (l);
+  \GRfragLabel{R}
 
   \GRsetlast[1]{l}
 
@@ -1406,6 +1415,7 @@ Examples:
   \GRgapfragEatBandR[red,very thick]{}
   \GRgapfragArcs[thin]{}
   \draw[solid,thick] (i) -- (j) (k) -- (l);
+  \GRfragLabel{LR}
 
   \GRsetlast[1]{l}
 
@@ -1415,6 +1425,7 @@ Examples:
   \GRgapfragEatBandR[red,very thick]{}
   \GRgapfragArcs[thin]{}
   \draw[solid,thick] (i) -- (j) (k) -- (l);
+  \GRfragLabel{LMR}
 
   \GRsetlast[1]{l}
 
@@ -1422,10 +1433,10 @@ Examples:
   \GRgapfragEatBandL[red,very thick]{}
   \GRgapfragEatBandM[red,very thick]{}
   \GRgapfragEatBandL[red,very thick]{}
-  \GRgapfragEatBandM[red,very thick]{}
   \GRgapfragEatBandR[red,very thick]{}
   \GRgapfragArcs[thin]{}
   \draw[solid,thick] (i) -- (j) (k) -- (l);
+  \GRfragLabel{LMLR}
 \end{GRule}
     \end{equation}
 \end{itemize}
@@ -1477,14 +1488,16 @@ Here is the fragment decomposition transition diagram coming out of the above co
   edge [->] (Os)
   (L) ++ (-1.5,-0.75) node {1.~frag, 4-chain} edge [->] (L)
   (R) ++ (0.25,1) node {2.~frag, 4-chain} edge [->] (LLMsR) edge [->] (R)
-  (LLMsO) ++ (-1,1) node {2.~frag, 2-chain} 
-  edge [->] (LLMsO) edge [->,bend right] (MLMsO)
+  (LLMsO) ++ (-1.25,1) node {2.~frag, 2-chain} 
+  edge [->] (LLMsO) edge [->,bend right] (MLMsO) edge [->,out=345,in=100] (Os) edge [->,out=350,in=165] (Om)
   (LLMsR) ++ (1,1) node {2.~frag, 3-chain} 
-  edge [->] (LLMsR) edge [->,bend left] (MLMsR);
+  edge [->] (LLMsR) edge [->,bend left] (MLMsR) edge [->] (R);
 
 \end{tikzpicture}
 \end{equation}
 
+
+\textbf{HJ-} In CCJ we start decomposition from left to right with a predefined BDO. I am wondering if that could have been used here. \SW{I need some more explanations:). I think we already use left to right decomposition, don't we?}
 
 ---------------------------
 
