@@ -1224,7 +1224,7 @@ We can thus shift all middle and right bands from the first to the second gapped
   \label{eq:band-shift}
 \end{equation}
 %
-Consequently, we only consider first gapped fragments (\textbf{HJ-} CR?) that start with \Ob{} or \Lb. For completeness, we cannot restrict the second fragment in the same way.
+Consequently, in the decomposition of CR-structures, we consider only those first gapped fragments that start with \Ob{} or \Lb. For completeness, we do not restrict the second fragment in this way.
 
     TODO: define \emph{exposed} L,R,M,O band
 
@@ -1258,18 +1258,18 @@ $$
 This can be fixed by forbidding exposed middle band (corresponding to start in $\Mb$) for the second fragment, if the first fragment starts with $\Lb$.
 
 Furthermore, there is ambiguity in how the chains of crossing base pairs that transitively connect the left end to the right end of a $\CR$-structure can be distributed over the first and second gapped fragment.
-For example, in the case of three-chains \SW{only case?}:
-$$
+In the case of three-chains, there is ambiguity due to:
+
+\begin{equation}
 \begin{GRule}
-  \GRgapfragCoordinates{0.7}{0.8}
+  \GRgapfragCoordinates{0.6}{0.8}
   \GRgapfragEatBandO[red,very thick]{}
-  \GRgapfragEatBandR[draw=none]{}
   \GRgapfragArcs[thin]{}
   \draw[solid,thick] (i) -- (j) (k) -- (l);
 
   \GRsetlast[0.1]{j}
   \begin{scope}[yscale=-1]
-    \GRgapfragCoordinates{0.7}{0.6}
+    \GRgapfragCoordinates{0.6}{0.8}
     \GRgapfragEatBandR[red,very thick]{}
     \GRgapfragEatBandO[red,very thick]{}
     \GRgapfragArcs[thin]{}
@@ -1294,7 +1294,9 @@ $$
     \GRsetlast{l}
   \end{scope}
 \end{GRule}
-$$
+\end{equation}
+
+However, as Yann pointed out, these decompositions are not obviously equivalent! \SW{We have a problem here! Could this be fixed by decomposing 3-chains into one gapped fragment + recursive substructure? Problem there: 3-chain structures from two gapped structure can contain more than three groups of bands! Also: not all such structures are original CCJ-structures, since they are too interlocked to be split into two structures over gapped fragments! Is there an unwanted subtlety in the CCJ-recursions?}
 
 Due to the above considerations, we handle the disjoint cases of two-chains, three-chains and four-chains separately:
 
